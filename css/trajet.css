@@ -1,0 +1,534 @@
+/* ==============================
+   Variables CSS (palette écolo)
+============================== */
+:root {
+    --main-green: #72A02D;       /* Vert moyen */
+    --dark-green: #4A6E18;       /* Vert plus sombre */
+    --light-green: #BEDC74;      /* Vert clair pastel */
+    --accent-orange: #FF9F1C;    /* Orange pour CTA (optionnel) */
+    --text-dark: #333333;
+    --text-light: #ffffff;
+    --bg-light: #f9f9f9;
+    --bg-grey: #eeeeee;
+  
+    --font-main: "Poppins", Arial, sans-serif;
+  }
+  
+/* Reset */
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  html, body {
+    font-family: var(--font-main);
+    color: var(--text-dark);
+    background-color: var(--bg-light);
+    line-height: 1.5;
+  }
+
+  
+  
+  /* =======================
+     Container Top
+     (pour le bandeau)
+  ======================= */
+  .container-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 2rem;
+    /* margin: left; (retiré car invalide) */
+  }
+  
+  /* =======================
+     Container Nav
+  ======================= */
+  .container-nav {
+    max-width: 1200px; /* ou la largeur que tu souhaites */
+    margin: 0 auto;    /* centre le bloc */
+    display: flex;     
+    align-items: center;
+    justify-content: space-between; /* ou space-around, etc. selon ton layout */
+    padding: 0 2rem; /* marge intérieure horizontale */
+  }
+  
+  /* =======================
+     Header Top
+  ======================= */
+  .header-top {
+    background-color: var(--dark-green);
+    color: var(--text-light);
+    /* Pas forcément besoin d’un padding horizontal supplémentaire 
+       si on en a déjà dans .container-top */
+    padding: 0.4rem 0; 
+    font-size: 0.9rem;
+  }
+  
+  /* =======================
+     Navbar en mode Grid
+  ======================= */
+  .navbar {
+    display: grid;
+    /* 3 colonnes :
+       1) auto : s'adapte à la taille du logo
+       2) 1fr  : s'étire pour le menu
+       3) auto : s'adapte au bouton Connexion
+    */
+    grid-template-columns: auto 1fr auto;
+    justify-content: space-between;  /* Espace entre les 3 colonnes */
+    align-items: center;             /* Alignement vertical */
+    background-color: var(--main-green);
+    padding: 1rem 2rem;
+  }
+  
+  /* Logo (zone gauche) */
+  .navbar-logo .logo-img {
+    max-height: 50px;
+    no-background: none;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2); /* Supprimez cette ligne */
+    border-radius: 8px; /* Supprimez ou ajustez si besoin */
+  }
+  
+  /* =======================
+     Navbar : menu central
+  ======================= */
+  .navbar-main {
+    list-style: none;
+    display: flex;        /* On reste en flex pour aligner les liens */
+    gap: 2rem;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .hamburger {
+    display: none; /* Caché par défaut */
+  }
+  
+  .navbar-main li a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s ease; /* transition (couleur, scale) */
+    padding: 0.5rem 0.8rem; /* marge interne pour effet “pastille” */
+    border-radius: 4px;     
+  }
+  
+  /* Hover sur le menu central */
+  .navbar-main li a:hover {
+    background-color:  #3B5311; /* Un vert plus foncé */
+     
+  }
+  
+  /* =======================
+     Navbar : zone Connexion
+  ======================= */
+  .navbar-connexion .login-btn {
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.6rem 1rem;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  
+  .navbar-connexion .login-btn:hover {
+    background-color: #3B5311; /* Un vert plus foncé */
+  }
+
+  /* ==== Section principale (Habitats) ==== */
+  .habitats-overview {
+    text-align: center;
+    padding: 3rem 1rem;
+  }
+
+.habitats-overview h1 {
+  font-size: 2.5rem;
+  color: var(--main-green);
+  margin-bottom: 1rem;
+}
+
+.habitats-overview p {
+  font-size: 1.2rem;
+  color: var(--text-dark);
+  margin-bottom: 2rem;
+}
+
+.habitats-cards {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.habitat-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+.habitat-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.habitat-card h3 {
+    padding: 0.5rem;
+    background-color: var(--light-green);
+    color: var(--dark-green);
+    font-weight: 600;
+  }
+
+.habitat-card:hover {
+    transform: scale(1.05);
+  }
+
+/* ==== Section détails d'un habitat ==== */
+.habitat-details {
+  background-color: var(--bg-grey);
+  padding: 3rem 2rem;
+  margin-top: 2rem;
+  border-top: 5px solid var(--main-green);
+  border-bottom: 5px solid var(--main-green);
+}
+
+/* Style pour les noms des animaux cliquables */
+#habitat-details ul li {
+    cursor: pointer; /* Change le curseur en pointeur */
+    color: #333; /* Couleur du texte */
+    font-weight: bold; /* Met en valeur le texte */
+    transition: color 0.3s ease; /* Transition pour un effet fluide */
+  }
+  
+  #habitat-details ul li:hover {
+    color: var(--main-green); /* Change la couleur au survol */
+    text-decoration: underline; /* Souligne au survol (optionnel) */
+  }
+
+.habitat-details h2 {
+  font-size: 2rem;
+  color: var(--main-green);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.habitat-description {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.habitat-description img {
+  max-width: 400px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.habitat-animals {
+  margin-top: 2rem;
+}
+
+.habitat-animals h3 {
+  font-size: 1.5rem;
+  color: var(--main-green);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.habitat-animals ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.habitat-animals li {
+  background-color: var(--light-green);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-weight: bold;
+  color: var(--dark-green);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Details Section */
+.details-section {
+    display: none;
+    text-align: center;
+    padding: 2rem;
+  }
+  
+  .details-section img {
+    max-width: 100%;
+    border-radius: 8px;
+    margin: 1rem 0;
+  }
+  
+  .details-section ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+  }
+  
+  .details-section ul li {
+    margin: 0.5rem 0;
+    font-weight: 500;
+  }
+  
+  
+  /* SCROLLBAR CUSTOM */
+
+  /* Largeur / hauteur de la scrollbar */
+::-webkit-scrollbar {
+    width: 12px;  /* Ajuste la taille selon ton envie */
+  }
+  
+  /* Piste (arrière-plan) */
+  ::-webkit-scrollbar-track {
+    background-color: #F4ECD8;  /* Couleur rappelant un ton “bois clair” */
+  }
+  
+  /* Pouce (barre de défilement) */
+  ::-webkit-scrollbar-thumb {
+    border-radius: 6px; /* Bords arrondis pour un aspect plus organique */
+    border: 2px solid #F4ECD8; /* Laisse un peu d’espace autour pour mieux voir le motif */
+  
+    /* Motif bois simple (bandes diagonales) */
+    background: repeating-linear-gradient(
+      45deg,          /* Angle diagonal */
+      #8B4513 0px,    /* Couleur brune : début */
+      #8B4513 10px,   /* Jusqu'à 10px */
+      #A0522D 10px,   /* Deuxième couleur (brun plus clair) */
+      #A0522D 20px    /* Jusqu'à 20px, puis le cycle se répète */
+    );
+  }
+  
+  /* Survol de la barre : plus foncée, par exemple */
+  ::-webkit-scrollbar-thumb:hover {
+    background: repeating-linear-gradient(
+      45deg,
+      #8B4513 0px,    
+      #8B4513 10px,
+      #CD853F 10px,   /* Un marron un peu plus clair */
+      #CD853F 20px
+    );
+  }
+  
+  /* =======================
+     Section Hero
+  ======================= */
+  .hero {
+    position: relative;
+    min-height: 80vh;
+    background: (--bg-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--text-light);
+  }
+  
+  /* Overlay sombre transparent */
+  .hero-overlay {
+    position: absolute;
+    top: 0; 
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; /* Au-dessus du fond, derrière le contenu */
+  }
+  
+  .hero-header {
+    position: absolute;
+    top: 10px; /* Distance depuis le haut */
+    left: 10px; /* Distance depuis la gauche */
+    right: 10px; /* Distance depuis la droite */
+    display: flex;
+    justify-content: space-between; /* Espace entre le menu et le profil */
+    z-index: 1001; /* Assurez que le header est visible au-dessus */
+    display: none; /* Masqué par défaut */
+    color: var(--light-green); /* Forcer la couleur au survol */
+  }
+  
+  
+  /* Contenu de la hero : on le fait apparaître avec une animation */
+  .hero-content {
+    position: relative; /* Nécessaire pour gérer les animations */
+    z-index: 2;         /* Assure que le contenu est au-dessus du fond */
+    max-width: 700px;
+    padding: 1rem;
+    
+  
+    /* Animation */
+    animation: fadeInComplex 1.5s ease-in-out forwards;
+    opacity: 0; /* Par défaut invisible (animation prend le relais) */
+  }
+  
+  
+  /* Animation d'apparition complexe */
+  @keyframes fadeInComplex {
+    0% {
+      opacity: 0;            /* Début invisible */
+      transform: translateY(30px) scale(0.95); /* Légèrement en bas et plus petit */
+    }
+    50% {
+      opacity: 0.5;          /* Semi-visible au milieu */
+      transform: translateY(15px) scale(1.02); /* Légère montée et agrandissement */
+    }
+    100% {
+      opacity: 1;            /* Complètement visible */
+      transform: translateY(0) scale(1);       /* Position finale normale */
+    }
+  }
+  
+  
+  /* Style du h1 et p (optionnel) */
+  .hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  .hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+  }
+  
+  
+  
+  .profile-icon {
+    font-size: 2rem; /* Ajustez la taille ici */
+    color: var(--text-light); /* Couleur blanche */
+    cursor: pointer;
+  }
+  
+  .profile-icon:hover {
+    color: var(--light-green); /* Change la couleur au survol */
+  }
+  
+  /* Bouton “hero” (exemple) */
+  .btn-hero {
+    background-color: var(--accent-orange);
+    font-size: 1.1rem;
+    padding: 0.8rem 1.2rem;
+  }
+  .btn-hero:hover {
+    background-color: #E68F00; /* orange un peu plus sombre au survol */
+  }
+
+  /* Styles pour limiter la taille des images */
+img {
+    max-width: 100%; /* L'image ne dépasse jamais son conteneur */
+    height: auto; /* Respecte les proportions */
+    border-radius: 8px; /* Coins arrondis pour un effet élégant */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition pour l'effet de survol */
+  }
+  
+  #animal-details img,
+#habitat-details img {
+  max-width: 300px; /* Limite la taille */
+  height: auto; /* Respecte les proportions */
+  margin: 1rem 0; /* Espacement autour des images */
+  border: 2px solid #72A02D; /* Bordure verte pour un rappel de l'identité visuelle */
+}
+
+.habitat-details {
+    display: flex;
+    flex-direction: column; /* Empile les éléments verticalement */
+    align-items: center; /* Centre horizontalement les éléments */
+    text-align: center; /* Centre le texte */
+    margin: 2rem auto; /* Centrer et espacer la section */
+    max-width: 900px; /* Limite la largeur totale */
+    background: #f9f9f9; /* Arrière-plan léger */
+    border-radius: 12px; /* Coins arrondis */
+    padding: 2rem; /* Espacement interne */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+  }
+
+  .habitat-details h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #4A6E18; /* Couleur verte sombre */
+  }
+
+  .habitat-details p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    color: #555; /* Couleur sombre mais douce */
+  }
+
+  .habitat-details .habitat-images img {
+  max-width: 80%; /* Limite la largeur de l'image */
+  height: auto; /* Conserve les proportions */
+  border-radius: 8px; /* Coins arrondis */
+  margin-bottom: 1.5rem; /* Espacement sous l'image */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+}
+
+.animal-details {
+    display: flex;
+    flex-direction: column; /* Empile les éléments verticalement */
+    align-items: center; /* Centre horizontalement les éléments */
+    text-align: center; /* Centre le texte */
+    margin: 2rem auto; /* Centrer et espacer la section */
+    max-width: 800px; /* Limite la largeur totale */
+    background: #f9f9f9; /* Arrière-plan léger */
+    border-radius: 12px; /* Coins arrondis */
+    padding: 2rem; /* Espacement interne */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+  }
+
+  .animal-details img {
+    max-width: 70%; /* Limite la largeur de l'image */
+    height: auto; /* Conserve les proportions */
+    border-radius: 8px; /* Coins arrondis */
+    margin-bottom: 1.5rem; /* Espacement sous l'image */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+  }
+
+  .animal-details h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #4A6E18; /* Couleur verte sombre */
+  }
+
+  .animal-details p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    color: #555; /* Couleur sombre mais douce */
+  }
+  
+  
+  .footer {
+    background-color: var(--dark-green);
+    color: var(--text-light);
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: 3rem;
+  }
+  
+  .footer-info p {
+    margin: 0.5rem 0;
+  }
+  
+  .footer-info a {
+    color: var(--light-green);
+    text-decoration: none;
+  }
+  
+  .footer-info a:hover {
+    text-decoration: underline;
+  }
