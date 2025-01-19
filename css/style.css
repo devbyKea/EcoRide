@@ -39,7 +39,6 @@ html, body {
   justify-content: center;
   align-items: center;
   padding: 0 2rem;
-  /* margin: left; (retiré car invalide) */
 }
 
 /* =======================
@@ -58,11 +57,9 @@ html, body {
    Header Top
 ======================= */
 .header-top {
-  background-color: var(--dark-green);
-  color: var(--text-light);
-  /* Pas forcément besoin d’un padding horizontal supplémentaire 
-     si on en a déjà dans .container-top */
-  padding: 0.4rem 0; 
+  background-color: var(--dark-green); 
+  color: var(--text-light); 
+  padding: 0.4rem 0;  
   font-size: 0.9rem;
 }
 
@@ -85,8 +82,7 @@ html, body {
 
 /* ================= 
     Navbar : logo 
-====================*/
-   
+====================*/  
 .logo-text {
   font-family: 'Lobster', cursive; /* Exemple avec une police plus artistique */
   font-size: 1.8rem; /* Ajustez la taille du texte */
@@ -99,7 +95,6 @@ html, body {
   color: var(--light-green); /* Couleur au survol */
   transition: color 0.3s ease; /* Transition fluide */
 }
-
 
 /* =======================
    Navbar : menu central
@@ -132,21 +127,41 @@ html, body {
    
 }
 
-/* =======================
-   Navbar : zone Connexion
-======================= */
+/* Zone de connexion */
+.navbar-connexion {
+  display: flex; /* Aligne la zone de connexion dans la navbar */
+  align-items: center; /* Centre verticalement */
+  height: 100%; /* Aligne sur toute la hauteur de la navbar */
+}
+
 .navbar-connexion .login-btn {
-  color: var(--text-light);
+  display: inline-flex; /* Aligne les éléments horizontalement */
+  align-items: center; /* Centre verticalement */
   text-decoration: none;
   font-weight: 600;
   padding: 0.6rem 1rem;
   border-radius: 4px;
+  color: var(--text-light);
   transition: background-color 0.3s;
 }
 
-.navbar-connexion .login-btn:hover {
-  background-color: #3B5311; /* Un vert plus foncé */
+.navbar-connexion .user-logo {
+  width: 2rem; /* Taille de l'image */
+  height: 2rem; /* Taille de l'image */
+  border-radius: 50%; /* Rend l'image circulaire */
+  margin-right: 10px; /* Espace après l'image */
+  object-fit: cover; /* Ajuste l'image pour qu'elle soit bien cadrée */
 }
+
+.navbar-connexion .fa-caret-down {
+  font-size: 1.2rem; /* Taille de la flèche */
+  margin-left: 5px; /* Espace entre le texte et la flèche */
+}
+
+.navbar-connexion .login-btn:hover {
+  background-color: #3B5311; /* Couleur de survol */
+}
+
 
 
 .hamburger {
@@ -232,8 +247,8 @@ html, body {
   width: 100%;
   height: 100%;
   background: linear-gradient(
-    rgba(0, 0, 0, 0.25), /* Couche plus claire en haut */
-    rgba(0, 0, 0, 0.6)   /* Couche plus foncée en bas */
+    rgba(0, 0, 0, 0.6),
+    rgba(0, 0, 0, 0.3)  
   );
   z-index: 1; /* Au-dessus du fond, derrière le contenu */
 }
@@ -272,7 +287,7 @@ html, body {
 }
 
 .hero-content p {
-  font-size: 1.2rem;
+  font-size: 1rem;
   margin-bottom: 1.5rem;
   color: var(--text-light);
 }
@@ -281,40 +296,388 @@ html, body {
   margin-bottom: 1.5rem;
 }
 
+/* Conteneur global */
+.search-bar-container {
+  display: flex;
+  flex-direction: column; /* Par défaut, les éléments sont empilés */
+  align-items: center; /* Centre tout horizontalement */
+  gap: 1.5rem; /* Espace entre la barre et le bouton */
+  width: 100%;
+}
+
+/* Barre de recherche */
 .search-bar {
-  display: grid; /* Utilisation de grid */
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Colonnes adaptatives */
-  gap: 1rem; /* Espacement entre les éléments */
-  align-items: center; /* Alignement vertical */
-  justify-content: center; /* Centrage horizontal */
-  margin-top: 1rem;
+  display: flex; /* Champs alignés horizontalement */
+  flex-wrap: nowrap; /* Empêche le passage automatique à la ligne */
+  justify-content: space-between; /* Espacement uniforme entre les champs */
+  align-items: center; /* Centre verticalement */
+  gap: 1rem; /* Espace entre les champs */
+  background-color: #f9f9f9;
+  padding: 0.5rem;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 640px; /* Limite la largeur totale */
+  box-sizing: border-box; /* Garantit un dimensionnement correct */
 }
 
-.search-bar input {
+/* Champ de recherche */
+.search-field {
+  display: flex;
+  align-items: center; /* Centre les icônes et le texte */
+  background-color: transparent;
+  padding: 0.5rem 1rem;
+  border: none; /* Supprime les bordures */
+  gap: 0.5rem;
+  flex: 1; /* Partage équitable de l'espace */
+  max-width: 300px; /* Largeur maximale */
+  min-width: 200px; /* Largeur minimale pour éviter les compressions */
+  box-sizing: border-box; /* Inclut les bordures dans la largeur */
+}
+
+
+/* Icône dans le champ */
+.search-field .field-logo {
+  width: 1.5rem;
+  height: 1.5rem;
+  object-fit: contain;
+}
+
+.field-logo {
+  margin-left: -5px;
+
+}
+
+/* Input */
+.search-field input {
+  border: none; /* Supprime les bordures */
+  outline: none; /* Supprime le focus natif */
+  flex: 1;
   font-size: 1rem;
-  padding: 0.8rem;
-  border: 1px solid #ccc;
+  color: #333;
+  background-color: transparent; /* Fond transparent */
+  width: 100%; /* S'assure que l'input s'étire correctement */
+}
+
+/* Bouton de recherche */
+.btn-search {
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  background-color: #FF9F1C;
+  color: var(--text-light);
+  border: none;
   border-radius: 5px;
-}
-
-.search-bar input[type="date"] {
-  padding: 0.72rem;  
-}
-
-.search-bar button {
-  margin-top: 0.5rem;
-  padding: 0.8rem 1rem; /* Taille confortable pour le bouton */
-  font-size: 1rem; /* Taille du texte du bouton */
-  background-color: var(--main-green); /* Couleur principale */
-  color: var(--text-light); /* Couleur du texte */
-  border: none; /* Retire les bordures */
-  border-radius: 5px; /* Coins arrondis */
   cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: auto;
 }
 
-.search-bar button:hover {
+.btn-search:hover {
   background-color: var(--dark-green);
 }
+
+.search-title,
+.co2-info {
+  display: none; /* Caché sur les écrans desktop par défaut */
+}
+
+/* Icône de calendrier */
+.calendar-icon {
+  cursor: pointer; /* Change le curseur pour indiquer que l'icône est cliquable */
+  width: 1.5rem; /* Ajuste la taille de l'icône */
+  height: 1.5rem;
+}
+.calendar-dropdown {
+  color: #333; /* Couleur du texte */
+  display: none; /* Caché par défaut */
+  position: absolute;
+  top: calc(100% + 0.5rem); /* Juste en dessous du champ avec un espacement */
+  left: 09rem;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  padding: 1rem;
+  width: 400px; /* Ajustez la largeur pour qu'elle corresponde au contenu */
+  overflow: hidden; /* Empêche tout débordement visuel */
+}
+
+.calendar-dropdown table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.calendar-dropdown th,
+.calendar-dropdown td {
+  text-align: center;
+  padding: 0.4rem; /* Ajustez l'espacement interne */
+  cursor: pointer;
+  font-size: 0.9rem; /* Réduisez la taille de la police si nécessaire */
+}
+
+.calendar-dropdown th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+.calendar-dropdown td {
+  border: 1px solid transparent; /* Ajoutez un léger effet de séparation */
+}
+
+.calendar-dropdown td:hover {
+  background-color: var(--main-green);
+  border-radius: 4px; /* Coins légèrement arrondis pour les dates au survol */
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.calendar-header button {
+  background-color: var(--main-green);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 0.3rem 0.6rem; /* Boutons plus petits */
+  font-size: 1rem;
+}
+
+.calendar-header button:hover {
+  background-color: #4a6e18; /* Teinte plus foncée au survol */
+}
+
+.calendar-header span {
+  font-size: 1rem; /* Ajustez la taille du texte pour les mois et années */
+  font-weight: bold;
+}
+
+@media (min-width: 769px) { /* Pour les écrans desktop */
+  .search-field {
+    border-right: none; /* Par défaut, pas de bordure */
+  }
+
+  .search-field:not(:last-child) {
+    border-right: 1px solid #ccc; /* Applique une bordure sauf au dernier champ */
+    padding-right: 1rem; /* Ajoute un espace entre le champ et la bordure */
+  }
+
+  .search-field:last-child {
+    border: none !important; /* Supprime toute bordure */
+  }
+}
+
+
+
+/* Responsive pour les petits écrans */
+@media (max-width: 768px) {
+  .calendar-dropdown {
+    width: 90%; /* S'étend sur presque toute la largeur de l'écran */
+    left: 50%; /* Centré horizontalement */
+    transform: translateX(-50%); /* Ajuste le décalage pour centrer */
+    top: calc(100% + 10px); /* Décalage par rapport au champ */
+    padding: 0.8rem; /* Réduit le padding sur mobile */
+  }
+
+  .calendar-header button {
+    padding: 0.4rem; /* Réduit la taille des boutons */
+  }
+
+  .calendar-header span {
+    font-size: 1rem; /* Réduit la taille du texte */
+  }
+
+  .calendar-day {
+    padding: 0.3rem; /* Réduit les tailles de cellules */
+    font-size: 0.9rem; /* Diminue la taille du texte */
+  }
+}
+
+/* Responsive pour les écrans très petits */
+@media (max-width: 480px) {
+  .calendar-dropdown {
+    width: 95%; /* Presque pleine largeur */
+    top: calc(100% + 5px); /* Réduit l'espacement */
+  }
+
+  .calendar-header span {
+    font-size: 0.9rem; /* Taille plus petite pour les très petits écrans */
+  }
+
+  .calendar-day {
+    font-size: 0.8rem; /* Texte encore plus petit */
+    padding: 0.2rem; /* Cellules encore plus compactes */
+  }
+}
+
+
+/* Supprime l'icône native du champ de type date */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none; /* Cache l'icône native */
+  -webkit-appearance: none; /* Supprime le style par défaut */
+}
+
+/* Supprime l'icône pour Firefox */
+input[type="date"] {
+  -moz-appearance: textfield; /* Supprime l'icône dans Firefox */
+}
+
+@media (max-width: 768px) {
+
+  .header-top {
+    font-size: 0.75rem; /* Réduisez la taille de la police */
+}
+
+  /* Conteneur global */
+  .search-bar-container {
+    padding: 1rem; /* Maintient l'espacement autour des champs */
+    border-radius: 15px; /* Coins arrondis */
+    background-color: var(--bg-grey); /* Fond plus clair */
+    position: relative; /* Permet de positionner le bouton au bas */
+    overflow: visible;
+    display: flex;
+    flex-direction: column; /* Empile tous les éléments */
+    align-items: center; /* Étire les éléments pour occuper toute la largeur */
+    gap: 1rem; /* Espacement vertical entre les éléments */
+    padding: 1rem; /* Empêche tout débordement visuel */
+  }
+
+  /* Barre de recherche */
+  .search-bar {
+    width: 100%; /* La barre prend toute la largeur */
+    display: flex;
+    flex-direction: column; /* Empile les champs verticalement */
+    gap: 1rem;
+    background: none;
+    margin-right: 2rem; 
+  } 
+
+  /* Champ de recherche */
+  .search-field {
+    position: relative;
+    display: flex;
+    align-items: center; /* Aligne les icônes et le texte */
+    border: none !important;
+    box-shadow: none;
+    outline: none;
+    padding: 0; /* Espacement vertical */
+    gap: 0.5rem;
+    width: 100%;
+    margin-bottom: 2rem;
+    
+  }
+
+  .search-field::after {
+    all: unset; /* Réinitialise les styles */
+    content: '';
+    display: block;
+    width: 110%;
+    height: 1px;
+    background-color: #333333;
+    position: absolute;
+    bottom: -1.5rem;
+    margin-left: -1%;
+}
+
+  /* Icône dans le champ */
+  .search-field .field-logo {
+    width: 1.5rem;
+    height: 1.5rem;
+    object-fit: contain;
+  }
+
+  /* Input */
+  .search-field input {
+    border: none; /* Supprime les bordures internes */
+    outline: none; /* Supprime le focus natif */
+    box-shadow: none; /* Supprime toute ombre */
+    flex: 1; /* Les champs remplissent l'espace restant */
+    font-size: 1rem; /* Taille du texte */
+    color: #333; /* Couleur du texte */
+    background-color: transparent;
+  }
+
+  /* Placeholder */
+  .search-field input::placeholder {
+    color: #999; /* Couleur plus claire pour le placeholder */
+    font-style: italic; /* Texte en italique */
+  }
+
+  
+  /* Bouton de recherche */
+  .btn-search {
+    position: absolute; /* Place le bouton par rapport au conteneur */
+    bottom: 0; /* Aligne le bouton sur le bord inférieur */
+    left: 0; /* Étend le bouton à gauche */
+    right: 0; /* Étend le bouton à droite */
+    padding: 0.8rem; /* Ajuste l'espacement interne */
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #FFA500; /* Couleur orange */
+    border: none;
+    border-radius: 0 0 15px 15px; /* Coins arrondis uniquement en bas */
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .btn-search:hover {
+    background-color: var(--dark-green);
+  }
+
+  .btn-search {
+    width: 100%; /* Bouton occupe toute la largeur */
+    border-radius: 0 0 15px 15px; /* Coins arrondis en bas */
+    max-width: none; /* Supprime toute limite de largeur */
+    margin: 0; /* Enlève les marges pour aligner au conteneur */
+    padding: 1rem; /* Optionnel : Ajustez l'espacement interne */
+    box-sizing: border-box; /* S'assure que les bordures/marges sont incluses */
+  }
+
+  .search-title,
+  .co2-info {
+    color: #333 !important;/* Couleur de texte plus sombre */
+    display: block; /* Assurez-vous qu'ils sont visibles */
+    position: relative; /* Position relative pour éviter qu'ils soient en arrière-plan */
+    z-index: 10; /* Priorité plus élevée pour être devant d'autres éléments */
+    text-align: center; /* Centre le texte */
+    margin: 0 auto; /* Centre les éléments horizontalement */
+    font-size: 1rem; /* Ajustez la taille du texte si nécessaire */
+    
+  }
+
+  .co2-info {
+    color: var(--main-green) !important;
+    margin-left: 2rem;
+    margin-bottom: 1rem; /* Facultatif : espace sous le texte */
+    text-align: center;
+    font-size: 1rem !important;
+    font-weight: lighter !important;
+
+  }
+  
+  
+  .co2-info span {
+    font-weight: bold !important;
+    color: var(--main-green);
+   
+  }
+  
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* Animation d'apparition complexe */
@@ -542,11 +905,13 @@ section p {
    Section Services 
 ======================= */
 .services-preview {
-  background-color: var(--bg-grey);
+  background-color: var(--main-green);
+  color: var(--text-light);
 }
 
 .services-cards {
   display: flex;
+
   flex-wrap: wrap;
   gap: 2rem;
   justify-content: center;
@@ -555,12 +920,54 @@ section p {
   }
 }
 
+.services-cards > * {
+  width: 200px; /* Largeur fixe (modifiable selon tes besoins) */
+  aspect-ratio: 1 / 1; /* Assure que la hauteur est égale à la largeur */
+  background-color: #fff; /* Ajoute un fond si nécessaire */
+  border-radius: 10px; /* Coins arrondis pour un effet esthétique */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Ombre pour l'effet de relief */
+  display: flex; /* Permet de centrer le contenu */
+  align-items: center; /* Centrer verticalement */
+  justify-content: center; /* Centrer horizontalement */
+  text-align: center; /* Centre le texte */
+  overflow: hidden; /* Empêche le débordement du contenu */
+}
+
 .service-card {
-  background-color: #fff;
+  background-color: var(--bg-light);
+  color: var(--text-light);
+  font-weight: 500;
   padding: 1.5rem;
   max-width: 300px;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Ombre douce */
+}
+
+/* Backgrounds spécifiques */
+.card-assurance {
+  background: 
+  linear-gradient(rgba(44, 105, 46, 0.3), rgba(0, 0, 0, 0.6)),
+  url("../img/assurance.jpg") center/cover no-repeat;
+  
+  overflow: hidden;
+}
+
+.card-frais {
+  background: 
+  linear-gradient(rgba(44, 105, 46, 0.3), rgba(0, 0, 0, 0.6)),
+  url("../img/frais.jpg") center/cover no-repeat; 
+  
+  overflow: hidden;
+}
+
+.card-support {
+  background: 
+  linear-gradient(rgba(44, 105, 46, 0.3), rgba(0, 0, 0, 0.6)),
+  url("../img/support.jpg") center/cover no-repeat; 
+  
+  overflow: hidden;
 }
 
 /* =======================
@@ -730,26 +1137,6 @@ section p {
 
   .search-bar input .serch-bar button {
     width: 80%; /* Champ en pleine largeur sur mobile */
-  }
-
-/* Gérer l'affichage entre 748px et 768px */
-@media (max-width: 768px) {
-  .search-bar {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Colonnes adaptatives */
-    gap: 1rem; /* Espace fixe entre les champs */
-    align-items: center; /* Alignement vertical */
-    justify-content: center; /* Alignement horizontal */
-  }
-
-  .search-bar input,
-  .search-bar button {
-    width: 100%; /* Champ et bouton prennent toute la largeur disponible */
-    max-width: 300px; /* Limite maximale de la largeur */
-  }
-
-  .search-bar button {
-    grid-column: span 2; /* Bouton occupe une ligne entière en dessous */
-    margin-top: 1rem; /* Espace entre les champs et le bouton */
-  }
+  }  
+  
 }
