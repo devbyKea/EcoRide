@@ -24,6 +24,7 @@
 }
 
 html, body {
+  overflow: visible;
   font-family: var(--font-main);
   color: var(--text-dark);
   background-color: var(--bg-light);
@@ -172,19 +173,29 @@ html, body {
 
 
 .hamburger {
+  display: none; /* Masque l'icône par défaut */
+  position: absolute; /* Position absolue pour un placement flexible */
   font-size: 2rem; /* Taille du menu */
   color: var(--text-light); /* Couleur initiale */
   background: none;
   border: none;
   cursor: pointer;
-  position: relative; /* Assure un positionnement stable */
   z-index: 1001; /* Priorité devant le contenu */
   transition: color 0.3s ease; /* Transition fluide pour la couleur */
 }
 
-.hamburger:hover {
-  color: var(--light-green); /* Forcer la couleur au survol */
+/* Icône de profil dans le Hero (visible uniquement en mobile) */
+.profile-icon {
+  display: none; /* Masque l'icône par défaut */
+  position: absolute; /* Position absolue pour un placement flexible */
+  top: 1rem; /* Distance depuis le haut */
+  right: 1rem; /* Distance depuis la droite */
+  font-size: 2rem; /* Taille de l'icône */
+  color: var(--text-light); /* Couleur blanche */
+  cursor: pointer;
+  z-index: 1001; /* Toujours au-dessus des autres éléments */
 }
+
 
 .menu-btn {
   font-size: 2rem;
@@ -193,7 +204,7 @@ html, body {
   border: none;
   cursor: pointer;
   z-index: 1000; /* Assure que le bouton est devant */
-  position: relative;
+  position: absolute;
 }
 
 /* ===== Dropdown Menu ===== */
@@ -239,7 +250,7 @@ html, body {
   position: relative;
   padding-top: 9rem;
   min-height: 80vh;
-  background: url("../img/recherche.jpg") center/cover no-repeat;
+  background: url("../img/trouver.jpg") center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1026,7 +1037,7 @@ section p {
    Media Queries (Responsive)
 ======================= */
 @media (max-width: 1024px) {
-  @media (max-width: 1024px) {
+
     .navbar {
       display: none; /* Cache les liens */
       flex-direction: column; /* Empile les liens verticalement */
