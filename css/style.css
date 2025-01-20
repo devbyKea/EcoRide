@@ -24,6 +24,7 @@
 }
 
 html, body {
+  overflow: visible;
   font-family: var(--font-main);
   color: var(--text-dark);
   background-color: var(--bg-light);
@@ -57,6 +58,10 @@ html, body {
    Header Top
 ======================= */
 .header-top {
+  position: fixed; /* Fixe le header en haut de la page */
+  top: 0; /* Aligné tout en haut */
+  width: 100%; /* Prend toute la largeur */
+  z-index: 1001;
   background-color: var(--dark-green); 
   color: var(--text-light); 
   padding: 0.4rem 0;  
@@ -67,17 +72,20 @@ html, body {
    Navbar en mode Grid
 ======================= */
 .navbar {
-  display: grid;
-  /* 3 colonnes :
-     1) auto : s'adapte à la taille du logo
-     2) 1fr  : s'étire pour le menu
-     3) auto : s'adapte au bouton Connexion
-  */
-  grid-template-columns: auto 1fr auto;
-  justify-content: space-between;  /* Espace entre les 3 colonnes */
-  align-items: center;             /* Alignement vertical */
-  background-color: var(--main-green);
-  padding: 1rem 2rem;
+  position: fixed; /* Rendre la navbar sticky */
+  top: 2rem; /* Fixer la navbar au sommet */
+  z-index: 1000;
+  width: 100%; /* Assure que la navbar est devant les autres éléments */
+  display: grid; /* Structure en grille */
+  grid-template-columns: auto 1fr auto; /* Colonnes : logo, menu, bouton */
+  justify-content: space-between; /* Espace entre les colonnes */
+  align-items: center; /* Aligne verticalement les éléments */
+  background-color: var(--main-green); /* Fond vert */
+  padding: 1rem 2rem; /* Espacement interne */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+}
+.navbar-wrapper {
+  position: relative; /* Définit un contexte pour la navbar */
 }
 
 /* ================= 
@@ -165,19 +173,29 @@ html, body {
 
 
 .hamburger {
+  display: none; /* Masque l'icône par défaut */
+  position: absolute; /* Position absolue pour un placement flexible */
   font-size: 2rem; /* Taille du menu */
   color: var(--text-light); /* Couleur initiale */
   background: none;
   border: none;
   cursor: pointer;
-  position: relative; /* Assure un positionnement stable */
   z-index: 1001; /* Priorité devant le contenu */
   transition: color 0.3s ease; /* Transition fluide pour la couleur */
 }
 
-.hamburger:hover {
-  color: var(--light-green); /* Forcer la couleur au survol */
+/* Icône de profil dans le Hero (visible uniquement en mobile) */
+.profile-icon {
+  display: none; /* Masque l'icône par défaut */
+  position: absolute; /* Position absolue pour un placement flexible */
+  top: 1rem; /* Distance depuis le haut */
+  right: 1rem; /* Distance depuis la droite */
+  font-size: 2rem; /* Taille de l'icône */
+  color: var(--text-light); /* Couleur blanche */
+  cursor: pointer;
+  z-index: 1001; /* Toujours au-dessus des autres éléments */
 }
+
 
 .menu-btn {
   font-size: 2rem;
@@ -186,7 +204,7 @@ html, body {
   border: none;
   cursor: pointer;
   z-index: 1000; /* Assure que le bouton est devant */
-  position: relative;
+  position: absolute;
 }
 
 /* ===== Dropdown Menu ===== */
@@ -230,6 +248,7 @@ html, body {
 ======================= */
 .hero {
   position: relative;
+  padding-top: 9rem;
   min-height: 80vh;
   background: url("../img/park.jpg") center/cover no-repeat;
   display: flex;
@@ -1076,6 +1095,8 @@ section p {
     z-index: 999;
   }
 
+  
+
   .navbar-main {
     flex-direction: column; /* Les liens passent en vertical */
     gap: 0.5rem;
@@ -1118,16 +1139,14 @@ section p {
 
   .menu-btn {
     font-size: 1.8rem; /* Légèrement plus grand sur mobile */
-    
-
+    top: 2rem; /* Distance ajustée pour mobile */
+    left: -0.5rem; /* Toujours dans le coin gauche */
+    width: 35px;
+    height: 35px;
   }
 
-  .hamburger:hover {
-    color: var(--light-green);
-  }
-
-  .dropdown-menu {
-    display: none; /* Menu hamburger masqué sur les grands écrans */
+  .menu-btn:hover {
+    color: var(--light-green); /* Couleur de survol */
   }
 
   .profile-icon img {
@@ -1138,5 +1157,12 @@ section p {
   .search-bar input .serch-bar button {
     width: 80%; /* Champ en pleine largeur sur mobile */
   }  
-  
+
+  .profile-icon {
+    display: block;
+    top: 2rem; /* Distance ajustée pour mobile */
+    right: -0.5rem; /* Toujours dans le coin droit */
+  }
 }
+  
+

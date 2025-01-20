@@ -57,6 +57,10 @@ html, body {
    Header Top
 ======================= */
 .header-top {
+  position: fixed; /* Fixe le header en haut de la page */
+  top: 0; /* Aligné tout en haut */
+  width: 100%; /* Prend toute la largeur */
+  z-index: 1001;
   background-color: var(--dark-green); 
   color: var(--text-light); 
   padding: 0.4rem 0;  
@@ -67,17 +71,20 @@ html, body {
    Navbar en mode Grid
 ======================= */
 .navbar {
-  display: grid;
-  /* 3 colonnes :
-     1) auto : s'adapte à la taille du logo
-     2) 1fr  : s'étire pour le menu
-     3) auto : s'adapte au bouton Connexion
-  */
-  grid-template-columns: auto 1fr auto;
-  justify-content: space-between;  /* Espace entre les 3 colonnes */
-  align-items: center;             /* Alignement vertical */
-  background-color: var(--main-green);
-  padding: 1rem 2rem;
+  position: fixed; /* Rendre la navbar sticky */
+  top: 2rem; /* Fixer la navbar au sommet */
+  z-index: 1000;
+  width: 100%; /* Assure que la navbar est devant les autres éléments */
+  display: grid; /* Structure en grille */
+  grid-template-columns: auto 1fr auto; /* Colonnes : logo, menu, bouton */
+  justify-content: space-between; /* Espace entre les colonnes */
+  align-items: center; /* Aligne verticalement les éléments */
+  background-color: var(--main-green); /* Fond vert */
+  padding: 1rem 2rem; /* Espacement interne */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+}
+.navbar-wrapper {
+  position: relative; /* Définit un contexte pour la navbar */
 }
 
 /* ================= 
@@ -230,6 +237,7 @@ html, body {
 ======================= */
 .hero {
   position: relative;
+  padding-top: 9rem;
   min-height: 80vh;
   background: url("../img/recherche.jpg") center/cover no-repeat;
   display: flex;
@@ -768,81 +776,169 @@ input[type="date"] {
   background-color: #8B4513; /* orange plus sombre */
 }
 
-/* Section trajet */
-.trajet-highlight {
-  position: relative; /* Nécessaire pour positionner l'overlay */
-  background: url("../img/map.jpg")
-    center/cover 
-    no-repeat;
-  color: var(--text-light); /* Texte blanc */
+.search-summary {
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  background-color: var(--main-green); /* Couleur douce pour mettre en évidence */
+  border-radius: 8px;
   text-align: center;
-  padding: 4rem 2rem; /* Espacement interne */
-  border-radius: 8px; /* Coins légèrement arrondis */
-  margin: 3rem auto; /* Espacement externe */
-  max-width: 1200px; /* Largeur maximale de la section */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Légère ombre */
-  overflow: hidden; /* Empêche l'overlay de déborder */
 }
 
-.trajet-highlight::before {
-  content: ''; /* Crée l'overlay */
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.3); /* Couche sombre (modifiez l'opacité si besoin) */
-  z-index: 1; /* Place l'overlay derrière le contenu */
-  pointer-events: none; /* L'overlay ne bloque pas les interactions */
+.search-summary h2 {
+  font-size: 1.8em;
+  color: var(--text-light);
+  margin: 0;
 }
 
-/* Texte accrocheur */
-.trajet-callout {
-  font-size: 1.5rem; /* Texte plus grand */
-  font-weight: bold; /* Met en valeur */
-  margin-bottom: 1rem;
-  color: #FF9F1C; /* Orange vif */
-  position: relative; /* Pour être au-dessus de l'overlay */
-  z-index: 2;
+.loading-indicator {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 50%;
 }
 
-/* Titre principal */
-.trajet-highlight h2 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  color: #ffffff; /* Texte blanc pur */
-  position: relative; /* Pour être au-dessus de l'overlay */
-  z-index: 2;
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3; /* Couleur de fond */
+  border-top: 4px solid #72A02D; /* Couleur de l'animation */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
 }
 
-/* Paragraphe */
-.trajet-highlight p {
-  font-size: 1.2rem;
-  line-height: 1.8;
-  color: #f9f9f9; /* Blanc légèrement adouci */
-  margin-bottom: 2rem;
-  position: relative; /* Pour être au-dessus de l'overlay */
-  z-index: 2;
+@keyframes spin {
+  from {
+      transform: rotate(0deg);
+  }
+  to {
+      transform: rotate(360deg);
+  }
 }
 
-/* Bouton */
-.trajet-highlight .btn-primary {
-  background-color: #FF9F1C; /* Orange vif */
-  color: #ffffff; /* Texte blanc */
-  padding: 0.8rem 1.5rem;
-  font-size: 1.2rem;
-  border-radius: 50px; /* Bouton en pilule */
-  text-decoration: none;
-  transition: all 0.3s ease-in-out;
-  position: relative; /* Pour être au-dessus de l'overlay */
-  z-index: 2;
+/* Conteneur principal pour centrer les trajets */
+.trips-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 1200px; /* Limite la largeur maximale */
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-/* Hover du bouton */
-.trajet-highlight .btn-primary:hover {
-  background-color: #E68F00; /* Orange plus sombre */
-  transform: scale(1.05); /* Léger zoom */
+/* Style de chaque trajet */
+.trajet {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 15px;
+  background-color: #f9f9f9;
+  width: 100%; /* Occupe toute la largeur disponible */
+  max-width: 800px; /* Limite la largeur */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
+/* Conteneur principal pour le profil (nom + photo) */
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centre la photo horizontalement */
+  margin-right: 1rem;
+  text-align: center; /* Centre le texte sous l'image */
+  flex-shrink: 0; /* Empêche de rétrécir */
+}
+
+/* Nom et note alignés à gauche */
+.profile-container h4 {
+  margin: 0 0 5px; /* Espace entre le texte et la photo */
+  font-size: 1rem;
+  text-align: left; /* Aligne le nom à gauche */
+  width: 100%; /* Étend le texte pour occuper tout l'espace disponible */
+}
+
+/* Photo du chauffeur */
+.photo-chauffeur {
+  flex-shrink: 0; /* Empêche l'image de rétrécir */
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 1rem;
+  border: 2px solid #ccc;
+}
+
+/* Détails du trajet */
+.details-trajet {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Aligne les éléments au début */
+  align-items: center; /* Centre le contenu horizontalement */
+  text-align: center; /* Centre le texte pour une meilleure apparence */
+}
+
+/* Conteneur du bouton */
+.btn-container {
+  display: flex;
+  justify-content: center; /* Centre le bouton horizontalement */
+  margin-top: 10px; /* Ajoute un espace entre la description et le bouton */
+  width: 100%; /* Assure que le conteneur suit la largeur de la description */
+}
+
+/* Bouton Détail */
+.btn-detail {
+  background-color: #FF9F1C;
+  color: #fff;
+  border: none;
+  padding: 7px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  width: 70px; /* Taille fixe pour une uniformité */
+  text-align: center;
+}
+
+.btn-detail:hover {
+  background-color: #4A6E18;
+}
+
+/* Responsive pour petits écrans */
+@media (max-width: 768px) {
+  .trips-container {
+    max-width: 100%; /* Permet d'occuper tout l'espace disponible */
+  }
+
+  .trajet {
+    max-width: 90%; /* Réduit la taille du conteneur */
+    font-size: 0.9rem; /* Diminue la taille générale du texte */
+  }
+
+  .profile-container h4 {
+    font-size: 0.9rem; /* Réduit la taille du texte pour le profil */
+  }
+
+  .photo-chauffeur {
+    width: 50px; /* Réduit la taille de la photo */
+    height: 50px;
+  }
+
+  .btn-detail {
+    font-size: 0.8rem; /* Réduit la taille du bouton */
+    padding: 5px 10px;
+    width: 60px; /* Réduit la largeur du bouton */
+  }
+}
+
+
+
+
 
 
 
@@ -930,80 +1026,86 @@ section p {
    Media Queries (Responsive)
 ======================= */
 @media (max-width: 1024px) {
-  .navbar {
-    display: none; /* Cache les liens */
-    flex-direction: column; /* Empile les liens verticalement */
-    position: absolute;
-    top: 100%; /* En dessous de la navbar */
-    right: 0;
-    background-color: var(--main-green);
-    width: 100%; /* Prend toute la largeur */
-    gap: 1rem;
-    padding: 1rem 0;
-    z-index: 999;
-  }
-
-  .navbar-main {
-    flex-direction: column; /* Les liens passent en vertical */
-    gap: 0.5rem;
-    width: 100%; /* Prend toute la largeur */
-  }
-
-  .navbar-main.show {
-    display: flex; /* Affiche le menu lorsqu'il est activé */
-  }
+  @media (max-width: 1024px) {
+    .navbar {
+      display: none; /* Cache les liens */
+      flex-direction: column; /* Empile les liens verticalement */
+      position: absolute;
+      top: 100%; /* En dessous de la navbar */
+      right: 0;
+      background-color: var(--main-green);
+      width: 100%; /* Prend toute la largeur */
+      gap: 1rem;
+      padding: 1rem 0;
+      z-index: 999;
+    }
   
-
-  .navbar-connexion {
-    align-self: flex-end; /* Connexion reste aligné à droite */
-  }
-  
-  .hero {
-    height: auto;
-    padding: 4rem 2rem;
-  }
-  
-  .hero-content h1 {
-    font-size: 2rem;
-  }
-
-  .presentation {
-    flex-direction: column;
-  }
-
-  .responsive-image {
-    width: 100%; /* Image pleine largeur */
-    height: auto; /* Respecte les proportions */
-  }
-
-  .hero-header {
-    top: 15px; /* Ajustez l'espacement pour les écrans plus petits */
-    left: 15px;
-    right: 15px;
-    display: flex; /* Affiche le menu et le logo de profil uniquement sur mobile */
-  }
-
-  .menu-btn {
-    font-size: 1.8rem; /* Légèrement plus grand sur mobile */
     
-
-  }
-
-  .hamburger:hover {
-    color: var(--light-green);
-  }
-
-  .dropdown-menu {
-    display: none; /* Menu hamburger masqué sur les grands écrans */
-  }
-
-  .profile-icon img {
-    width: 35px; /* Taille réduite sur mobile */
-    height: 35px;
-  }
-
-  .search-bar input .serch-bar button {
-    width: 80%; /* Champ en pleine largeur sur mobile */
-  }  
   
-}
+    .navbar-main {
+      flex-direction: column; /* Les liens passent en vertical */
+      gap: 0.5rem;
+      width: 100%; /* Prend toute la largeur */
+    }
+  
+    .navbar-main.show {
+      display: flex; /* Affiche le menu lorsqu'il est activé */
+    }
+    
+  
+    .navbar-connexion {
+      align-self: flex-end; /* Connexion reste aligné à droite */
+    }
+    
+    .hero {
+      height: auto;
+      padding: 4rem 2rem;
+    }
+    
+    .hero-content h1 {
+      font-size: 2rem;
+    }
+  
+    .presentation {
+      flex-direction: column;
+    }
+  
+    .responsive-image {
+      width: 100%; /* Image pleine largeur */
+      height: auto; /* Respecte les proportions */
+    }
+  
+    .hero-header {
+      top: 15px; /* Ajustez l'espacement pour les écrans plus petits */
+      left: 15px;
+      right: 15px;
+      display: flex; /* Affiche le menu et le logo de profil uniquement sur mobile */
+    }
+  
+    .menu-btn {
+      font-size: 1.8rem; /* Légèrement plus grand sur mobile */
+      top: 2rem; /* Distance ajustée pour mobile */
+      left: -0.5rem; /* Toujours dans le coin gauche */
+      width: 35px;
+      height: 35px;
+    }
+  
+    .menu-btn:hover {
+      color: var(--light-green); /* Couleur de survol */
+    }
+  
+    .profile-icon img {
+      width: 35px; /* Taille réduite sur mobile */
+      height: 35px;
+    }
+  
+    .search-bar input .serch-bar button {
+      width: 80%; /* Champ en pleine largeur sur mobile */
+    }  
+  
+    .profile-icon {
+      display: block;
+      top: 2rem; /* Distance ajustée pour mobile */
+      right: -0.5rem; /* Toujours dans le coin droit */
+    }
+  }
