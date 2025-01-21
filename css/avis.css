@@ -1,0 +1,544 @@
+/* ==============================
+   Variables CSS (palette écolo)
+============================== */
+:root {
+    --main-green: #72A02D;       /* Vert moyen */
+    --dark-green: #4A6E18;       /* Vert plus sombre */
+    --light-green: #BEDC74;      /* Vert clair pastel */
+    --accent-orange: #FF9F1C;    /* Orange pour CTA (optionnel) */
+    --text-dark: #333333;
+    --text-light: #ffffff;
+    --bg-light: #f9f9f9;
+    --bg-grey: #eeeeee;
+  
+    --font-main: "Poppins", Arial, sans-serif;
+  }
+  
+  /* =======================
+     Reset rapide
+  ======================= */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    overflow: visible;
+    font-family: var(--font-main);
+    color: var(--text-dark);
+    background-color: var(--bg-light);
+    line-height: 1.5;
+  }
+  
+  /* =======================
+     Container Top
+     (pour le bandeau)
+  ======================= */
+  .container-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 2rem;
+  }
+  
+  /* =======================
+     Container Nav
+  ======================= */
+  .container-nav {
+    max-width: 1200px; /* ou la largeur que tu souhaites */
+    margin: 0 auto;    /* centre le bloc */
+    display: flex;     
+    align-items: center;
+    justify-content: space-between; /* ou space-around, etc. selon ton layout */
+    padding: 0 2rem; /* marge intérieure horizontale */
+  }
+  
+  /* =======================
+     Header Top
+  ======================= */
+  .header-top {
+    position: fixed; /* Fixe le header en haut de la page */
+    top: 0; /* Aligné tout en haut */
+    width: 100%; /* Prend toute la largeur */
+    z-index: 1001;
+    background-color: var(--dark-green); 
+    color: var(--text-light); 
+    padding: 0.4rem 0;  
+    font-size: 0.9rem;
+  }
+  
+  /* =======================
+     Navbar en mode Grid
+  ======================= */
+  .navbar {
+    position: fixed; /* Rendre la navbar sticky */
+    top: 2rem; /* Fixer la navbar au sommet */
+    z-index: 1000;
+    width: 100%; /* Assure que la navbar est devant les autres éléments */
+    display: grid; /* Structure en grille */
+    grid-template-columns: auto 1fr auto; /* Colonnes : logo, menu, bouton */
+    justify-content: space-between; /* Espace entre les colonnes */
+    align-items: center; /* Aligne verticalement les éléments */
+    background-color: var(--main-green); /* Fond vert */
+    padding: 1rem 2rem; /* Espacement interne */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+  }
+  .navbar-wrapper {
+    position: relative; /* Définit un contexte pour la navbar */
+  }
+  
+  /* ================= 
+      Navbar : logo 
+  ====================*/  
+  .logo-text {
+    font-family: 'Lobster', cursive; /* Exemple avec une police plus artistique */
+    font-size: 1.8rem; /* Ajustez la taille du texte */
+    font-weight: 600; /* Gras pour plus de visibilité */
+    color: var(--text-light); /* Couleur du texte (par exemple, blanc) */
+    text-decoration: none; /* Pas de soulignement */
+  }
+  
+  .logo-text:hover {
+    color: var(--light-green); /* Couleur au survol */
+    transition: color 0.3s ease; /* Transition fluide */
+  }
+  
+  /* =======================
+     Navbar : menu central
+  ======================= */
+  .navbar-main {
+    list-style: none;
+    display: flex;        /* On reste en flex pour aligner les liens */
+    gap: 2rem;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .hamburger {
+    display: none; /* Caché par défaut */
+  }
+  
+  .navbar-main li a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s ease; /* transition (couleur, scale) */
+    padding: 0.5rem 0.8rem; /* marge interne pour effet “pastille” */
+    border-radius: 4px;     
+  }
+  
+  /* Hover sur le menu central */
+  .navbar-main li a:hover {
+    background-color:  #3B5311; /* Un vert plus foncé */
+     
+  }
+  
+  /* Zone de connexion */
+  .navbar-connexion {
+    display: flex; /* Aligne la zone de connexion dans la navbar */
+    align-items: center; /* Centre verticalement */
+    height: 100%; /* Aligne sur toute la hauteur de la navbar */
+  }
+  
+  .navbar-connexion .login-btn {
+    display: inline-flex; /* Aligne les éléments horizontalement */
+    align-items: center; /* Centre verticalement */
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.6rem 1rem;
+    border-radius: 4px;
+    color: var(--text-light);
+    transition: background-color 0.3s;
+  }
+  
+  .navbar-connexion .user-logo {
+    width: 2rem; /* Taille de l'image */
+    height: 2rem; /* Taille de l'image */
+    border-radius: 50%; /* Rend l'image circulaire */
+    margin-right: 10px; /* Espace après l'image */
+    object-fit: cover; /* Ajuste l'image pour qu'elle soit bien cadrée */
+  }
+  
+  .navbar-connexion .fa-caret-down {
+    font-size: 1.2rem; /* Taille de la flèche */
+    margin-left: 5px; /* Espace entre le texte et la flèche */
+  }
+  
+  .navbar-connexion .login-btn:hover {
+    background-color: #3B5311; /* Couleur de survol */
+  }
+  
+  
+  
+  .hamburger {
+    display: none; /* Masque l'icône par défaut */
+    position: absolute; /* Position absolue pour un placement flexible */
+    font-size: 2rem; /* Taille du menu */
+    color: var(--text-light); /* Couleur initiale */
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1001; /* Priorité devant le contenu */
+    transition: color 0.3s ease; /* Transition fluide pour la couleur */
+  }
+  
+  /* Icône de profil dans le Hero (visible uniquement en mobile) */
+  .profile-icon {
+    display: none; /* Masque l'icône par défaut */
+    position: absolute; /* Position absolue pour un placement flexible */
+    top: 1rem; /* Distance depuis le haut */
+    right: 1rem; /* Distance depuis la droite */
+    font-size: 2rem; /* Taille de l'icône */
+    color: var(--text-light); /* Couleur blanche */
+    cursor: pointer;
+    z-index: 1001; /* Toujours au-dessus des autres éléments */
+  }
+  
+  
+  .menu-btn {
+    display: none; /* Masque le bouton par défaut */
+    font-size: 2rem;
+    color: var(--text-light);
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1000; /* Assure que le bouton est devant */
+    position: absolute;
+  }
+  
+  /* ===== Dropdown Menu ===== */
+  .dropdown-menu {
+    position: absolute;
+    top: 50px; /* Sous le bouton hamburger */
+    left: 10px; /* Aligné avec le bouton */
+    background-color: var(--main-green);
+    border-radius: 5px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: none; /* Masqué par défaut */
+    z-index: 1002; /* Priorité plus haute pour être devant */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dropdown-menu li {
+    margin: 0;
+  }
+  
+  .dropdown-menu li a {
+    display: block;
+    padding: 0.8rem 1.2rem;
+    color: var(--text-light);
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .dropdown-menu li a:hover {
+    background-color: var(--dark-green); /* Survol */
+  }
+  
+  /* ===== Menu visible au survol ===== */
+  .hamburger.active + .dropdown-menu {
+    display: block; /* Afficher le menu */
+  }
+  
+/* =======================
+   Section Avis 
+======================= */
+.avis-preview {
+    margin-top: 2rem;
+    padding: 3rem 1.5rem;
+    background-color: var(--bg-light);
+    text-align: center;
+  }
+  
+  .avis-preview h2 {
+    font-size: 2rem;
+    color: var(--main-green);
+    margin-bottom: 2rem;
+  }
+  
+  .avis-list {
+    max-width: 700px;
+    margin: 0 auto 2rem auto;
+  }
+  
+  .avis-item {
+    background-color: #fff;
+    margin-bottom: 1rem;
+    padding: 1.5rem;
+    border-left: 4px solid var(--main-green);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .avis-item h4 {
+    color: var(--main-green);
+    margin-bottom: 0.5rem;
+  }
+  
+  .avis-item p {
+    font-size: 1rem;
+    color: var(--text-dark);
+    line-height: 1.6;
+  }
+  
+  .button-container {
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  .button-container .btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    text-decoration: none;
+    border-radius: 8px;
+    margin: 0 0.5rem;
+  }
+  
+  .button-container .btn.btn-third {
+    background-color: var(--accent-orange);
+    color: var(--text-light);
+  }
+  
+  .button-container .btn.btn-third:hover {
+    background-color: var(--dark-green);
+  }
+/* =======================
+   Section Avis 
+======================= */
+.avis-preview {
+    padding: 3rem 1.5rem;
+    background-color: var(--bg-light);
+    text-align: center;
+  }
+  
+  .avis-preview h2 {
+    font-size: 2rem;
+    color: var(--main-green);
+    margin-bottom: 2rem;
+  }
+  
+  .avis-list {
+    max-width: 700px;
+    margin: 0 auto 2rem auto;
+  }
+  
+  .avis-item {
+    background-color: #fff;
+    margin-bottom: 1rem;
+    padding: 1.5rem;
+    border-left: 4px solid var(--main-green);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .avis-item h4 {
+    color: var(--main-green);
+    margin-bottom: 0.5rem;
+  }
+  
+  .avis-item p {
+    font-size: 1rem;
+    color: var(--text-dark);
+    line-height: 1.6;
+  }
+  
+  .button-container {
+    text-align: center;
+    margin-top: 2rem;
+  }
+  
+  .button-container .btn {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    text-decoration: none;
+    border-radius: 8px;
+    margin: 0 0.5rem;
+  }
+  
+  .button-container .btn.btn-third {
+    background-color: var(--accent-orange);
+    color: var(--text-light);
+  }
+  
+  .button-container .btn.btn-third:hover {
+    background-color: var(--dark-green);
+  }
+    
+  
+/* =======================
+   Sections générales
+======================= */
+section {
+    padding: 3rem 2rem;
+  }
+  
+  section h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  section p {
+    text-align: center;
+    max-width: 800px;
+    margin: 0.5rem auto 2rem auto;
+    line-height: 1.6;
+  }
+  
+  /* =======================
+     Footer
+  ======================= */
+  .footer {
+    background-color: var(--dark-green);
+    color: var(--text-light);
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: 0rem;
+  }
+  
+  .footer-info p {
+    margin: 0.5rem 0;
+  }
+  
+  .footer-info a {
+    color: var(--light-green);
+    text-decoration: none;
+  }
+  
+  .footer-info a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Largeur / hauteur de la scrollbar */
+  ::-webkit-scrollbar {
+    width: 12px;  /* Ajuste la taille selon ton envie */
+  }
+  
+  /* Piste (arrière-plan) */
+  ::-webkit-scrollbar-track {
+    background-color: #F4ECD8;  /* Couleur rappelant un ton “bois clair” */
+  }
+  
+  /* Pouce (barre de défilement) */
+  ::-webkit-scrollbar-thumb {
+    border-radius: 6px; /* Bords arrondis pour un aspect plus organique */
+    border: 2px solid #F4ECD8; /* Laisse un peu d’espace autour pour mieux voir le motif */
+  
+    /* Motif bois simple (bandes diagonales) */
+    background: repeating-linear-gradient(
+      45deg,          /* Angle diagonal */
+      #8B4513 0px,    /* Couleur brune : début */
+      #8B4513 10px,   /* Jusqu'à 10px */
+      #A0522D 10px,   /* Deuxième couleur (brun plus clair) */
+      #A0522D 20px    /* Jusqu'à 20px, puis le cycle se répète */
+    );
+  }
+  
+  /* Survol de la barre : plus foncée, par exemple */
+  ::-webkit-scrollbar-thumb:hover {
+    background: repeating-linear-gradient(
+      45deg,
+      #8B4513 0px,    
+      #8B4513 10px,
+      #CD853F 10px,   /* Un marron un peu plus clair */
+      #CD853F 20px
+    );
+  }
+  
+  /* =======================
+     Media Queries (Responsive)
+  ======================= */
+  @media (max-width: 1024px) {
+
+    .header-top {
+        font-size: 0.7rem; /* Taille de la police réduite */
+    }
+  
+      .navbar {
+        display: none; /* Cache les liens */
+        flex-direction: column; /* Empile les liens verticalement */
+        position: absolute;
+        top: 100%; /* En dessous de la navbar */
+        right: 0;
+        background-color: var(--main-green);
+        width: 100%; /* Prend toute la largeur */
+        gap: 1rem;
+        padding: 1rem 0;
+        z-index: 999;
+      }
+    
+      
+    
+      .navbar-main {
+        flex-direction: column; /* Les liens passent en vertical */
+        gap: 0.5rem;
+        width: 100%; /* Prend toute la largeur */
+      }
+    
+      .navbar-main.show {
+        display: flex; /* Affiche le menu lorsqu'il est activé */
+      }
+      
+    
+      .navbar-connexion {
+        align-self: flex-end; /* Connexion reste aligné à droite */
+      }
+      
+      .hero {
+        height: auto;
+        padding: 4rem 2rem;
+      }
+      
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+    
+      .presentation {
+        flex-direction: column;
+      }
+    
+      .responsive-image {
+        width: 100%; /* Image pleine largeur */
+        height: auto; /* Respecte les proportions */
+      }
+    
+      .hero-header {
+        top: 15px; /* Ajustez l'espacement pour les écrans plus petits */
+        left: 15px;
+        right: 15px;
+        display: flex; /* Affiche le menu et le logo de profil uniquement sur mobile */
+      }
+    
+      .menu-btn {
+        display: block; /* Affiche le bouton hamburger */
+        color: var(--text-dark);
+        font-size: 1.8rem; /* Légèrement plus grand sur mobile */
+        top: 2rem; /* Distance ajustée pour mobile */
+        left: 0.5rem; /* Toujours dans le coin gauche */
+        width: 35px;
+        height: 35px;
+      }
+    
+      .menu-btn:hover {
+        color: var(--light-green); /* Couleur de survol */
+      }
+    
+      .search-bar input .serch-bar button {
+        width: 80%; /* Champ en pleine largeur sur mobile */
+      }  
+    
+      .profile-icon {
+        color: var(--text-dark);
+        display: block;
+        top: 2rem; /* Distance ajustée pour mobile */
+        right: 0.5rem; /* Toujours dans le coin droit */
+      }
+
+      .profile-icon:hover {
+        color: var(--light-green); /* Couleur de survol */
+      }
+    }
