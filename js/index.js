@@ -1,6 +1,27 @@
 // script.js
 console.log("Le script est chargé !");
 
+// Fonction pour mettre en majuscule la première lettre de chaque mot
+function capitalize(input) {
+  return input
+      .toLowerCase() // Met tout en minuscule
+      .replace(/(?:^|\s)\S/g, function (letter) {
+          return letter.toUpperCase();
+      }); // Majuscule après chaque espace ou début
+}
+
+// Appliquer la capitalisation sur les champs
+const departField = document.querySelector('input[name="depart"]');
+const arriveeField = document.querySelector('input[name="arrivee"]');
+
+departField.addEventListener('input', function () {
+  this.value = capitalize(this.value);
+});
+
+arriveeField.addEventListener('input', function () {
+  this.value = capitalize(this.value);
+});
+
   // Gestion du menu hamburger
   const menuBtn = document.querySelector(".menu-btn");
   const dropdownMenu = document.querySelector(".dropdown-menu");
@@ -161,19 +182,23 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-document.getElementById('rechercher-index').addEventListener('click', function(event) {
-  event.preventDefault();
+document.getElementById('rechercher-index').addEventListener('click', function () {
+  // Récupérer les valeurs des champs
+  const villeDepart = document.querySelector('input[name="depart"]').value.trim();
+  const villeArrivee = document.querySelector('input[name="arrivee"]').value.trim();
+  const dateSelectionnee = document.querySelector('input[name="date"]').value.trim();
 
-  const depart = document.querySelector('input[name="depart"]').value.trim();
-  const arrivee = document.querySelector('input[name="arrivee"]').value.trim();
-  const date = document.querySelector('input[name="date"]').value.trim();
-
-  if (!depart || !arrivee || !date) {
-      alert("Veuillez remplir tous les champs avant de rechercher.");
+  // Vérifier que tous les champs sont remplis
+  if (!villeDepart || !villeArrivee || !dateSelectionnee) {
+      alert('Veuillez remplir tous les champs obligatoires.');
       return;
   }
 
-  const url = `trajets.html?depart=${encodeURIComponent(depart)}&arrivee=${encodeURIComponent(arrivee)}&date=${encodeURIComponent(date)}`;
+  // Redirection vers la page "Trouver un trajet" avec les données en paramètres
+  const url = `trajets.html?depart=${encodeURIComponent(villeDepart)}&arrivee=${encodeURIComponent(villeArrivee)}&date=${encodeURIComponent(dateSelectionnee)}`;
   window.location.href = url;
 });
+
 }
+
+

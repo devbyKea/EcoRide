@@ -41,19 +41,29 @@ document.getElementById('rechercher-btn').addEventListener('click', function (ev
             ecologique: true,
         },
     ];
-    
 
-    // Récupère les valeurs saisies par l'utilisateur
+    // Récupérer les valeurs saisies par l'utilisateur
     const villeDepart = document.querySelector('input[name="depart"]').value.trim();
     const villeArrivee = document.querySelector('input[name="arrivee"]').value.trim();
     const dateSelectionnee = document.querySelector('input[name="date"]').value.trim();
 
+    // Vérifier que tous les champs sont remplis
+    if (!villeDepart || !villeArrivee || !dateSelectionnee) {
+        alert('Veuillez remplir tous les champs obligatoires.');
+        loader.style.display = 'none'; // Masquer le loader en cas d'erreur
+        return;
+    }
+
+    // Mettre à jour le résumé de la recherche
+    const searchSummary = document.getElementById('search-summary').querySelector('h2');
+    searchSummary.textContent = `Résultats pour : ${villeDepart} → ${villeArrivee}`;
+
     setTimeout(() => {
         // Filtrer les trajets en fonction des critères (ville, date, et places restantes)
         const trajetsFiltres = trajets.filter(trajet =>
-            (villeDepart ? trajet.depart.toLowerCase() === villeDepart.toLowerCase() : true) &&
-            (villeArrivee ? trajet.arrivee.toLowerCase() === villeArrivee.toLowerCase() : true) &&
-            (dateSelectionnee ? trajet.date === dateSelectionnee : true) &&
+            trajet.depart.toLowerCase() === villeDepart.toLowerCase() &&
+            trajet.arrivee.toLowerCase() === villeArrivee.toLowerCase() &&
+            trajet.date === dateSelectionnee &&
             trajet.placesRestantes > 0
         );
 
@@ -61,7 +71,7 @@ document.getElementById('rechercher-btn').addEventListener('click', function (ev
         const sectionAucunTrajet = document.getElementById('aucun-trajet');
         const listeTrajets = document.getElementById('liste-trajets');
 
-        // Réinitialise les résultats précédents
+        // Réinitialiser les résultats précédents
         listeTrajets.innerHTML = '';
 
         if (trajetsFiltres.length > 0) {
@@ -91,11 +101,15 @@ document.getElementById('rechercher-btn').addEventListener('click', function (ev
                 `;
                 listeTrajets.appendChild(listItem);
             });
-            
         } else {
-            // Affiche tous les trajets fictifs si aucun filtre n'est défini
+            // Affiche le message "Aucun trajet disponible" et les trajets fictifs
             sectionTrajets.style.display = 'block';
             sectionAucunTrajet.style.display = 'none';
+
+            const messageItem = document.createElement('li');
+            messageItem.className = 'aucun-trajet';
+            messageItem.innerHTML = '<p>Aucun trajet n’est disponible aux dates sélectionnées.</p>';
+            listeTrajets.appendChild(messageItem);
 
             trajets.forEach(trajet => {
                 const listItem = document.createElement('li');
@@ -109,7 +123,6 @@ document.getElementById('rechercher-btn').addEventListener('click', function (ev
                             ${trajet.heureDepart ? `<p>Départ à ${trajet.heureDepart}</p>` : ""}
                             ${trajet.heureArrivee ? `<p>Arrivée à ${trajet.heureArrivee}</p>` : ""}
                             <p>${trajet.ecologique ? "Voyage écologique 🌱" : "Voyage classique 🚗"}</p>
-                            <button class="btn-detail">Détail</button>
                         </div>
                     </div>
                 `;
@@ -134,3 +147,4 @@ function formatDate(dateString) {
     const date = new Date(dateString);
     return new Intl.DateTimeFormat('fr-FR', options).format(date);
 }
+

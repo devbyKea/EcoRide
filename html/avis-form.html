@@ -7,7 +7,7 @@
 <!-- Meta description pour SEO (exemple) -->
   <meta name="description" content="Rejoignez notre plateforme de covoiturage EcoRide pour voyager facilement, économiquement et de manière écologique.">
   
-  <title>EcoRide – Accueil</title>
+  <title>EcoRide – Connexion</title>
   
 <!-- Google Fonts : Poppins -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,10 +25,10 @@
   />
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-<!-- Feuille de style principale -->
-  <link rel="stylesheet" href="../css/style.css">
-
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <!-- Feuille de style principale -->
+  <link rel="stylesheet" href="../css/avis-form.css">
 
 </head>
 <body>
@@ -105,72 +105,27 @@
     </div>
   </div>
 
-  <div class="hero-content">
-    <h1>Trouvez votre prochain trajet</h1>
-    <p>
-      Recherchez des itinéraires en covoiturage ou proposez-en pour voyager ensemble.
-    </p>
+  <div class="form-card">
+    <h2>Laisser un avis</h2>
+    <form action="submit-avis.php" method="post">
+        <input type="text" name="nom" placeholder="Votre nom" required />
+        <select name="note" required>
+            <option value="" disabled selected>Note (★)</option>
+            <option value="5">★★★★★ - Excellent</option>
+            <option value="4">★★★★☆ - Très bien</option>
+            <option value="3">★★★☆☆ - Bien</option>
+            <option value="2">★★☆☆☆ - Moyen</option>
+            <option value="1">★☆☆☆☆ - Mauvais</option>
+        </select>
+        <textarea name="avis" placeholder="Votre avis" rows="5" required></textarea>
+        <button type="submit" class="btn-submit">Envoyer</button>
+    </form>
+</div>
+
+
     
-<!-- Barre de recherche -->
-    <div class="search-bar-container">
-      <p class="search-title">Plus que quelques clics !...</p>
-      <div class="search-bar">
-        <!-- Ville de départ -->
-        <div class="search-field">
-          <img src="../img/icons/radio.png" alt="Icône de départ" class="field-logo">
-          <input type="text" name="depart" placeholder="Ville de départ" required>
-        </div>
-        
-
-        <!-- Ville d'arrivée -->
-        <div class="search-field">
-          <img src="../img/icons/radio.png" alt="Icône d'arrivée" class="field-logo">
-          <input type="text" name="arrivee" placeholder="Ville d'arrivée" required>
-        </div>
-        
-
-        <!-- Date -->
-        <div class="search-field">
-          <img 
-            src="../img/icons/calendar.png" 
-            alt="Icône de calendrier" 
-            class="field-logo calendar-icon"
-          />
-          <input type="text" name="date" placeholder="jj/mm/aaaa" required class="date-input" />
-          <div class="calendar-dropdown" id="calendar-dropdown">
-            <!-- Le calendrier sera généré dynamiquement via JavaScript -->
-          </div>
-        </div>
-
-        
-        
-  <div><p class="co2-info">Covoiturer c’est réduire les émissions de CO2 de <span>50%/pers !</span></p></div>
-
-  </div>
-      <button type="submit" class="btn-search">Rechercher</button>
-  </div>
   </section>
 
-
-<!-- ======= SECTION PRÉSENTATION ======= -->
-  <section id="presentation" class="presentation">
-    <div class="presentation-content">
-      <h2>Pourquoi choisir EcoRide ?</h2>
-      <p>
-        EcoRide connecte conducteurs et passagers pour des trajets plus économiques, conviviaux et respectueux de l'environnement. Réduisez vos frais de transport tout en diminuant votre empreinte carbone.
-      </p>
-      <p>
-        Découvrez des itinéraires variés à travers la France, des trajets quotidiens aux escapades week-end. 
-        Partagez votre voyage avec d'autres passagers et profitez d'une expérience conviviale, économique et écologique.
-      </p>
-    </div>
-    <div class="presentation-image">
-      <img 
-        src="../img/covoiturage.jpg" 
-        alt="Covoiturage en action"
-      >
-    </div>
-  </section>
 
   <!-- ======= FOOTER ======= -->
   <footer class="footer">
@@ -183,8 +138,11 @@
       <p>📧 Contact : <a href="mailto:contact@ecoride.com">contact@ecoride.com</a></p>
     </div>
   </footer>
-    <!-- Inclusion du script JS -->
-    <script src="../js/index.js"></script>
+
+  <script src="../js/avis-form.js"></script>
 </body>
+
 </html>
+
+
 

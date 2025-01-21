@@ -856,6 +856,25 @@ input[type="date"] {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+#liste-trajets {
+  display: flex;
+  flex-direction: column; /* Empile les trajets verticalement */
+  align-items: center; /* Centre horizontalement les trajets */
+  justify-content: center; /* Centre verticalement si nécessaire */
+  margin: 0 auto; /* Centre le conteneur global */
+  padding: 0; /* Retire les espaces inutiles */
+  list-style: none; /* Supprime les puces */
+  width: 100%; /* Ajustez si nécessaire */
+  max-width: 800px; /* Limite la largeur des trajets */
+}
+
+
+#liste-trajets li {
+  margin-bottom: 1rem; /* Ajoute un espacement entre les trajets */
+  width: 100%; /* Assure que chaque élément occupe toute la largeur */
+}
+
+
 /* Conteneur principal pour le profil (nom + photo) */
 .profile-container {
   display: flex;
