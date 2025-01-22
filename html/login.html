@@ -68,13 +68,17 @@
       </ul>
       
 <!-- Zone droite : Connexion -->
-      <div class="navbar-connexion">
-        <a href="login.html" class="login-btn">
-          <img src="../img/icons/account_circle.png" alt="Utilisateur" class="user-logo">
+<div class="navbar-connexion">
+  <a href="#" class="login-btn" id="user-logo">
+    <img src="../img/icons/account_circle.png" alt="Utilisateur" class="user-logo">
 
-          <i class="fas fa-caret-down"></i>
-        </a>
-      </div>
+    <i class="fas fa-caret-down"></i>
+  </a>
+  <div class="profile-dropdown-menu" id="profile-dropdown-menu">
+    <a href="login.html">Connexion</a>
+    <a href="inscription.html">Inscription</a>
+  </div>
+</div>
       
 
 
@@ -111,8 +115,8 @@
       <input type="password" placeholder="Mot de passe" />
       <button class="btn-login">Se connecter</button>
       <div class="extra-text">
-        Pas encore membre ? <a href="#">Rejoignez-nous !</a>
-      </div>
+        Pas encore membre ? <a href="inscription.html">Rejoignez-nous !</a>
+      </div>  
     </div>
     
   </section>

@@ -135,41 +135,80 @@
      
   }
   
-  /* Zone de connexion */
-  .navbar-connexion {
-    display: flex; /* Aligne la zone de connexion dans la navbar */
-    align-items: center; /* Centre verticalement */
-    height: 100%; /* Aligne sur toute la hauteur de la navbar */
-  }
+/* Zone de connexion */
+.navbar-connexion {
+  display: flex; /* Aligne la zone de connexion dans la navbar */
+  align-items: center; /* Centre verticalement */
+  height: 100%; /* Aligne sur toute la hauteur de la navbar */
+}
+
+.navbar-connexion .login-btn {
+  display: inline-flex; /* Aligne les éléments horizontalement */
+  align-items: center; /* Centre verticalement */
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.6rem 1rem;
+  border-radius: 4px;
+  color: var(--text-light);
+  transition: background-color 0.3s;
+}
+
+.navbar-connexion .user-logo {
+  display: inline-flex; /* Alignement horizontal des icônes */
+  align-items: center;
+  text-decoration: none;
+  font-size: 1.5rem; /* Taille des icônes */
+  color: var(--text-light); /* Couleur des icônes */
+  cursor: pointer;
+  gap: 0.5rem; /* Espacement entre l'icône et la flèche */
+}
+
+.user-logo {
+  width: 32px; /* Largeur souhaitée de l'image */
+  height: 32px; /* Hauteur correspondante */
+  border-radius: 50%; /* Rendre l'image circulaire (facultatif) */
+  object-fit: cover; /* Ajuste l'image pour qu'elle ne soit pas déformée */
+  margin-right: 0.5rem;
+}
+
+.navbar-connexion .fa-caret-down {
+  font-size: 1.2rem; /* Taille de la flèche */
+  color: var(--text-light); /* Couleur de la flèche */
+  margin-left: 5px; /* Espace entre l'icône et la flèche */
   
-  .navbar-connexion .login-btn {
-    display: inline-flex; /* Aligne les éléments horizontalement */
-    align-items: center; /* Centre verticalement */
-    text-decoration: none;
-    font-weight: 600;
-    padding: 0.6rem 1rem;
-    border-radius: 4px;
-    color: var(--text-light);
-    transition: background-color 0.3s;
-  }
-  
-  .navbar-connexion .user-logo {
-    width: 2rem; /* Taille de l'image */
-    height: 2rem; /* Taille de l'image */
-    border-radius: 50%; /* Rend l'image circulaire */
-    margin-right: 10px; /* Espace après l'image */
-    object-fit: cover; /* Ajuste l'image pour qu'elle soit bien cadrée */
-  }
-  
-  .navbar-connexion .fa-caret-down {
-    font-size: 1.2rem; /* Taille de la flèche */
-    margin-left: 5px; /* Espace entre le texte et la flèche */
-  }
-  
-  .navbar-connexion .login-btn:hover {
-    background-color: #3B5311; /* Couleur de survol */
-  }
-  
+}
+
+
+.navbar-connexion .login-btn:hover {
+  background-color: #3B5311; /* Couleur de survol */
+}
+
+/* Styles pour le menu déroulant */
+.profile-dropdown-menu {
+  display: none; /* Masqué par défaut */
+  position: absolute;
+  top: 100%; /* Juste en dessous de l'icône */
+  right: 0; /* Aligné à droite */
+  background-color: var(--bg-light); /* Fond clair */
+  border: 1px solid #ccc; /* Bordure grise */
+  border-radius: 5px; /* Coins arrondis */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
+  z-index: 1000;
+  min-width: 150px; /* Largeur minimale */
+}
+
+.profile-dropdown-menu a {
+  display: block;
+  padding: 0.8rem 1rem;
+  color: var(--text-dark);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.profile-dropdown-menu a:hover {
+  background-color: var(--light-green); /* Couleur de survol */
+}
+
   
   
   .hamburger {

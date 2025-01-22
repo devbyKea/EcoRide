@@ -355,53 +355,50 @@
     margin-bottom: 1.5rem;
   }
 
-/* Carte de connexion */
-.login-card {
+/* Carte d'inscription */
+.signup-card {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 2rem;
-    border-radius: 15px; /* Coins arrondis */
-    background-color: var(--bg-grey); /* Fond similaire */
+    border-radius: 15px;
+    background-color: var(--bg-grey);
     width: 100%;
-    max-width: 400px; /* Largeur maximale pour une belle apparence */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Légère ombre pour l'effet de profondeur */
+    max-width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     display: flex;
-    flex-direction: column; /* Organise les éléments verticalement */
-    align-items: center; /* Centre le contenu */
-    gap: 1.5rem; /* Espacement entre les éléments */
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
     z-index: 999;
-  }
-  
-  /* Titre de la carte */
-  .login-card h2 {
+}
+
+.signup-card h2 {
     font-size: 1.5rem;
-    color: var(--main-green); /* Couleur principale verte */
+    color: var(--main-green);
     text-align: center;
     margin-bottom: 1rem;
-  }
-  
-  /* Champs d'entrée */
-  .login-card input {
+}
+
+.signup-card input {
     width: 100%;
     padding: 0.8rem;
-    border: 1px solid #ccc; /* Bordure grise claire */
-    border-radius: 10px; /* Coins arrondis */
+    border: 1px solid #ccc;
+    border-radius: 10px;
     outline: none;
     font-size: 1rem;
-    box-sizing: border-box; /* Inclut le padding dans la largeur totale */
-  }
-  
-  .login-card input:focus {
-    border-color: var(--main-green); /* Bordure verte au focus */
-  }
-  
-  /* Bouton de connexion */
-  .login-card .btn-login {
+    box-sizing: border-box;
+}
+
+.signup-card input:focus {
+    border-color: var(--main-green);
+}
+
+.signup-card .btn-signup {
     width: 100%;
     padding: 0.8rem;
-    background-color: #FFA500; /* Couleur orange */
+    background-color: #FFA500;
     border: none;
     border-radius: 10px;
     color: #fff;
@@ -409,28 +406,27 @@
     font-weight: bold;
     cursor: pointer;
     text-align: center;
-  }
-  
-  .login-card .btn-login:hover {
-    background-color: var(--dark-green); /* Couleur verte au survol */
-  }
-  
-  /* Texte supplémentaire */
-  .login-card .extra-text {
+}
+
+.signup-card .btn-signup:hover {
+    background-color: var(--dark-green);
+}
+
+.signup-card .extra-text {
     font-size: 0.9rem;
     color: #333;
     text-align: center;
-  }
-  
-  .login-card .extra-text a {
-    color: var(--main-green); /* Couleur verte pour les liens */
+}
+
+.signup-card .extra-text a {
+    color: var(--main-green);
     text-decoration: none;
-  }
-  
-  .login-card .extra-text a:hover {
-    text-decoration: underline; /* Souligné au survol */
-  }
-  
+}
+
+.signup-card .extra-text a:hover {
+    text-decoration: underline;
+}
+
   
 /* =======================
    Sections générales
