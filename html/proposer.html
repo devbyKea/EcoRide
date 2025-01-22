@@ -7,7 +7,7 @@
 <!-- Meta description pour SEO (exemple) -->
   <meta name="description" content="Rejoignez notre plateforme de covoiturage EcoRide pour voyager facilement, économiquement et de manière écologique.">
   
-  <title>EcoRide – Proposer un trajet</title>
+  <title>EcoRide – Trouver un trajet</title>
   
 <!-- Google Fonts : Poppins -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,7 +26,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 <!-- Feuille de style principale -->
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/proposer.css">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -84,97 +84,37 @@
 
     </nav>
   </header>
-  
 
-<!-- ======= SECTION HERO ======= -->
-<section class="hero">
-  <div class="hero-overlay"></div> <!-- Overlay pour assombrir l'image et donner du contraste -->
-    <div class="hero-header">
-      <button class="menu-btn" aria-label="Ouvrir le menu">☰
-      </button>
-
-<!-- Menu déroulant -->
-  <ul class="dropdown-menu">
-    <li><a href="index.html" class="active">Accueil</a></li>
-    <li><a href="trajets.html">Trouver un trajet</a></li>
-    <li><a href="proposer.html">Proposer un trajet</a></li>
-    <li><a href="avis.html">Avis</a></li>
-    <li><a href="contact.html">Contact</a></li>
-  </ul>
-
-<!-- Logo profil -->
-  <a href="login.html" class="profile-icon" aria-label="Accéder à la page de connexion">
-    <i class="fas fa-user-circle"></i> <!-- Icône utilisateur -->
-  </a>
-    </div>
-  </div>
-
-  <div class="hero-content">
-    <h1>Trouvez votre prochain trajet</h1>
-    <p>
-      Recherchez des itinéraires en covoiturage ou proposez-en pour voyager ensemble.
-    </p>
-    
-<!-- Barre de recherche -->
-    <div class="search-bar-container">
-      <p class="search-title">Plus que quelques clics !...</p>
-      <div class="search-bar">
-        <!-- Ville de départ -->
-        <div class="search-field">
-          <img src="../img/icons/radio.png" alt="Icône de départ" class="field-logo">
-          <input type="text" name="depart" placeholder="Ville de départ" required>
-        </div>
-        
-
-        <!-- Ville d'arrivée -->
-        <div class="search-field">
-          <img src="../img/icons/radio.png" alt="Icône d'arrivée" class="field-logo">
-          <input type="text" name="arrivee" placeholder="Ville d'arrivée" required>
-        </div>
-        
-
-        <!-- Date -->
-        <div class="search-field">
-          <img 
-            src="../img/icons/calendar.png" 
-            alt="Icône de calendrier" 
-            class="field-logo calendar-icon"
-          />
-          <input type="text" name="date" placeholder="jj/mm/aaaa" required class="date-input" />
-          <div class="calendar-dropdown" id="calendar-dropdown">
-            <!-- Le calendrier sera généré dynamiquement via JavaScript -->
+  <!-- ======= SECTION HERO ======= -->
+  <section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>Proposez votre trajet en quelques clics</h1>
+      <p>Remplissez les détails de votre trajet pour partager votre voyage.</p>
+      <div class="search-bar-container">
+        <div class="search-bar">
+          <div class="search-field">
+            <img src="../img/icons/radio.png" alt="Icône de départ" class="field-logo">
+            <input type="text" name="depart" placeholder="Ville de départ" required>
+          </div>
+          <div class="search-field">
+            <img src="../img/icons/radio.png" alt="Icône d'arrivée" class="field-logo">
+            <input type="text" name="arrivee" placeholder="Ville d'arrivée" required>
+          </div>
+          <div class="search-field">
+            <img src="../img/icons/calendar.png" alt="Icône de calendrier" class="field-logo">
+            <input type="text" name="date" placeholder="jj/mm/aaaa" required>
+          </div>
+          <div class="search-field">
+            <img src="../img/icons/person.png" alt="Icône passager" class="field-logo">
+            <input type="number" name="passagers" placeholder="Nombre de passagers" required>
           </div>
         </div>
-
-        
-        
-  <div><p class="co2-info">Covoiturer c’est réduire les émissions de CO2 de <span>50%/pers !</span></p></div>
-
-  </div>
-      <button type="submit" class="btn-search">Rechercher</button>
-  </div>
-  </section>
-
-
-<!-- ======= SECTION PRÉSENTATION ======= -->
-  <section id="presentation" class="presentation">
-    <div class="presentation-content">
-      <h2>Pourquoi choisir EcoRide ?</h2>
-      <p>
-        EcoRide connecte conducteurs et passagers pour des trajets plus économiques, conviviaux et respectueux de l'environnement. Réduisez vos frais de transport tout en diminuant votre empreinte carbone.
-      </p>
-      <p>
-        Découvrez des itinéraires variés à travers la France, des trajets quotidiens aux escapades week-end. 
-        Partagez votre voyage avec d'autres passagers et profitez d'une expérience conviviale, économique et écologique.
-      </p>
-    </div>
-    <div class="presentation-image">
-      <img 
-        src="../img/covoiturage.jpg" 
-        alt="Covoiturage en action"
-      >
+        <button id="publier-btn" type="submit" class="btn-search">Publier un trajet</button>
+      </div>
     </div>
   </section>
+
   <!-- ======= FOOTER ======= -->
   <footer class="footer">
     <div class="footer-info">
@@ -186,9 +126,7 @@
       <p>📧 Contact : <a href="mailto:contact@ecoride.com">contact@ecoride.com</a></p>
     </div>
   </footer>
-    <!-- Inclusion du script JS -->
-    <script src="../js/index.js"></script>s
+
+  <script src="../js/proposer.js"></script>
 </body>
 </html>
-</html>
-

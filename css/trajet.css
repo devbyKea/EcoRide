@@ -1187,4 +1187,8 @@ section p {
       top: 2rem; /* Distance ajustée pour mobile */
       right: -0.5rem; /* Toujours dans le coin droit */
     }
+
+    .profile-icon:hover {
+      color: var(--light-green); /* Couleur de survol */
+    }
   }
