@@ -843,6 +843,15 @@ input[type="date"] {
 }
 
 /* Style de chaque trajet */
+
+.suggestions-title {
+  text-align: left !important; /* Alignement du texte à gauche */
+  margin-left: 0; /* Annule tout espace éventuel sur la gauche */
+  font-weight: bold; /* Pour rendre le titre plus visible (optionnel) */
+  font-size: 1.2em; /* Taille du texte (optionnel) */
+  margin-bottom: 10px; /* Espacement sous le titre (optionnel) */
+}
+
 .trajet {
   display: flex;
   align-items: center;

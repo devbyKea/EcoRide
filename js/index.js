@@ -1,52 +1,74 @@
-// script.js
-console.log("Le script est chargé !");
+document.addEventListener("DOMContentLoaded", function () {
+  console.log("Le script est chargé !");
 
-// Fonction pour mettre en majuscule la première lettre de chaque mot
-function capitalize(input) {
-  return input
-      .toLowerCase() // Met tout en minuscule
+  // Gestion du bouton "Rechercher"
+  const rechercherBtn = document.getElementById('rechercher-btn');
+  if (rechercherBtn) {
+    rechercherBtn.addEventListener('click', function (event) {
+      event.preventDefault(); // Empêche l'action par défaut
+
+      // Récupérer les valeurs des champs
+      const depart = document.querySelector('input[name="depart"]').value.trim();
+      const arrivee = document.querySelector('input[name="arrivee"]').value.trim();
+      const date = document.querySelector('input[name="date"]').value.trim();
+
+      // Vérifier que les champs sont remplis
+      if (!depart || !arrivee || !date) {
+        alert('Veuillez remplir tous les champs avant de rechercher.');
+        return;
+      }
+
+      // Redirection vers trajets.html avec les données passées dans l'URL
+      const url = `trajets.html?depart=${encodeURIComponent(depart)}&arrivee=${encodeURIComponent(arrivee)}&date=${encodeURIComponent(date)}`;
+      window.location.href = url;
+    });
+  }
+
+  // Fonction pour mettre en majuscule la première lettre de chaque mot
+  function capitalize(input) {
+    return input
+      .toLowerCase()
       .replace(/(?:^|\s)\S/g, function (letter) {
-          return letter.toUpperCase();
-      }); // Majuscule après chaque espace ou début
-}
+        return letter.toUpperCase();
+      });
+  }
 
-// Appliquer la capitalisation sur les champs
-const departField = document.querySelector('input[name="depart"]');
-const arriveeField = document.querySelector('input[name="arrivee"]');
+  // Appliquer la capitalisation sur les champs
+  const departField = document.querySelector('input[name="depart"]');
+  const arriveeField = document.querySelector('input[name="arrivee"]');
+  if (departField && arriveeField) {
+    departField.addEventListener('input', function () {
+      this.value = capitalize(this.value);
+    });
 
-departField.addEventListener('input', function () {
-  this.value = capitalize(this.value);
-});
-
-arriveeField.addEventListener('input', function () {
-  this.value = capitalize(this.value);
-});
+    arriveeField.addEventListener('input', function () {
+      this.value = capitalize(this.value);
+    });
+  }
 
   // Gestion du menu hamburger
   const menuBtn = document.querySelector(".menu-btn");
   const dropdownMenu = document.querySelector(".dropdown-menu");
-
   if (menuBtn && dropdownMenu) {
-    // Ouvrir/Fermer le menu au clic
     menuBtn.addEventListener("click", () => {
       dropdownMenu.style.display =
         dropdownMenu.style.display === "block" ? "none" : "block";
     });
 
-    // Fermer le menu si la souris quitte le menu
     dropdownMenu.addEventListener("mouseleave", () => {
       dropdownMenu.style.display = "none";
     });
   }
 
-// Animation hamburger
-const hamburger = document.querySelector('.hamburger');
-if (hamburger) {
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-  });
+  // Animation hamburger
+  const hamburger = document.querySelector('.hamburger');
+  if (hamburger) {
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+    });
+  }
 
-document.addEventListener("DOMContentLoaded", () => {
+  // Gestion du calendrier
   const calendarIcon = document.querySelector(".calendar-icon");
   const calendarDropdown = document.querySelector("#calendar-dropdown");
   const dateInput = document.querySelector(".date-input");
@@ -56,10 +78,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Générateur de calendrier
   const generateCalendar = (month, year) => {
-    calendarDropdown.innerHTML = "";
+    calendarDropdown.innerHTML = ""; // Réinitialiser le contenu
 
     const daysInMonth = new Date(year, month + 1, 0).getDate();
-    const firstDayIndex = (new Date(year, month, 1).getDay() + 6) % 7; // Lundi comme premier jour
+    const firstDayIndex = (new Date(year, month, 1).getDay() + 6) % 7; // Premier jour (lundi)
 
     // En-tête du calendrier
     const header = document.createElement("div");
@@ -74,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
     calendarDropdown.appendChild(header);
 
-    // Tableau du calendrier
+    // Tableau des jours
     const table = document.createElement("table");
     const days = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
     const thead = document.createElement("thead");
@@ -101,8 +123,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const selectedDate = `${day.toString().padStart(2, "0")}/${(month + 1)
           .toString()
           .padStart(2, "0")}/${year}`;
-        dateInput.value = selectedDate;
-        calendarDropdown.style.display = "none"; // Ferme le calendrier
+        dateInput.value = selectedDate; // Remplir le champ
+        calendarDropdown.style.display = "none"; // Masquer le calendrier
       });
       row.appendChild(cell);
 
@@ -117,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
     table.appendChild(tbody);
     calendarDropdown.appendChild(table);
 
-    // Ajout des événements pour les boutons de navigation
+    // Navigation des mois
     document.querySelector("#prev-month").addEventListener("click", (e) => {
       e.stopPropagation();
       currentMonth = currentMonth === 0 ? 11 : currentMonth - 1;
@@ -133,8 +155,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   };
 
-  // Affichage du calendrier
-  calendarIcon.addEventListener("click", (e) => {
+  // Afficher/masquer le calendrier
+  const toggleCalendar = (e) => {
     e.stopPropagation();
     if (calendarDropdown.style.display === "block") {
       calendarDropdown.style.display = "none";
@@ -142,63 +164,35 @@ document.addEventListener("DOMContentLoaded", () => {
       generateCalendar(currentMonth, currentYear);
       calendarDropdown.style.display = "block";
     }
-  });
+  };
 
-  // Fermer le calendrier lorsqu'on clique à l'extérieur
+  // Associer les événements
+  dateInput.addEventListener("click", toggleCalendar);
+  if (calendarIcon) {
+    calendarIcon.addEventListener("click", toggleCalendar);
+  }
+
+  // Fermer le calendrier en cliquant à l'extérieur
   document.addEventListener("click", (e) => {
     if (
       !calendarDropdown.contains(e.target) &&
-      e.target !== calendarIcon &&
-      e.target !== dateInput
+      e.target !== dateInput &&
+      e.target !== calendarIcon
     ) {
       calendarDropdown.style.display = "none";
     }
   });
 
-  // Permet la saisie manuelle dans le champ
+  // Validation du champ de date
   dateInput.addEventListener("input", () => {
     const regex = /^\d{2}\/\d{2}\/\d{4}$/; // Format JJ/MM/AAAA
     if (!regex.test(dateInput.value)) {
       dateInput.setCustomValidity("Veuillez entrer une date au format JJ/MM/AAAA.");
     } else {
       dateInput.setCustomValidity("");
-      const [day, month, year] = dateInput.value.split("/").map(Number);
-      if (
-        !isNaN(day) &&
-        !isNaN(month) &&
-        !isNaN(year) &&
-        day > 0 &&
-        day <= new Date(year, month, 0).getDate() &&
-        month > 0 &&
-        month <= 12
-      ) {
-        currentMonth = month - 1;
-        currentYear = year;
-        generateCalendar(currentMonth, currentYear);
-      } else {
-        dateInput.setCustomValidity("Date invalide. Veuillez vérifier.");
-      }
     }
   });
 });
 
-document.getElementById('rechercher-index').addEventListener('click', function () {
-  // Récupérer les valeurs des champs
-  const villeDepart = document.querySelector('input[name="depart"]').value.trim();
-  const villeArrivee = document.querySelector('input[name="arrivee"]').value.trim();
-  const dateSelectionnee = document.querySelector('input[name="date"]').value.trim();
-
-  // Vérifier que tous les champs sont remplis
-  if (!villeDepart || !villeArrivee || !dateSelectionnee) {
-      alert('Veuillez remplir tous les champs obligatoires.');
-      return;
-  }
-
-  // Redirection vers la page "Trouver un trajet" avec les données en paramètres
-  const url = `trajets.html?depart=${encodeURIComponent(villeDepart)}&arrivee=${encodeURIComponent(villeArrivee)}&date=${encodeURIComponent(dateSelectionnee)}`;
-  window.location.href = url;
-});
-
-}
 
 
