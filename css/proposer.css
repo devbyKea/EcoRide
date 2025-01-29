@@ -290,7 +290,7 @@ html, body {
   position: relative;
   padding-top: 9rem;
   min-height: 80vh;
-  background: url("../img/trouver.jpg") center/cover no-repeat;
+  background: url("../img/proposer.jpg") center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -355,89 +355,148 @@ html, body {
   margin-bottom: 1.5rem;
 }
 
-/* Conteneur global */
-.search-bar-container {
-  display: flex;
-  flex-direction: column; /* Par défaut, les éléments sont empilés */
-  align-items: center; /* Centre tout horizontalement */
-  gap: 1.5rem; /* Espace entre la barre et le bouton */
-  width: 100%;
+  /* Conteneur global */
+  .search-bar-container {
+    padding: 1rem; /* Maintient l'espacement autour des champs */
+    border-radius: 15px; /* Coins arrondis */
+    background-color: var(--bg-grey); /* Fond plus clair */
+    position: relative; /* Permet de positionner le bouton au bas */
+    overflow: visible;
+    display: flex;
+    flex-direction: column; /* Empile tous les éléments */
+    align-items: center; /* Étire les éléments pour occuper toute la largeur */
+    gap: 1rem; /* Espacement vertical entre les éléments */
+    padding: 1rem; /* Empêche tout débordement visuel */
+  }
+
+  /* Barre de recherche */
+  .search-bar {
+    width: 80%; 
+    display: flex;
+    flex-direction: column; /* Empile les champs verticalement */
+    gap: 1rem;
+    background: none;
+    margin-right: 2rem; 
+  } 
+
+  /* Champ de recherche */
+  .search-field {
+    position: relative;
+    display: flex;
+    align-items: center; /* Aligne les icônes et le texte */
+    border: none !important;
+    box-shadow: none;
+    outline: none;
+    padding: 0; /* Espacement vertical */
+    gap: 0.5rem;
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    margin-left: 2rem;
+    
+  }
+
+  .search-field::after {
+    width: calc(100% + -30px);
+    height: 0.8px;
+    content: '';
+    display: block;
+    height: 1px;
+    background-color: #333333;
+    position: absolute;
+    bottom: -1.5rem;
+    margin-left: 0rem;
 }
 
-/* Barre de recherche */
-.search-bar {
-  display: flex; /* Champs alignés horizontalement */
-  flex-wrap: nowrap; /* Empêche le passage automatique à la ligne */
-  justify-content: space-between; /* Espacement uniforme entre les champs */
-  align-items: center; /* Centre verticalement */
-  gap: 1rem; /* Espace entre les champs */
-  background-color: #f9f9f9;
-  padding: 0.5rem;
-  border-radius: 8px;
-  width: 100%;
-  max-width: 640px; /* Limite la largeur totale */
-  box-sizing: border-box; /* Garantit un dimensionnement correct */
+  /* Icône dans le champ */
+  .search-field .field-logo {
+    width: 1.5rem;
+    height: 1.5rem;
+    object-fit: contain;
+  }
+
+  /* Input */
+  .search-field input {
+    border: none; /* Supprime les bordures internes */
+    outline: none; /* Supprime le focus natif */
+    box-shadow: none; /* Supprime toute ombre */
+    flex: 1; /* Les champs remplissent l'espace restant */
+    font-size: 1rem; /* Taille du texte */
+    color: #333; /* Couleur du texte */
+    background-color: transparent;
+  }
+
+  /* Placeholder */
+  .search-field input::placeholder {
+    color: #999; /* Couleur plus claire pour le placeholder */
+    font-style: italic; /* Texte en italique */
+  }
+
+  .search-field input[name="passagers"] {
+    padding-right: 50px; /* Augmente l'espace à droite pour éloigner le sélecteur */
 }
 
-/* Champ de recherche */
-.search-field {
-  display: flex;
-  align-items: center; /* Centre les icônes et le texte */
-  background-color: transparent;
-  padding: 0.5rem 1rem;
-  border: none; /* Supprime les bordures */
-  gap: 0.5rem;
-  flex: 1; /* Partage équitable de l'espace */
-  max-width: 300px; /* Largeur maximale */
-  min-width: 200px; /* Largeur minimale pour éviter les compressions */
-  box-sizing: border-box; /* Inclut les bordures dans la largeur */
-}
 
 
-/* Icône dans le champ */
-.search-field .field-logo {
-  width: 1.5rem;
-  height: 1.5rem;
-  object-fit: contain;
-}
+  
+  /* Bouton de recherche */
+  .btn-search {
+    position: absolute; /* Place le bouton par rapport au conteneur */
+    bottom: 0; /* Aligne le bouton sur le bord inférieur */
+    left: 0; /* Étend le bouton à gauche */
+    right: 0; /* Étend le bouton à droite */
+    padding: 0.8rem; /* Ajuste l'espacement interne */
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #FFA500; /* Couleur orange */
+    border: none;
+    border-radius: 0 0 15px 15px; /* Coins arrondis uniquement en bas */
+    text-align: center;
+    cursor: pointer;
+  }
 
-.field-logo {
-  margin-left: -5px;
+  .btn-search:hover {
+    background-color: var(--dark-green);
+  }
 
-}
+  .btn-search {
+    width: 100%; /* Bouton occupe toute la largeur */
+    border-radius: 0 0 15px 15px; /* Coins arrondis en bas */
+    max-width: none; /* Supprime toute limite de largeur */
+    margin: 0; /* Enlève les marges pour aligner au conteneur */
+    padding: 1rem; /* Optionnel : Ajustez l'espacement interne */
+    box-sizing: border-box; /* S'assure que les bordures/marges sont incluses */
+  }
 
-/* Input */
-.search-field input {
-  border: none; /* Supprime les bordures */
-  outline: none; /* Supprime le focus natif */
-  flex: 1;
-  font-size: 1rem;
-  color: #333;
-  background-color: transparent; /* Fond transparent */
-  width: 100%; /* S'assure que l'input s'étire correctement */
-}
+  .search-title,
+  .co2-info {
+    color: #333 !important;/* Couleur de texte plus sombre */
+    display: block; /* Assurez-vous qu'ils sont visibles */
+    position: relative; /* Position relative pour éviter qu'ils soient en arrière-plan */
+    z-index: 10; /* Priorité plus élevée pour être devant d'autres éléments */
+    text-align: center; /* Centre le texte */
+    margin: 0 auto; /* Centre les éléments horizontalement */
+    font-size: 1rem; /* Ajustez la taille du texte si nécessaire */
+    
+  }
 
-/* Bouton de recherche */
-.btn-search {
-  padding: 0.8rem 1.5rem;
-  font-size: 1rem;
-  background-color: #FF9F1C;
-  color: var(--text-light);
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: auto;
-}
+  .co2-info {
+    color: var(--main-green) !important;
+    margin-left: 2rem;
+    margin-bottom: 1rem; /* Facultatif : espace sous le texte */
+    text-align: center;
+    font-size: 1rem !important;
+    font-weight: lighter !important;
 
-.btn-search:hover {
-  background-color: var(--dark-green);
-}
-
-.search-title,
-.co2-info {
-  display: none; /* Caché sur les écrans desktop par défaut */
-}
+  }
+  
+  
+  .co2-info span {
+    font-weight: bold !important;
+    color: var(--main-green);
+   
+  }
 
 /* Icône de calendrier */
 .calendar-icon {
@@ -514,63 +573,6 @@ html, body {
   font-weight: bold;
 }
 
-@media (min-width: 769px) { /* Pour les écrans desktop */
-  .search-field {
-    border-right: none; /* Par défaut, pas de bordure */
-  }
-
-  .search-field:not(:last-child) {
-    border-right: 1px solid #ccc; /* Applique une bordure sauf au dernier champ */
-    padding-right: 1rem; /* Ajoute un espace entre le champ et la bordure */
-  }
-
-  .search-field:last-child {
-    border: none !important; /* Supprime toute bordure */
-  }
-}
-
-
-
-/* Responsive pour les petits écrans */
-@media (max-width: 768px) {
-  .calendar-dropdown {
-    width: 90%; /* S'étend sur presque toute la largeur de l'écran */
-    left: 50%; /* Centré horizontalement */
-    transform: translateX(-50%); /* Ajuste le décalage pour centrer */
-    top: calc(100% + 10px); /* Décalage par rapport au champ */
-    padding: 0.8rem; /* Réduit le padding sur mobile */
-  }
-
-  .calendar-header button {
-    padding: 0.4rem; /* Réduit la taille des boutons */
-  }
-
-  .calendar-header span {
-    font-size: 1rem; /* Réduit la taille du texte */
-  }
-
-  .calendar-day {
-    padding: 0.3rem; /* Réduit les tailles de cellules */
-    font-size: 0.9rem; /* Diminue la taille du texte */
-  }
-}
-
-/* Responsive pour les écrans très petits */
-@media (max-width: 480px) {
-  .calendar-dropdown {
-    width: 95%; /* Presque pleine largeur */
-    top: calc(100% + 5px); /* Réduit l'espacement */
-  }
-
-  .calendar-header span {
-    font-size: 0.9rem; /* Taille plus petite pour les très petits écrans */
-  }
-
-  .calendar-day {
-    font-size: 0.8rem; /* Texte encore plus petit */
-    padding: 0.2rem; /* Cellules encore plus compactes */
-  }
-}
 
 
 /* Supprime l'icône native du champ de type date */
@@ -589,155 +591,7 @@ input[type="date"] {
   .header-top {
     font-size: 0.75rem; /* Réduisez la taille de la police */
 }
-
-  /* Conteneur global */
-  .search-bar-container {
-    padding: 1rem; /* Maintient l'espacement autour des champs */
-    border-radius: 15px; /* Coins arrondis */
-    background-color: var(--bg-grey); /* Fond plus clair */
-    position: relative; /* Permet de positionner le bouton au bas */
-    overflow: visible;
-    display: flex;
-    flex-direction: column; /* Empile tous les éléments */
-    align-items: center; /* Étire les éléments pour occuper toute la largeur */
-    gap: 1rem; /* Espacement vertical entre les éléments */
-    padding: 1rem; /* Empêche tout débordement visuel */
-  }
-
-  /* Barre de recherche */
-  .search-bar {
-    width: 100%; /* La barre prend toute la largeur */
-    display: flex;
-    flex-direction: column; /* Empile les champs verticalement */
-    gap: 1rem;
-    background: none;
-    margin-right: 2rem; 
-  } 
-
-  /* Champ de recherche */
-  .search-field {
-    position: relative;
-    display: flex;
-    align-items: center; /* Aligne les icônes et le texte */
-    border: none !important;
-    box-shadow: none;
-    outline: none;
-    padding: 0; /* Espacement vertical */
-    gap: 0.5rem;
-    width: 100%;
-    margin-bottom: 2rem;
-    
-  }
-
-  .search-field::after {
-    all: unset; /* Réinitialise les styles */
-    content: '';
-    display: block;
-    width: 110%;
-    height: 1px;
-    background-color: #333333;
-    position: absolute;
-    bottom: -1.5rem;
-    margin-left: -1%;
 }
-
-  /* Icône dans le champ */
-  .search-field .field-logo {
-    width: 1.5rem;
-    height: 1.5rem;
-    object-fit: contain;
-  }
-
-  /* Input */
-  .search-field input {
-    border: none; /* Supprime les bordures internes */
-    outline: none; /* Supprime le focus natif */
-    box-shadow: none; /* Supprime toute ombre */
-    flex: 1; /* Les champs remplissent l'espace restant */
-    font-size: 1rem; /* Taille du texte */
-    color: #333; /* Couleur du texte */
-    background-color: transparent;
-  }
-
-  /* Placeholder */
-  .search-field input::placeholder {
-    color: #999; /* Couleur plus claire pour le placeholder */
-    font-style: italic; /* Texte en italique */
-  }
-
-  
-  /* Bouton de recherche */
-  .btn-search {
-    position: absolute; /* Place le bouton par rapport au conteneur */
-    bottom: 0; /* Aligne le bouton sur le bord inférieur */
-    left: 0; /* Étend le bouton à gauche */
-    right: 0; /* Étend le bouton à droite */
-    padding: 0.8rem; /* Ajuste l'espacement interne */
-    font-size: 1rem;
-    font-weight: bold;
-    color: #fff;
-    background-color: #FFA500; /* Couleur orange */
-    border: none;
-    border-radius: 0 0 15px 15px; /* Coins arrondis uniquement en bas */
-    text-align: center;
-    cursor: pointer;
-  }
-
-  .btn-search:hover {
-    background-color: var(--dark-green);
-  }
-
-  .btn-search {
-    width: 100%; /* Bouton occupe toute la largeur */
-    border-radius: 0 0 15px 15px; /* Coins arrondis en bas */
-    max-width: none; /* Supprime toute limite de largeur */
-    margin: 0; /* Enlève les marges pour aligner au conteneur */
-    padding: 1rem; /* Optionnel : Ajustez l'espacement interne */
-    box-sizing: border-box; /* S'assure que les bordures/marges sont incluses */
-  }
-
-  .search-title,
-  .co2-info {
-    color: #333 !important;/* Couleur de texte plus sombre */
-    display: block; /* Assurez-vous qu'ils sont visibles */
-    position: relative; /* Position relative pour éviter qu'ils soient en arrière-plan */
-    z-index: 10; /* Priorité plus élevée pour être devant d'autres éléments */
-    text-align: center; /* Centre le texte */
-    margin: 0 auto; /* Centre les éléments horizontalement */
-    font-size: 1rem; /* Ajustez la taille du texte si nécessaire */
-    
-  }
-
-  .co2-info {
-    color: var(--main-green) !important;
-    margin-left: 2rem;
-    margin-bottom: 1rem; /* Facultatif : espace sous le texte */
-    text-align: center;
-    font-size: 1rem !important;
-    font-weight: lighter !important;
-
-  }
-  
-  
-  .co2-info span {
-    font-weight: bold !important;
-    color: var(--main-green);
-   
-  }
-  
-}
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* Animation d'apparition complexe */
 @keyframes fadeInComplex {
@@ -827,142 +681,6 @@ input[type="date"] {
   background-color: #8B4513; /* orange plus sombre */
 }
 
-.search-summary {
-  margin-bottom: 20px;
-  padding: 10px 20px;
-  background-color: var(--main-green); /* Couleur douce pour mettre en évidence */
-  border-radius: 8px;
-  text-align: center;
-}
-
-.search-summary h2 {
-  font-size: 1.8em;
-  color: var(--text-light);
-  margin: 0;
-}
-
-.loading-indicator {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 9999;
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 20px;
-  border-radius: 50%;
-}
-
-.spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid #f3f3f3; /* Couleur de fond */
-  border-top: 4px solid #72A02D; /* Couleur de l'animation */
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  from {
-      transform: rotate(0deg);
-  }
-  to {
-      transform: rotate(360deg);
-  }
-}
-
-/* Conteneur principal pour centrer les trajets */
-.trips-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  max-width: 1200px; /* Limite la largeur maximale */
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-/* Style de chaque trajet */
-
-.suggestions-title {
-  text-align: left !important; /* Alignement du texte à gauche */
-  margin-left: 0; /* Annule tout espace éventuel sur la gauche */
-  font-weight: bold; /* Pour rendre le titre plus visible (optionnel) */
-  font-size: 1.2em; /* Taille du texte (optionnel) */
-  margin-bottom: 10px; /* Espacement sous le titre (optionnel) */
-}
-
-.trajet {
-  display: flex;
-  align-items: center;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 10px;
-  margin-bottom: 15px;
-  background-color: #f9f9f9;
-  width: 100%; /* Occupe toute la largeur disponible */
-  max-width: 800px; /* Limite la largeur */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-#liste-trajets {
-  display: flex;
-  flex-direction: column; /* Empile les trajets verticalement */
-  align-items: center; /* Centre horizontalement les trajets */
-  justify-content: center; /* Centre verticalement si nécessaire */
-  margin: 0 auto; /* Centre le conteneur global */
-  padding: 0; /* Retire les espaces inutiles */
-  list-style: none; /* Supprime les puces */
-  width: 100%; /* Ajustez si nécessaire */
-  max-width: 800px; /* Limite la largeur des trajets */
-}
-
-
-#liste-trajets li {
-  margin-bottom: 1rem; /* Ajoute un espacement entre les trajets */
-  width: 100%; /* Assure que chaque élément occupe toute la largeur */
-}
-
-
-/* Conteneur principal pour le profil (nom + photo) */
-.profile-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Centre la photo horizontalement */
-  margin-right: 1rem;
-  text-align: center; /* Centre le texte sous l'image */
-  flex-shrink: 0; /* Empêche de rétrécir */
-}
-
-/* Nom et note alignés à gauche */
-.profile-container h4 {
-  margin: 0 0 5px; /* Espace entre le texte et la photo */
-  font-size: 1rem;
-  text-align: left; /* Aligne le nom à gauche */
-  width: 100%; /* Étend le texte pour occuper tout l'espace disponible */
-}
-
-/* Photo du chauffeur */
-.photo-chauffeur {
-  flex-shrink: 0; /* Empêche l'image de rétrécir */
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 1rem;
-  border: 2px solid #ccc;
-}
-
-/* Détails du trajet */
-.details-trajet {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start; /* Aligne les éléments au début */
-  align-items: center; /* Centre le contenu horizontalement */
-  text-align: center; /* Centre le texte pour une meilleure apparence */
-}
-
 /* Conteneur du bouton */
 .btn-container {
   display: flex;
@@ -988,59 +706,6 @@ input[type="date"] {
   background-color: #4A6E18;
 }
 
-/* Responsive pour petits écrans */
-@media (max-width: 768px) {
-  .trips-container {
-    max-width: 100%; /* Permet d'occuper tout l'espace disponible */
-  }
-
-  .trajet {
-    max-width: 90%; /* Réduit la taille du conteneur */
-    font-size: 0.9rem; /* Diminue la taille générale du texte */
-  }
-
-  .profile-container h4 {
-    font-size: 0.9rem; /* Réduit la taille du texte pour le profil */
-  }
-
-  .photo-chauffeur {
-    width: 50px; /* Réduit la taille de la photo */
-    height: 50px;
-  }
-
-  .btn-detail {
-    font-size: 0.8rem; /* Réduit la taille du bouton */
-    padding: 5px 10px;
-    width: 60px; /* Réduit la largeur du bouton */
-  }
-}
-
-
-
-
-
-
-
-/* =======================
-   Sections générales
-======================= */
-section {
-  padding: 3rem 2rem;
-}
-
-section h2 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-  text-align: center;
-}
-
-section p {
-  text-align: center;
-  max-width: 800px;
-  margin: 0.5rem auto 2rem auto;
-  line-height: 1.6;
-}
-
 /* =======================
    Footer
 ======================= */
@@ -1049,7 +714,7 @@ section p {
   color: var(--text-light);
   text-align: center;
   padding: 1.5rem;
-  margin-top: 3rem;
+  
 }
 
 .footer-info p {
