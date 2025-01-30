@@ -165,6 +165,41 @@
     <div class="spinner"></div>
 </div>
 
+    <!-- FORMULAIRE DES FILTRES -->
+    <form id="filter-form" class="filters-container">
+      <label>
+        Voyage écologique uniquement
+        <br>
+          <input type="checkbox" id="filter-eco" />
+          
+      </label>
+  
+      <label>
+          Prix maximum (€) :
+          <input type="number" id="filter-price" min="0" placeholder="Prix max" />
+      </label>
+  
+      <label>
+          Durée max (minutes) :
+          <input type="number" id="filter-duration" min="0" placeholder="Durée max" />
+      </label>
+  
+      <label>
+          Note minimale :
+          <select id="filter-rating">
+              <option value="0">Toutes les notes</option>
+              <option value="1">1 étoile et plus</option>
+              <option value="2">2 étoiles et plus</option>
+              <option value="3">3 étoiles et plus</option>
+              <option value="4">4 étoiles et plus</option>
+              <option value="5">5 étoiles uniquement</option>
+          </select>
+      </label>
+  
+      <button type="submit" class="btn-filter">Filtrer</button>
+  </form>
+  
+
   <div id="available-trips" class="trips-list">
       <!-- La liste des trajets sera ici -->
   </div>
@@ -195,6 +230,7 @@
     <!-- Inclusion des scripts JS -->
   
     <script src="../js/trajets.js"></script>
+    
 </body>
 </html>
 </html>

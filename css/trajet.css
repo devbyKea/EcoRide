@@ -727,18 +727,6 @@ input[type="date"] {
   
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 /* Animation d'apparition complexe */
 @keyframes fadeInComplex {
   0% {
@@ -870,155 +858,168 @@ input[type="date"] {
   }
 }
 
-/* Conteneur principal pour centrer les trajets */
-.trips-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  max-width: 1200px; /* Limite la largeur maximale */
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-/* Style de chaque trajet */
-
 .suggestions-title {
-  text-align: left !important; /* Alignement du texte à gauche */
-  margin-left: 0; /* Annule tout espace éventuel sur la gauche */
-  font-weight: bold; /* Pour rendre le titre plus visible (optionnel) */
-  font-size: 1.2em; /* Taille du texte (optionnel) */
-  margin-bottom: 10px; /* Espacement sous le titre (optionnel) */
-}
-
-.trajet {
-  display: flex;
-  align-items: center;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 10px;
-  margin-bottom: 15px;
-  background-color: #f9f9f9;
-  width: 100%; /* Occupe toute la largeur disponible */
-  max-width: 800px; /* Limite la largeur */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center; /* Centre le titre "Suggestions :" */
+  margin-top: 40px; /* Augmente l'espace au-dessus du titre */
+  margin-bottom: 30px; /* Ajoute un espace sous le titre */
+  font-size: 1.8em; /* Augmente la taille du texte */
+  font-weight: bold;
 }
 
 #liste-trajets {
-  display: flex;
-  flex-direction: column; /* Empile les trajets verticalement */
-  align-items: center; /* Centre horizontalement les trajets */
-  justify-content: center; /* Centre verticalement si nécessaire */
-  margin: 0 auto; /* Centre le conteneur global */
-  padding: 0; /* Retire les espaces inutiles */
-  list-style: none; /* Supprime les puces */
-  width: 100%; /* Ajustez si nécessaire */
-  max-width: 800px; /* Limite la largeur des trajets */
-}
-
-
-#liste-trajets li {
-  margin-bottom: 1rem; /* Ajoute un espacement entre les trajets */
-  width: 100%; /* Assure que chaque élément occupe toute la largeur */
-}
-
-
-/* Conteneur principal pour le profil (nom + photo) */
-.profile-container {
+  list-style-type: none; /* Supprime les puces */
+  padding: 0;
+  margin: 0 auto; /* Centre la liste horizontalement */
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centre la photo horizontalement */
-  margin-right: 1rem;
-  text-align: center; /* Centre le texte sous l'image */
-  flex-shrink: 0; /* Empêche de rétrécir */
+  align-items: center; /* Centre les éléments horizontalement */
+  justify-content: center; /* Centre les éléments verticalement */
+  max-width: 800px; /* Largeur max */
 }
 
-/* Nom et note alignés à gauche */
-.profile-container h4 {
-  margin: 0 0 5px; /* Espace entre le texte et la photo */
-  font-size: 1rem;
-  text-align: left; /* Aligne le nom à gauche */
-  width: 100%; /* Étend le texte pour occuper tout l'espace disponible */
-}
-
-/* Photo du chauffeur */
-.photo-chauffeur {
-  flex-shrink: 0; /* Empêche l'image de rétrécir */
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 1rem;
-  border: 2px solid #ccc;
-}
-
-/* Détails du trajet */
-.details-trajet {
-  flex: 1;
+.trajet {
+  width: 100%;
+  max-width: 500px; /* Évite que les trajets soient trop larges */
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Aligne les éléments au début */
-  align-items: center; /* Centre le contenu horizontalement */
-  text-align: center; /* Centre le texte pour une meilleure apparence */
+  align-items: center;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px; /* Ajoute de l'espace entre les trajets */
 }
 
-/* Conteneur du bouton */
-.btn-container {
+.trajet .btn-container {
+  width: 100%; /* Prend toute la largeur */
   display: flex;
-  justify-content: center; /* Centre le bouton horizontalement */
-  margin-top: 10px; /* Ajoute un espace entre la description et le bouton */
-  width: 100%; /* Assure que le conteneur suit la largeur de la description */
+  justify-content: center; /* Centre le bouton */
+  margin-top: 15px; /* Ajoute un espace au-dessus du bouton */
 }
 
-/* Bouton Détail */
 .btn-detail {
-  background-color: #FF9F1C;
-  color: #fff;
+  background-color: #ff9800;
+  color: white;
   border: none;
-  padding: 7px 12px;
+  padding: 10px 15px;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 0.9rem;
-  width: 70px; /* Taille fixe pour une uniformité */
+  transition: background 0.3s ease;
+  font-size: 1em;
   text-align: center;
 }
 
+.profile-container {
+  display: flex;
+  flex-direction: column; /* Aligner la photo et le nom en colonne */
+  align-items: center; /* Centrer horizontalement */
+  text-align: center; /* Centrer le texte */
+  gap: 8px; /* Espacement entre la photo et le texte */
+}
+
+.photo-chauffeur {
+  width: 50px; /* Taille standard pour la photo */
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.chauffeur-nom {
+  font-size: 1.1em; /* Ajuste la taille du nom */
+  font-weight: bold;
+}
+
+
 .btn-detail:hover {
-  background-color: #4A6E18;
-}
-
-/* Responsive pour petits écrans */
-@media (max-width: 768px) {
-  .trips-container {
-    max-width: 100%; /* Permet d'occuper tout l'espace disponible */
-  }
-
-  .trajet {
-    max-width: 90%; /* Réduit la taille du conteneur */
-    font-size: 0.9rem; /* Diminue la taille générale du texte */
-  }
-
-  .profile-container h4 {
-    font-size: 0.9rem; /* Réduit la taille du texte pour le profil */
-  }
-
-  .photo-chauffeur {
-    width: 50px; /* Réduit la taille de la photo */
-    height: 50px;
-  }
-
-  .btn-detail {
-    font-size: 0.8rem; /* Réduit la taille du bouton */
-    padding: 5px 10px;
-    width: 60px; /* Réduit la largeur du bouton */
-  }
+  background-color: #e68900;
 }
 
 
+.btn-detail:hover {
+  background-color: var(--dark-green);
+}
+
+/* Conteneur des filtres */
+.filters-container {
+  display: flex;
+  flex-wrap: wrap; /* Permet aux éléments de passer à la ligne si besoin */
+  justify-content: center; /* Centre les filtres */
+  align-items: center;
+  gap: 15px; /* Espacement entre les filtres */
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  max-width: 900px;
+  margin: 20px auto; /* Centre le bloc */
+}
+
+/* S'assurer que le texte est au-dessus de la case à cocher */
+.filters-container label {
+  display: flex;
+  flex-direction: column; /* Met le texte au-dessus de l'input */
+  align-items: center; /* Centre tout */
+  font-weight: bold;
+  font-size: 0.9em;
+  text-align: center;
+}
 
 
+/* Styles des champs de saisie */
+.filters-container input,
+.filters-container select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+  width: 150px;
+}
 
+/* Case à cocher pour le filtre écologique */
+.filters-container input[type="checkbox"] {
+  width: auto;
+}
+
+/* Bouton Filtrer */
+.filters-container .btn-filter {
+  background-color: #ff9800;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background 0.3s ease;
+}
+
+.filters-container .btn-filter:hover {
+  background-color: #e68900;
+}
+
+/* 📱 Design responsive : colonne sur mobile */
+@media screen and (max-width: 768px) {
+  .filters-container {
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+  }
+
+  .filters-container label {
+      width: 100%;
+      text-align: center;
+  }
+
+  .filters-container input,
+  .filters-container select {
+      width: 90%; /* Prend plus de place sur mobile */
+      max-width: 300px;
+  }
+
+  .filters-container .btn-filter {
+      width: 100%;
+      max-width: 200px;
+  }
+}
 
 
 /* =======================
