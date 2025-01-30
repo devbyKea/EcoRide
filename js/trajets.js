@@ -15,6 +15,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+  // Fonction pour mettre en majuscule la première lettre de chaque mot
+  function capitalize(input) {
+    return input
+      .toLowerCase()
+      .replace(/(?:^|\s)\S/g, function (letter) {
+        return letter.toUpperCase();
+      });
+  }
+
+  // Appliquer la capitalisation sur les champs
+  const departField = document.querySelector('input[name="depart"]');
+  const arriveeField = document.querySelector('input[name="arrivee"]');
+  if (departField && arriveeField) {
+    departField.addEventListener('input', function () {
+      this.value = capitalize(this.value);
+    });
+
+    arriveeField.addEventListener('input', function () {
+      this.value = capitalize(this.value);
+    });
+  }
   
   // Gestion du menu hamburger
   const menuBtn = document.querySelector(".menu-btn");
@@ -162,6 +184,31 @@ document.addEventListener('DOMContentLoaded', () => {
       dateInput.setCustomValidity("");
     }
   });
+
+  // ✅ Fonction pour récupérer les paramètres de l'URL
+function getQueryParams() {
+  const params = new URLSearchParams(window.location.search);
+  return {
+      depart: params.get("depart") || "",
+      arrivee: params.get("arrivee") || "",
+      date: params.get("date") || ""
+  };
+}
+
+// ✅ Vérifier si on vient de la page d'accueil
+window.addEventListener("DOMContentLoaded", function () {
+  const params = getQueryParams();
+
+  // Si on a des valeurs, remplir les champs et lancer la recherche
+  if (params.depart && params.arrivee && params.date) {
+      document.querySelector('input[name="depart"]').value = params.depart;
+      document.querySelector('input[name="arrivee"]').value = params.arrivee;
+      document.querySelector('input[name="date"]').value = params.date;
+
+      // ✅ Lancer automatiquement la recherche
+      rechercherTrajets(new Event("search"), false);
+  }
+});
 
 
 // ✅ Récupérer les boutons et le formulaire des filtres

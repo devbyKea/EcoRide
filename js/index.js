@@ -19,29 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener("DOMContentLoaded", function () {
   console.log("Le script est chargé !");
 
-  // Gestion du bouton "Rechercher"
-  const rechercherBtn = document.getElementById('rechercher-btn');
-  if (rechercherBtn) {
-    rechercherBtn.addEventListener('click', function (event) {
-      event.preventDefault(); // Empêche l'action par défaut
-
-      // Récupérer les valeurs des champs
-      const depart = document.querySelector('input[name="depart"]').value.trim();
-      const arrivee = document.querySelector('input[name="arrivee"]').value.trim();
-      const date = document.querySelector('input[name="date"]').value.trim();
-
-      // Vérifier que les champs sont remplis
-      if (!depart || !arrivee || !date) {
-        alert('Veuillez remplir tous les champs avant de rechercher.');
-        return;
-      }
-
-      // Redirection vers trajets.html avec les données passées dans l'URL
-      const url = `trajets.html?depart=${encodeURIComponent(depart)}&arrivee=${encodeURIComponent(arrivee)}&date=${encodeURIComponent(date)}`;
-      window.location.href = url;
-    });
-  }
-
   // Fonction pour mettre en majuscule la première lettre de chaque mot
   function capitalize(input) {
     return input
@@ -210,6 +187,25 @@ document.addEventListener("DOMContentLoaded", function () {
       dateInput.setCustomValidity("");
     }
   });
+});
+
+document.getElementById('rechercher-index').addEventListener('click', function (event) {
+  event.preventDefault(); // Empêche le comportement par défaut
+
+  // Récupérer les valeurs saisies par l'utilisateur
+  const villeDepart = document.querySelector('input[name="depart"]').value.trim();
+  const villeArrivee = document.querySelector('input[name="arrivee"]').value.trim();
+  const dateSelectionnee = document.querySelector('input[name="date"]').value.trim();
+
+  // Vérifier que tous les champs sont remplis
+  if (!villeDepart || !villeArrivee || !dateSelectionnee) {
+      alert('Veuillez remplir tous les champs avant de rechercher.');
+      return;
+  }
+
+  // Rediriger vers trajets.html avec les valeurs dans l'URL
+  const url = `trajets.html?depart=${encodeURIComponent(villeDepart)}&arrivee=${encodeURIComponent(villeArrivee)}&date=${encodeURIComponent(dateSelectionnee)}`;
+  window.location.href = url;
 });
 
 
