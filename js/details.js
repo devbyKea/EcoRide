@@ -1,4 +1,27 @@
-document.addEventListener("DOMContentLoaded", function () {
+// ✅ Simuler un utilisateur par défaut
+let utilisateur = {
+    estConnecte: false,  // false = visiteur, true = utilisateur connecté
+    credit: 30, // Crédit en euros
+    id: null, // ID utilisateur (null si visiteur)
+    nom: null // Nom de l'utilisateur
+};
+
+// ✅ Fonction pour récupérer l'utilisateur en session depuis PHP
+async function getUtilisateurSession() {
+    try {
+        const response = await fetch("session.php");
+        if (!response.ok) throw new Error("Erreur serveur");
+        return await response.json();
+    } catch (error) {
+        console.warn("⚠ Impossible de récupérer la session PHP, utilisation des données simulées.");
+        return utilisateur; // ✅ Si échec, utiliser la simulation
+    }
+}
+
+// ✅ Charger les infos utilisateur et afficher le trajet
+document.addEventListener("DOMContentLoaded", async function () {
+    utilisateur = await getUtilisateurSession(); // 🔹 Récupère soit PHP, soit simulation
+
     // ✅ Récupérer l'ID du trajet depuis l'URL
     const params = new URLSearchParams(window.location.search);
     const trajetId = params.get("id");
@@ -17,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
             date: "2025-01-20",
             heureDepart: "10:00",
             heureArrivee: "14:00",
-            chauffeur: { pseudo: "Jean Dupont", photo: "../img/profileh1.png", note: 4.8, avis: "Très ponctuel et agréable !" },
+            chauffeur: { pseudo: "Jean Dupont", photo: "../img/profileh1.png", note: 4.8 },
             vehicule: { marque: "Tesla", modele: "Model 3", energie: "Électrique ⚡" },
             preferences: ["Accepte les animaux 🐶", "Musique douce 🎵"],
             placesRestantes: 2,
@@ -32,28 +55,13 @@ document.addEventListener("DOMContentLoaded", function () {
             date: "2025-01-21",
             heureDepart: "09:00",
             heureArrivee: "11:30",
-            chauffeur: { pseudo: "Marie Laure", photo: "../img/profilef1.png", note: 4.5, avis: "Bonne conduite, mais un peu bavarde." },
+            chauffeur: { pseudo: "Marie Laure", photo: "../img/profilef1.png", note: 4.5 },
             vehicule: { marque: "Peugeot", modele: "308", energie: "Diesel ⛽" },
             preferences: ["Pas d'animaux 🚫🐶", "Silence total 🤫"],
             placesRestantes: 1,
             prix: 15,
             ecologique: false,
             duree: 150
-        },
-        {
-            id: 3,
-            depart: "Bordeaux",
-            arrivee: "Toulouse",
-            date: "2025-01-22",
-            heureDepart: "08:30",
-            heureArrivee: "11:30",
-            chauffeur: { pseudo: "Paul Martin", photo: "../img/profileh2.png", note: 4.7, avis: "Trajet confortable et sécurisé." },
-            vehicule: { marque: "Renault", modele: "Zoé", energie: "Électrique ⚡" },
-            preferences: ["Accepte les animaux 🐱", "Musique pop 🎶"],
-            placesRestantes: 3,
-            prix: 20,
-            ecologique: true,
-            duree: 180
         }
     ];
 
@@ -62,41 +70,83 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (!trajet) {
         document.getElementById("trajet-details").innerHTML = "<p>Trajet introuvable.</p>";
-    } else {
-        // ✅ Afficher les détails du trajet avec les nouvelles infos
-        document.getElementById("trajet-details").innerHTML = `
-            <div class="profile-container">
-                <img src="${trajet.chauffeur.photo}" alt="Photo de ${trajet.chauffeur.pseudo}" class="photo-chauffeur">
-                <h3>${trajet.chauffeur.pseudo} (${trajet.chauffeur.note}/5)</h3>
-                <p>⭐ ${trajet.chauffeur.avis}</p>
-            </div>
+        return;
+    }
 
-            <div class="details-trajet">
-                <p>🚗 ${trajet.depart} → ${trajet.arrivee}</p>
-                <p>📅 ${trajet.date}</p>
-                <p>🕒 ${trajet.heureDepart} → ${trajet.heureArrivee}</p>
-                <p>💰 ${trajet.prix}€</p>
-                <p>🪑 ${trajet.placesRestantes} places restantes</p>
-                <p>${trajet.ecologique ? "🌱 Voyage écologique" : "🚗 Voyage classique"}</p>
-            </div>
+    // ✅ Vérifier si le bouton doit être actif
+    let boutonParticiper = `<button class="btn-participer" id="btn-participer">Participer</button>`;
 
-            <div class="vehicule-details">
-                <h4>🚘 Véhicule</h4>
-                <p><strong>${trajet.vehicule.marque} ${trajet.vehicule.modele}</strong> – ${trajet.vehicule.energie}</p>
-            </div>
+    if (trajet.placesRestantes === 0) {
+        boutonParticiper = `<button class="btn-participer disabled" disabled>Complet</button>`;
+    } else if (utilisateur.estConnecte && utilisateur.credit < trajet.prix) {
+        boutonParticiper = `<button class="btn-participer disabled" disabled>Crédit insuffisant</button>`;
+    }
 
-            <div class="preferences">
-                <h4>🎧 Préférences du conducteur</h4>
-                <ul>${trajet.preferences.map(pref => `<li>${pref}</li>`).join("")}</ul>
-            </div>
+    // ✅ Afficher les détails du trajet
+    document.getElementById("trajet-details").innerHTML = `
+        <div class="profile-container">
+            <img src="${trajet.chauffeur.photo}" alt="Photo de ${trajet.chauffeur.pseudo}" class="photo-chauffeur">
+            <h3>${trajet.chauffeur.pseudo} (${trajet.chauffeur.note}/5)</h3>
+        </div>
 
-            <button class="btn-reserver">Participer</button>
-        `;
+        <div class="details-trajet">
+            <p>🚗 ${trajet.depart} → ${trajet.arrivee}</p>
+            <p>📅 ${trajet.date}</p>
+            <p>🕒 ${trajet.heureDepart} → ${trajet.heureArrivee}</p>
+            <p>💰 ${trajet.prix}€</p>
+            <p>🪑 ${trajet.placesRestantes} places restantes</p>
+        </div>
+
+        <div class="vehicule-details">
+            <h4>🚘 Véhicule</h4>
+            <p><strong>${trajet.vehicule.marque} ${trajet.vehicule.modele}</strong> – ${trajet.vehicule.energie}</p>
+        </div>
+
+        <div class="preferences">
+            <h4>🎧 Préférences du conducteur</h4>
+            <ul>${trajet.preferences.map(pref => `<li>${pref}</li>`).join("")}</ul>
+        </div>
+
+        ${boutonParticiper}
+    `;
+
+    // ✅ Ajouter l'événement pour le bouton "Participer"
+    if (trajet.placesRestantes > 0) {
+        document.getElementById("btn-participer").addEventListener("click", function () {
+            if (!utilisateur.estConnecte) {
+                // ✅ Si l'utilisateur n'est pas connecté, rediriger vers l'inscription
+                window.location.href = "inscription.html";
+            } else if (utilisateur.credit >= trajet.prix) {
+                // ✅ Demande de confirmation
+                const confirmation1 = confirm(`Voulez-vous participer à ce trajet pour ${trajet.prix}€ ?`);
+                if (confirmation1) {
+                    const confirmation2 = confirm(`Votre crédit sera réduit de ${trajet.prix}€. Confirmez-vous ?`);
+                    if (confirmation2) {
+                        // ✅ Mise à jour des données
+                        utilisateur.credit -= trajet.prix;
+                        utilisateur.passagerTrajets.push(trajet);
+                        trajet.placesRestantes--;
+
+                        alert("✅ Participation confirmée ! Votre place est réservée.");
+
+                        // ✅ Mettre à jour l'affichage des places restantes
+                        document.querySelector(".details-trajet p:nth-child(5)").textContent = `🪑 ${trajet.placesRestantes} places restantes`;
+
+                        // ✅ Désactiver le bouton après validation
+                        document.getElementById("btn-participer").disabled = true;
+                        document.getElementById("btn-participer").textContent = "Participation validée";
+                    }
+                }
+            }
+        });
+    }
+});
+
 
         // ✅ Gérer le bouton retour
         document.getElementById("retour-trajets").addEventListener("click", function () {
             window.location.href = "trajets.html";
         });
-    }
-});
+    
+;
 

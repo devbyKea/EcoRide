@@ -135,7 +135,7 @@ header {
 }
 
 /* ✅ Bouton réservation */
-.btn-reserver {
+.btn-participer {
     background: #ff9800;
     color: white;
     border: none;
@@ -147,7 +147,7 @@ header {
     transition: background 0.3s ease;
 }
 
-.btn-reserver:hover {
+.btn-participer:hover {
     background: var(--main-green);
 }
 
