@@ -25,8 +25,13 @@ WORKDIR /app
 # 📌 Copier les fichiers du projet dans le conteneur
 COPY . /app
 
-# 📌 Supprimer le cache et installer les dépendances Composer proprement
-RUN composer install --no-dev --optimize-autoloader --no-interaction --no-plugins
+ENV COMPOSER_ALLOW_SUPERUSER=1
+
+# 📌 Supprimer les anciens fichiers et le cache Composer avant installation
+RUN rm -rf /app/vendor /app/composer.lock \
+    && composer clear-cache \
+    && composer install --no-dev --optimize-autoloader --no-interaction --no-plugins
+
 
 # 📌 Exposer le port 80 pour Apache
 EXPOSE 80
