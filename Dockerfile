@@ -32,9 +32,13 @@ RUN rm -rf /app/vendor /app/composer.lock \
     && composer clear-cache \
     && composer install --no-dev --optimize-autoloader --no-interaction --no-plugins
 
+# Remplace le port 80 par 8080 dans la configuration d'Apache
+RUN sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf
+RUN sed -i 's/<VirtualHost \*:80>/<VirtualHost *:8080>/' /etc/apache2/sites-available/000-default.conf
 
 # 📌 Exposer le port 80 pour Apache
 EXPOSE 8080
+RUN echo "ServerName 0.0.0.0" >> /etc/apache2/apache2.conf
 
 # 📌 Démarrer Apache
 CMD ["apache2-foreground"]
