@@ -1,0 +1,6 @@
+[build]
+builder = "nixpacks"
+buildCommand = "composer install"
+
+[start]
+cmd = "php -S 0.0.0.0:3000 -t php"
