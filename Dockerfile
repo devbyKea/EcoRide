@@ -34,7 +34,7 @@ RUN rm -rf /app/vendor /app/composer.lock \
 
 
 # 📌 Exposer le port 80 pour Apache
-EXPOSE 80
+EXPOSE 8080
 
 # 📌 Démarrer Apache
 CMD ["apache2-foreground"]
