@@ -1,29 +1,35 @@
-# Utiliser PHP 8.2 avec Apache
+# 📌 Utiliser PHP 8.2 avec Apache
 FROM php:8.2-apache
 
-# Installer les extensions nécessaires
+# 📌 Installer les extensions nécessaires
 RUN apt-get update && apt-get install -y \
     unzip \
+    curl \
+    git \
     libzip-dev \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
-    && docker-php-ext-install pdo pdo_mysql zip
+    && docker-php-ext-install pdo pdo_mysql mysqli zip
 
-# Installer Composer manuellement
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# 📌 Installer l'extension MongoDB
+RUN pecl install mongodb \
+    && echo "extension=mongodb.so" >> /usr/local/etc/php/conf.d/mongodb.ini
 
-# Définir le dossier de travail
+# 📌 Installer Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# 📌 Définir le dossier de travail
 WORKDIR /app
 
-# Copier les fichiers du projet dans le conteneur
+# 📌 Copier les fichiers du projet dans le conteneur
 COPY . /app
 
-# Supprimer le cache et installer les dépendances Composer
-RUN composer clear-cache && composer install --no-dev --optimize-autoloader
+# 📌 Supprimer le cache et installer les dépendances Composer proprement
+RUN composer install --no-dev --optimize-autoloader --no-interaction --no-plugins
 
-# Exposer le port 80 pour Apache
+# 📌 Exposer le port 80 pour Apache
 EXPOSE 80
 
-# Démarrer Apache
+# 📌 Démarrer Apache
 CMD ["apache2-foreground"]
