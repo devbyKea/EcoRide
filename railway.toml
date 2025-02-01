@@ -4,3 +4,6 @@ buildCommand = "composer install"
 
 [start]
 cmd = "php -S 0.0.0.0:3000 -t php"
+
+[env]
+BP_PHP_VERSION = "8.2"

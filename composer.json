@@ -1,11 +1,9 @@
 {
   "require": {
-    "php": "^8.0",
+    "php": "^8.2",
     "ext-pdo": "*",
     "ext-mysqli": "*",
+    "ext-mongodb": "*",
     "mongodb/mongodb": "^1.11"
   }
 }
-
-
-  
