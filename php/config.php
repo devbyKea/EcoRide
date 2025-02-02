@@ -1,17 +1,15 @@
 <?php
-$host = getenv("MYSQLHOST");  // Récupère l'adresse du serveur MySQL
-$dbname = getenv("MYSQLDATABASE");  // Nom de la base de données
-$username = getenv("MYSQLUSER");  // Nom d'utilisateur MySQL
-$password = getenv("MYSQLPASSWORD");  // Mot de passe MySQL
-$port = getenv("MYSQLPORT") ?: "3306";  // ⚠️ GARDE 3306, c'est le bon port en interne
+$host = "junction.proxy.rlwy.net";  // Host de Railway
+$dbname = "railway";  // Remplace par le nom de ta base si différent
+$username = "root";  // Remplace par l'utilisateur Railway
+$password = "ton_mot_de_passe";  // Remplace par le mot de passe Railway
+$port = "58446";  // Assure-toi que c'est bien ce port
 
 try {
-    $dsn = "mysql:host=$host;port=$port;dbname=$dbname;charset=utf8mb4";
-    $pdo = new PDO($dsn, $username, $password);
+    $pdo = new PDO("mysql:host=$host;port=$port;dbname=$dbname;charset=utf8", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "✅ Connexion réussie à MySQL !";
+    echo "✅ Connexion à la base de données réussie !";
 } catch (PDOException $e) {
     die("❌ Erreur de connexion à MySQL : " . $e->getMessage());
 }
 ?>
-
