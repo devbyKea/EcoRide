@@ -1,3 +1,2 @@
 #!/bin/sh
-cd /app/php
-php -S 0.0.0.0:$PORT
+apachectl -f /app/apache-config.conf -D FOREGROUND
