@@ -1,9 +1,9 @@
 <?php
-$host = getenv("MYSQLHOST");  
-$dbname = getenv("MYSQLDATABASE");
-$username = getenv("MYSQLUSER");
-$password = getenv("MYSQLPASSWORD");
-$port = getenv("MYSQLPORT") ?: "3306"; // Si Railway donne un autre port, change-le ici.
+$host = getenv("MYSQLHOST") ?: "mysql.railway.internal";  // Remplace par ton host Railway
+$dbname = getenv("MYSQLDATABASE") ?: "railway"; // Mets le nom correct
+$username = getenv("MYSQLUSER") ?: "root"; // Ton utilisateur
+$password = getenv("MYSQLPASSWORD") ?: "hbdBKLksPtwzoEqeupeFGMEoYwvXnnLT"; // Ton mot de passe
+$port = getenv("MYSQLPORT") ?: "3306"; // Vérifie le port
 
 try {
     $pdo = new PDO("mysql:host=$host;port=$port;dbname=$dbname;charset=utf8", $username, $password);
