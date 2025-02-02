@@ -30,8 +30,12 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 # Définir le répertoire de travail
 WORKDIR /var/www/html
 
-# Copier le code source du projet
+# Copier tout le projet sauf index.php
 COPY . /var/www/html/
+
+# Copier index.php séparément dans /var/www/html/
+COPY php/index.php /var/www/html/index.php
+
 
 # Donner les bons droits aux fichiers
 RUN chown -R www-data:www-data /var/www/html/ \
