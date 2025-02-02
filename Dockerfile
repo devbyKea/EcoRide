@@ -17,11 +17,17 @@ RUN a2dismod mpm_event && a2enmod mpm_prefork
 # Activer mod_rewrite pour .htaccess
 RUN a2enmod rewrite
 
-# Ajouter le ServerName pour éviter les erreurs
+# 🔥 Forcer Apache à écouter sur 8080
+RUN echo "Listen 8080" >> /etc/apache2/ports.conf
+
+# Définir le ServerName
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
-# 🔥 Forcer Apache à écouter sur le bon port
-ENV APACHE_RUN_PORT=8080
+# Copier la configuration Apache personnalisée
+COPY apache2.conf /etc/apache2/apache2.conf
+
+# Charger la nouvelle configuration Apache
+RUN a2ensite 000-default && service apache2 restart
 
 # Définir le répertoire de travail
 WORKDIR /var/www/html
@@ -36,11 +42,7 @@ RUN chown -R www-data:www-data /var/www/html/ \
 # Exposer le port 8080 (Railway écoute sur ce port)
 EXPOSE 8080
 
-RUN apache2ctl -S
-
-RUN apt-get install -y curl && curl -I http://localhost:8080
-
 # Démarrer Apache en mode foreground
-CMD apache2ctl -D FOREGROUND | tee /proc/1/fd/1
+CMD ["apache2-foreground"]
 
 
