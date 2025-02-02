@@ -44,6 +44,11 @@ RUN sed -i 's/<VirtualHost \*:80>/<VirtualHost *:8080>/' /etc/apache2/sites-avai
 # 📌 Exposer le port 80 pour Apache
 EXPOSE 8080
 RUN echo "ServerName 0.0.0.0" >> /etc/apache2/apache2.conf
+# Installer Apache MPM Prefork pour éviter l'erreur
+RUN apt-get update && apt-get install -y apache2 libapache2-mod-php
+
+# Activer le module MPM Prefork
+RUN a2dismod mpm_event && a2enmod mpm_prefork
 
 # 📌 Démarrer Apache
-CMD ["apache2-foreground"]
+CMD ["apache2-foreground, bash, /app/start.sh"]
