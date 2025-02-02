@@ -11,17 +11,17 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install mysqli pdo pdo_mysql \
     && docker-php-ext-enable pdo_mysql
 
-# 🔥 Désactiver MPM event et activer MPM prefork (OBLIGATOIRE)
+# Désactiver MPM event et activer MPM prefork
 RUN a2dismod mpm_event && a2enmod mpm_prefork
 
 # Activer mod_rewrite pour .htaccess
 RUN a2enmod rewrite
 
-# 🔥 Vérifier si Apache est bien configuré (affichera des logs dans Railway)
-RUN apache2ctl configtest
-
-# Définir le ServerName pour éviter les erreurs
+# Ajouter le ServerName pour éviter les erreurs
 RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+
+# 🔥 Forcer Apache à écouter sur le bon port
+ENV APACHE_RUN_PORT=8080
 
 # Définir le répertoire de travail
 WORKDIR /var/www/html
@@ -36,5 +36,6 @@ RUN chown -R www-data:www-data /var/www/html/ \
 # Exposer le port 8080 (Railway écoute sur ce port)
 EXPOSE 8080
 
-# Lancer Apache en mode foreground
+# Démarrer Apache en mode foreground
 CMD ["apache2-foreground"]
+
