@@ -38,6 +38,7 @@ EXPOSE 8080
 
 RUN apache2ctl -S
 
+RUN apt-get install -y curl && curl -I http://localhost:8080
 
 # Démarrer Apache en mode foreground
 CMD apache2ctl -D FOREGROUND | tee /proc/1/fd/1
