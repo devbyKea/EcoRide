@@ -1,4 +1,4 @@
-# Utilisation d'une image officielle PHP avec Apache déjà installé
+# Utilisation d'une image officielle PHP avec Apache
 FROM php:8.2-apache
 
 # Mise à jour des paquets et installation des extensions PHP nécessaires
@@ -15,31 +15,35 @@ RUN apt-get update && apt-get install -y \
 # Activer mod_rewrite pour Apache (nécessaire pour .htaccess)
 RUN a2enmod rewrite
 
-# Correction du problème MPM Prefork (Apache multi-threading)
+# 🔥 Désactiver MPM event et activer MPM prefork pour éviter "No MPM loaded"
 RUN a2dismod mpm_event && a2enmod mpm_prefork
 
+# 🔥 Vérification que les modules MPM sont bien activés (debug)
+RUN apachectl -M
+
 # Définir le ServerName pour éviter l’erreur de configuration
-RUN echo "ServerName localhost" > /etc/apache2/conf-available/servername.conf \
+RUN echo "ServerName ${RAILWAY_STATIC_URL}" > /etc/apache2/conf-available/servername.conf \
     && a2enconf servername
 
 # Définir le répertoire de travail
-WORKDIR /var/www/html
+WORKDIR /app/EcoRide/php
 
 # Copier les fichiers du projet vers le serveur Apache
-COPY . /var/www/html/
+COPY . /app/EcoRide/php/
 
+# Copier la configuration Apache
 COPY apache2.conf /etc/apache2/apache2.conf
 
-
-# Copier le fichier de configuration Apache personnalisé
-COPY apache-config.conf /etc/apache2/sites-available/000-default.conf
-
 # Donner les bons droits aux fichiers
-RUN chown -R www-data:www-data /var/www/html/ \
-    && chmod -R 755 /var/www/html/
+RUN chown -R www-data:www-data /app/EcoRide/php/ \
+    && chmod -R 755 /app/EcoRide/php/
 
 # Exposer le port 8080 (Railway écoute sur ce port)
 EXPOSE 8080
 
+# 🔥 Activation des sites et rechargement d'Apache
+RUN a2ensite 000-default
+
 # Lancer Apache au démarrage du container
 CMD ["apache2-foreground"]
+
