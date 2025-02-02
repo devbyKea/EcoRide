@@ -37,5 +37,6 @@ RUN chown -R www-data:www-data /var/www/html/ \
 EXPOSE 8080
 
 # Démarrer Apache en mode foreground
-CMD ["apache2-foreground"]
+CMD apache2ctl -D FOREGROUND | tee /proc/1/fd/1
+
 
