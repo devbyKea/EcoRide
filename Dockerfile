@@ -31,6 +31,11 @@ ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN rm -rf /app/vendor /app/composer.lock \
     && composer clear-cache \
     && composer install --no-dev --optimize-autoloader --no-interaction --no-plugins
+# Copier le fichier de config Apache
+COPY apache2.conf /etc/apache2/apache2.conf
+
+# Activer le module rewrite
+RUN a2enmod rewrite
 
 # Remplace le port 80 par 8080 dans la configuration d'Apache
 RUN sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf
