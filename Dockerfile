@@ -24,12 +24,12 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 # Définir le répertoire de travail
 WORKDIR /var/www/html
 
-# Copier tout le projet sauf index.php
-COPY backend/ /var/www/html/
-
 # Copier index.php et config.php séparément
-COPY backend/php/index.php /var/www/html/index.php
-COPY backend/php/config.php /var/www/html/config.php
+COPY php/index.php /var/www/html/index.php
+COPY php/config.php /var/www/html/config.php
+COPY config/phpmyadmin.config.inc.php /var/www/phpmyadmin/config.inc.php
+COPY . /var/www/html/
+
 
 # Donner les bons droits aux fichiers
 RUN chown -R www-data:www-data /var/www/html/ \
@@ -40,9 +40,6 @@ RUN wget -O /tmp/phpmyadmin.zip https://www.phpmyadmin.net/downloads/phpMyAdmin-
     && unzip /tmp/phpmyadmin.zip -d /var/www/ \
     && mv /var/www/phpMyAdmin-* /var/www/phpmyadmin \
     && rm /tmp/phpmyadmin.zip
-
-# Copier la configuration personnalisée de phpMyAdmin
-COPY backend/config/phpmyadmin.config.inc.php /var/www/phpmyadmin/config.inc.php
 
 # Donner les bons droits d'accès à phpMyAdmin
 RUN chown -R www-data:www-data /var/www/phpmyadmin \
