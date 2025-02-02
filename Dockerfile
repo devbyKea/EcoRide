@@ -36,6 +36,8 @@ COPY . /var/www/html/
 # Copier index.php séparément dans /var/www/html/
 COPY php/index.php /var/www/html/index.php
 
+COPY php/config.php /var/www/html/config.php
+
 
 # Donner les bons droits aux fichiers
 RUN chown -R www-data:www-data /var/www/html/ \
