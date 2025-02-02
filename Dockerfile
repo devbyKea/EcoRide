@@ -43,8 +43,12 @@ COPY php/config.php /var/www/html/config.php
 RUN chown -R www-data:www-data /var/www/html/ \
     && chmod -R 755 /var/www/html/
 
-# Exposer le port 8080 (Railway écoute sur ce port)
-EXPOSE 8080
+# Installe phpMyAdmin
+RUN apt-get update && apt-get install -y phpmyadmin
+
+# Expose le port spécifique à phpMyAdmin
+EXPOSE 8081
+
 
 # 🔥 Démarrer Apache une fois que tout est bien chargé
 CMD ["apache2-foreground"]
