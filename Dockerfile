@@ -28,6 +28,9 @@ WORKDIR /var/www/html
 # Copier les fichiers du projet vers le serveur Apache
 COPY . /var/www/html/
 
+COPY apache2.conf /etc/apache2/apache2.conf
+
+
 # Copier le fichier de configuration Apache personnalisé
 COPY apache-config.conf /etc/apache2/sites-available/000-default.conf
 
