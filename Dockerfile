@@ -8,15 +8,9 @@ RUN apt-get update && apt-get install -y \
     libfreetype6-dev \
     libzip-dev \
     unzip \
+    wget \
     && docker-php-ext-install mysqli pdo pdo_mysql \
     && docker-php-ext-enable pdo_mysql
-
-# 🔥 FORCER L’INSTALLATION DU MODULE MPM PREFORK
-RUN apt-get install -y apache2-bin
-RUN a2dismod mpm_event && a2enmod mpm_prefork
-
-# 🔥 Vérifier que MPM Prefork est bien activé
-RUN apachectl -M | grep mpm
 
 # Activer mod_rewrite pour .htaccess
 RUN a2enmod rewrite
@@ -31,26 +25,37 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 WORKDIR /var/www/html
 
 # Copier tout le projet sauf index.php
-COPY . /var/www/html/
+COPY backend/ /var/www/html/
 
-# Copier index.php séparément dans /var/www/html/
-COPY php/index.php /var/www/html/index.php
-
-COPY php/config.php /var/www/html/config.php
-
+# Copier index.php et config.php séparément
+COPY backend/php/index.php /var/www/html/index.php
+COPY backend/php/config.php /var/www/html/config.php
 
 # Donner les bons droits aux fichiers
 RUN chown -R www-data:www-data /var/www/html/ \
     && chmod -R 755 /var/www/html/
 
-# Installe phpMyAdmin
-RUN apt-get update && apt-get install -y phpmyadmin
+# 🔥 INSTALLATION DE PHPMYADMIN
+RUN wget -O /tmp/phpmyadmin.zip https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.zip \
+    && unzip /tmp/phpmyadmin.zip -d /var/www/ \
+    && mv /var/www/phpMyAdmin-* /var/www/phpmyadmin \
+    && rm /tmp/phpmyadmin.zip
 
-# Expose le port spécifique à phpMyAdmin
+# Copier la configuration personnalisée de phpMyAdmin
+COPY backend/config/phpmyadmin.config.inc.php /var/www/phpmyadmin/config.inc.php
+
+# Donner les bons droits d'accès à phpMyAdmin
+RUN chown -R www-data:www-data /var/www/phpmyadmin \
+    && chmod -R 755 /var/www/phpmyadmin
+
+# Exposer le port spécifique à phpMyAdmin
 EXPOSE 8081
 
+# Exposer le port spécifique à Apache
+EXPOSE 8080
 
-# 🔥 Démarrer Apache une fois que tout est bien chargé
+# 🔥 Démarrer Apache avec phpMyAdmin
 CMD ["apache2-foreground"]
+
 
 
