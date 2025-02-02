@@ -4,9 +4,18 @@ buildCommand = """
 composer clear-cache
 composer install --no-dev --optimize-autoloader
 """
+command = "docker build -t ecoride ."
 
 [start]
 cmd = "php -S 0.0.0.0:3000 -t php"
 
 [env]
 BP_PHP_VERSION = "8.2"
+
+[service]
+name = "ecoride"
+env = "production"
+
+[deploy]
+startCommand = "apache2-foreground"
+
