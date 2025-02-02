@@ -15,14 +15,20 @@ RUN apt-get update && apt-get install -y \
 # Activer mod_rewrite pour Apache (nécessaire pour .htaccess)
 RUN a2enmod rewrite
 
-# Correction du problème MPM Prefork
+# Correction du problème MPM Prefork (Apache multi-threading)
 RUN a2dismod mpm_event && a2enmod mpm_prefork
+
+# Définir le ServerName pour éviter l’erreur de configuration
+RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 
 # Définir le répertoire de travail
 WORKDIR /var/www/html
 
 # Copier les fichiers du projet vers le serveur Apache
 COPY . /var/www/html/
+
+# Copier le fichier de configuration Apache personnalisé
+COPY apache-config.conf /etc/apache2/sites-available/000-default.conf
 
 # Donner les bons droits aux fichiers
 RUN chown -R www-data:www-data /var/www/html/ \
@@ -31,5 +37,9 @@ RUN chown -R www-data:www-data /var/www/html/ \
 # Exposer le port 8080 (Railway écoute sur ce port)
 EXPOSE 8080
 
+# Activer le site et recharger Apache
+RUN a2ensite 000-default && service apache2 reload
+
 # Lancer Apache au démarrage du container
 CMD ["apache2-foreground"]
+
