@@ -36,6 +36,9 @@ RUN chown -R www-data:www-data /var/www/html/ \
 # Exposer le port 8080 (Railway écoute sur ce port)
 EXPOSE 8080
 
+RUN apache2ctl -S
+
+
 # Démarrer Apache en mode foreground
 CMD apache2ctl -D FOREGROUND | tee /proc/1/fd/1
 
