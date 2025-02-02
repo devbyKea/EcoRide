@@ -19,7 +19,8 @@ RUN a2enmod rewrite
 RUN a2dismod mpm_event && a2enmod mpm_prefork
 
 # Définir le ServerName pour éviter l’erreur de configuration
-RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
+RUN echo "ServerName localhost" > /etc/apache2/conf-available/servername.conf \
+    && a2enconf servername
 
 # Définir le répertoire de travail
 WORKDIR /var/www/html
@@ -37,9 +38,5 @@ RUN chown -R www-data:www-data /var/www/html/ \
 # Exposer le port 8080 (Railway écoute sur ce port)
 EXPOSE 8080
 
-# Activer le site et recharger Apache
-RUN a2ensite 000-default && service apache2 reload
-
 # Lancer Apache au démarrage du container
 CMD ["apache2-foreground"]
-
