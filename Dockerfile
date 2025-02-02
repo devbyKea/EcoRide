@@ -22,18 +22,19 @@ RUN apachectl -M | grep mpm
 # Activer mod_rewrite pour .htaccess
 RUN a2enmod rewrite
 
-# Télécharger phpMyAdmin
+# 🔥 Installation de phpMyAdmin
 RUN wget -O /tmp/phpmyadmin.zip https://www.phpmyadmin.net/downloads/phpMyAdmin-latest-all-languages.zip \
     && unzip /tmp/phpmyadmin.zip -d /var/www/ \
     && mv /var/www/phpMyAdmin-* /var/www/phpmyadmin \
     && rm /tmp/phpmyadmin.zip
 
-# Copier la config phpMyAdmin
-COPY php/phpmyadmin.config.inc.php /var/www/phpmyadmin/config.inc.php
+# 🔥 Ajouter un alias Apache pour phpMyAdmin
+RUN echo "Alias /phpmyadmin /var/www/phpmyadmin" >> /etc/apache2/apache2.conf
 
-# Définir les bons droits d'accès
+# 🔥 Configurer les permissions
 RUN chown -R www-data:www-data /var/www/phpmyadmin \
     && chmod -R 755 /var/www/phpmyadmin
+
 
 # Exposer le port spécifique à phpMyAdmin
 EXPOSE 8081
