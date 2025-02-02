@@ -1,54 +1,35 @@
-# 📌 Utiliser PHP 8.2 avec Apache
+# Utilisation d'une image officielle PHP avec Apache déjà installé
 FROM php:8.2-apache
 
-# 📌 Installer les extensions nécessaires
+# Mise à jour des paquets et installation des extensions PHP nécessaires
 RUN apt-get update && apt-get install -y \
-    unzip \
-    curl \
-    git \
-    libzip-dev \
     libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
     libonig-dev \
-    libxml2-dev \
-    && docker-php-ext-install pdo pdo_mysql mysqli zip
+    libzip-dev \
+    unzip \
+    && docker-php-ext-install mysqli pdo pdo_mysql \
+    && docker-php-ext-enable pdo_mysql
 
-# 📌 Installer l'extension MongoDB
-RUN pecl install mongodb \
-    && echo "extension=mongodb.so" >> /usr/local/etc/php/conf.d/mongodb.ini
-
-# 📌 Installer Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-# 📌 Définir le dossier de travail
-WORKDIR /app
-
-# 📌 Copier les fichiers du projet dans le conteneur
-COPY . /app
-
-ENV COMPOSER_ALLOW_SUPERUSER=1
-
-# 📌 Supprimer les anciens fichiers et le cache Composer avant installation
-RUN rm -rf /app/vendor /app/composer.lock \
-    && composer clear-cache \
-    && composer install --no-dev --optimize-autoloader --no-interaction --no-plugins
-# Copier le fichier de config Apache
-COPY apache2.conf /etc/apache2/apache2.conf
-
-# Activer le module rewrite
+# Activer mod_rewrite pour Apache (nécessaire pour .htaccess)
 RUN a2enmod rewrite
 
-# Remplace le port 80 par 8080 dans la configuration d'Apache
-RUN sed -i 's/Listen 80/Listen 8080/' /etc/apache2/ports.conf
-RUN sed -i 's/<VirtualHost \*:80>/<VirtualHost *:8080>/' /etc/apache2/sites-available/000-default.conf
-
-# 📌 Exposer le port 80 pour Apache
-EXPOSE 8080
-RUN echo "ServerName 0.0.0.0" >> /etc/apache2/apache2.conf
-# Installer Apache MPM Prefork pour éviter l'erreur
-RUN apt-get update && apt-get install -y apache2 libapache2-mod-php
-
-# Activer le module MPM Prefork
+# Correction du problème MPM Prefork
 RUN a2dismod mpm_event && a2enmod mpm_prefork
 
-# 📌 Démarrer Apache
-CMD ["apache2-foreground, bash, /app/start.sh"]
+# Définir le répertoire de travail
+WORKDIR /var/www/html
+
+# Copier les fichiers du projet vers le serveur Apache
+COPY . /var/www/html/
+
+# Donner les bons droits aux fichiers
+RUN chown -R www-data:www-data /var/www/html/ \
+    && chmod -R 755 /var/www/html/
+
+# Exposer le port 8080 (Railway écoute sur ce port)
+EXPOSE 8080
+
+# Lancer Apache au démarrage du container
+CMD ["apache2-foreground"]
