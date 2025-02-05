@@ -55,8 +55,11 @@ COPY . .
 RUN apt-get update && apt-get install -y unzip curl
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Installer l'extension MongoDB
-RUN pecl install mongodb \
+# Installer les bibliothèques nécessaires pour MongoDB avec SSL
+RUN apt-get update && apt-get install -y \
+    libssl-dev \
+    pkg-config \
+    && pecl install mongodb \
     && echo "extension=mongodb.so" > /usr/local/etc/php/conf.d/mongodb.ini
 
 # Supprimer `vendor/` pour éviter les erreurs de cache
