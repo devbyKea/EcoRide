@@ -1,3 +1,5 @@
+import API_URL from "./config.js";
+
 document.addEventListener('DOMContentLoaded', () => {
   const userLogo = document.getElementById('user-logo');
   const dropdownMenu = document.getElementById('profile-dropdown-menu');
