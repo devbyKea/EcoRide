@@ -1,7 +1,8 @@
 <?php
 // Définir le bon chemin pour accéder aux fichiers de configuration
-require_once __DIR__ . '/config/database.php';
-require_once __DIR__ . '/config/mongodb.php';
+require_once __DIR__ . '/php/config/database.php';
+require_once __DIR__ . '/php/config/mongodb.php';
+
 
 
 header("Content-Type: application/json");

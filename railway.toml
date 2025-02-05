@@ -2,12 +2,14 @@
 command = "docker build -t ecoride ."
 
 [start]
-cmd = "docker run -p 8080:8080 -p 8081:8081 ecoride"
+cmd = """
+docker run -e PORT=$PORT -p $PORT:$PORT -p 8081:8081 ecoride
+"""
 
 [env]
 BP_PHP_VERSION = "8.2"
+PORT = "8080"
 
 [service]
 name = "ecoride"
 env = "production"
-
