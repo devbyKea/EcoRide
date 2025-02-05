@@ -3,19 +3,39 @@ header("Content-Type: application/json");
 require_once __DIR__ . '/../config/database.php';
 
 try {
-    // Si un ID utilisateur est fourni dans l'URL
-    if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['id'])) {
-        $id = $_GET['id'];
-        $stmt = $pdo->prepare("SELECT utilisateur_id, prenom, nom, email, telephone, adresse, pseudo, statut FROM Utilisateur WHERE utilisateur_id = ?");
-        $stmt->execute([$id]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+        if (isset($_GET['id'])) {
+            // Récupérer un seul utilisateur par son ID
+            $id = $_GET['id'];
+            $stmt = $pdo->prepare("SELECT utilisateur_id, prenom, nom, email, telephone, adresse, pseudo, statut FROM Utilisateur WHERE utilisateur_id = ?");
+            $stmt->execute([$id]);
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($user) {
-            echo json_encode($user);
+            if ($user) {
+                echo json_encode($user, JSON_PRETTY_PRINT);
+            } else {
+                http_response_code(404);
+                echo json_encode(["error" => "Utilisateur non trouvé"]);
+            }
         } else {
-            echo json_encode(["error" => "Utilisateur non trouvé"]);
+            // Récupérer tous les utilisateurs si aucun ID n'est fourni
+            $stmt = $pdo->query("SELECT utilisateur_id, prenom, nom, email, telephone, adresse, pseudo, statut FROM Utilisateur");
+            $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if ($users) {
+                echo json_encode($users, JSON_PRETTY_PRINT);
+            } else {
+                http_response_code(404);
+                echo json_encode(["error" => "Aucun utilisateur trouvé"]);
+            }
         }
+    } else {
+        http_response_code(405);
+        echo json_encode(["error" => "Méthode non autorisée"]);
     }
 } catch (Exception $e) {
-    echo json_encode(["error" => "Erreur : " . $e->getMessage()]);
+    http_response_code(500);
+    echo json_encode(["error" => "Erreur SQL : " . $e->getMessage()]);
 }
+?>
+
