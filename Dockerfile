@@ -59,8 +59,11 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN pecl install mongodb \
     && echo "extension=mongodb.so" > /usr/local/etc/php/conf.d/mongodb.ini
 
-# Installer les dépendances PHP
-RUN composer install --no-dev --optimize-autoloader
+# Supprimer `vendor/` pour éviter les erreurs de cache
+RUN rm -rf /var/www/html/vendor
+
+# Installer les dépendances Composer sans erreur de plateforme
+RUN composer install --no-dev --optimize-autoloader --ignore-platform-reqs
 
 
 # Copier index.php et config.php séparément
