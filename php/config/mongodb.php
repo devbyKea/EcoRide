@@ -38,8 +38,6 @@ $newNotification = [
 
 $resultNotif = $collectionNotifications->insertOne($newNotification);
 
-echo "✅ Notification ajoutée avec l'ID : " . $resultNotif->getInsertedId();
-
 
 $userId = "654321";  // Remplace par l'ID réel de l'utilisateur
 
@@ -48,24 +46,16 @@ $notifications = $collectionNotifications->find([
     "status" => "non-lu"
 ]);
 
-foreach ($notifications as $notif) {
-    echo "[" . $notif['status'] . "] " . $notif['message'] . " - " . $notif['date']->toDateTime()->format('d/m/Y H:i') . "\n";
-}
 
 $collectionNotifications->updateOne(
     ["user_id" => "654321", "status" => "non-lu"], 
     ['$set' => ["status" => "lu"]]
 );
 
-echo "✅ Notification marquée comme lue !";
-
 
 $olderThan30Days = new MongoDB\BSON\UTCDateTime((time() - (30 * 24 * 60 * 60)) * 1000);
 
 $collectionNotifications->deleteMany(["date" => ['$lt' => $olderThan30Days]]);
-
-echo "✅ Anciennes notifications supprimées !";
-
 
 // Sélectionner la collection "logs"
 $collectionLogs = $database->selectCollection('logs');
@@ -79,21 +69,14 @@ $newLog = [
 
 $resultLog = $collectionLogs->insertOne($newLog);
 
-echo "✅ Log ajouté avec l'ID : " . $resultLog->getInsertedId();
-
 $userId = "654321";
 
 $logs = $collectionLogs->find(["user_id" => $userId]);
 
-foreach ($logs as $log) {
-    echo "[" . $log['date']->toDateTime()->format('d/m/Y H:i') . "] " . $log['action'] . "\n";
-}
 
 $olderThan6Months = new MongoDB\BSON\UTCDateTime((time() - (180 * 24 * 60 * 60)) * 1000);
 
 $collectionLogs->deleteMany(["date" => ['$lt' => $olderThan6Months]]);
-
-echo "✅ Logs anciens supprimés !";
 
 $collectionStats = $database->selectCollection('stats');
 
@@ -104,10 +87,6 @@ $newStat = [
 ];
 
 $collectionStats->insertOne($newStat);
-echo "✅ Statistiques mises à jour !";
 
 $stats = $collectionStats->find([]);
 
-foreach ($stats as $stat) {
-    echo "[" . $stat['date']->toDateTime()->format('d/m/Y') . "] Trajets : " . $stat['trajets'] . "\n";
-}
