@@ -1,7 +1,7 @@
 <?php
-// Charger la configuration et la connexion à la base de données
-require_once __DIR__ . '/config/database.php';
-require_once __DIR__ . '/config/mongodb.php';
+// Définir le bon chemin pour accéder aux fichiers de configuration
+require_once __DIR__ . '/php/config/database.php';
+require_once __DIR__ . '/php/config/mongodb.php';
 
 header("Content-Type: application/json");
 
@@ -16,14 +16,14 @@ $request_uri = strtok($_SERVER["REQUEST_URI"], '?'); // Supprime les paramètres
 
 // Définir les chemins pour les fichiers API
 $api_routes = [
-    "/users.php" => __DIR__ . "/api/users.php",
-    "/rides.php" => __DIR__ . "/api/rides.php",
-    "/notifications.php" => __DIR__ . "/api/notifications.php",
-    "/forgot_password.php" => __DIR__ . "/api/forgot_password.php",
-    "/reset_password.php" => __DIR__ . "/api/reset_password.php",
-    "/login.php" => __DIR__ . "/api/login.php",
-    "/logout.php" => __DIR__ . "/api/logout.php",
-    "/protected.php" => __DIR__ . "/api/protected.php"
+    "/forgot_password.php" => __DIR__ . "/php/api/forgot_password.php",
+    "/login.php" => __DIR__ . "/php/api/login.php",
+    "/logout.php" => __DIR__ . "/php/api/logout.php",
+    "/notifications.php" => __DIR__ . "/php/api/notifications.php",
+    "/protected.php" => __DIR__ . "/php/api/protected.php",
+    "/reset_password.php" => __DIR__ . "/php/api/reset_password.php",
+    "/rides.php" => __DIR__ . "/php/api/rides.php",
+    "/users.php" => __DIR__ . "/php/api/users.php"
 ];
 
 // Vérifier si la route demandée existe
