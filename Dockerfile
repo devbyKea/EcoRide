@@ -42,7 +42,8 @@ COPY .env /var/www/html/.env
 COPY php /var/www/html/php
 COPY composer.json /var/www/html/composer.json
 COPY composer.lock /var/www/html/composer.lock
-COPY apache/000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
+
 
 # Appliquer la nouvelle configuration Apache
 RUN a2ensite 000-default.conf
