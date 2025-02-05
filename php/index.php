@@ -16,22 +16,23 @@ $request_uri = strtok($_SERVER["REQUEST_URI"], '?'); // Supprime les paramètres
 
 // Définir les chemins pour les fichiers API
 $api_routes = [
-    "/users.php" => "api/users.php",
-    "/rides.php" => "api/rides.php",
-    "/notifications.php" => "api/notifications.php",
-    "/forgot_password.php" => "api/forgot_password.php",
-    "/reset_password.php" => "api/reset_password.php",
-    "/login.php" => "api/login.php",
-    "/logout.php" => "api/logout.php",
-    "/protected.php" => "api/protected.php"
+    "/users.php" => __DIR__ . "/api/users.php",
+    "/rides.php" => __DIR__ . "/api/rides.php",
+    "/notifications.php" => __DIR__ . "/api/notifications.php",
+    "/forgot_password.php" => __DIR__ . "/api/forgot_password.php",
+    "/reset_password.php" => __DIR__ . "/api/reset_password.php",
+    "/login.php" => __DIR__ . "/api/login.php",
+    "/logout.php" => __DIR__ . "/api/logout.php",
+    "/protected.php" => __DIR__ . "/api/protected.php"
 ];
 
 // Vérifier si la route demandée existe
 if (array_key_exists($request_uri, $api_routes)) {
-    require __DIR__ . '/' . $api_routes[$request_uri];
+    require $api_routes[$request_uri];
     exit;
 }
 
 // Gérer les erreurs 404
 http_response_code(404);
 echo json_encode(["error" => "Route non trouvée"]);
+?>
