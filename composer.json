@@ -5,6 +5,7 @@
     "ext-mysqli": "*",
     "ext-mongodb": "*",
     "mongodb/mongodb": "*",
-    "vlucas/phpdotenv": "*"
+    "vlucas/phpdotenv": "*",
+    "phpmailer/phpmailer": "^6.9"
   }
 }
