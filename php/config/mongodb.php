@@ -10,7 +10,8 @@ $dotenv = Dotenv::createImmutable(__DIR__ . '/../..');
 $dotenv->load();
 
 // Récupérer l'URI MongoDB
-$mongoUri = getenv('MONGO_URI') ?: $_ENV['MONGO_URI'] ?? null;
+$mongoUri = $_ENV['MONGO_URI'] ?? getenv('MONGO_URI') ?? null;
+
 
 try {
     $client = new Client($mongoUri);
