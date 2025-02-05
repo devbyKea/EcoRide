@@ -53,7 +53,8 @@ COPY php /var/www/html/php
 COPY vendor /var/www/html/vendor
 COPY composer.json /var/www/html/composer.json
 COPY composer.lock /var/www/html/composer.lock
-COPY index.php /var/www/html/index.php
+COPY php/index.php /var/www/html/index.php
+
 
 
 # Installer Composer dans Docker
