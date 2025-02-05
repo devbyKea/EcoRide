@@ -55,6 +55,10 @@ COPY . .
 RUN apt-get update && apt-get install -y unzip curl
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+# Installer l'extension MongoDB
+RUN pecl install mongodb \
+    && echo "extension=mongodb.so" > /usr/local/etc/php/conf.d/mongodb.ini
+
 # Installer les dépendances PHP
 RUN composer install --no-dev --optimize-autoloader
 
