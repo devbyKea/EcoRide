@@ -1,5 +1,6 @@
 <?php
-require __DIR__ . '/../../vendor/autoload.php'; // Charge Composer
+require_once __DIR__ . '/../../../vendor/autoload.php';
+
 
 use Dotenv\Dotenv;
 
