@@ -48,8 +48,13 @@ RUN echo "ServerName localhost" >> /etc/apache2/apache2.conf
 # Définir le répertoire de travail
 WORKDIR /var/www/html
 
-# Copier le projet
-COPY . .
+# Copier uniquement le contenu PHP sans écraser les configurations système
+COPY php /var/www/html/php
+COPY vendor /var/www/html/vendor
+COPY composer.json /var/www/html/composer.json
+COPY composer.lock /var/www/html/composer.lock
+COPY index.php /var/www/html/index.php
+
 
 # Installer Composer dans Docker
 RUN apt-get update && apt-get install -y unzip curl
