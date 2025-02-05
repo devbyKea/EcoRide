@@ -8,7 +8,8 @@ use MongoDB\Client;
 use Dotenv\Dotenv;
 
 // Charger les variables d'environnement
-$dotenv = Dotenv::createImmutable(__DIR__ . '/../..');
+$dotenv = Dotenv::createImmutable('/var/www/html');
+
 $dotenv->load();
 
 // Récupérer l'URI MongoDB
