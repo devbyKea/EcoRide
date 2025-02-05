@@ -43,7 +43,22 @@ COPY php /var/www/html/php
 COPY composer.json /var/www/html/composer.json
 COPY composer.lock /var/www/html/composer.lock
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
+COPY html /var/www/html/
+COPY css /var/www/html/css/
+COPY js /var/www/html/js/
+COPY img /var/www/html/img/
 
+# Rediriger Apache vers le bon dossier pour le frontend
+RUN echo "<Directory /var/www/html>" >> /etc/apache2/apache2.conf
+RUN echo "    Options Indexes FollowSymLinks" >> /etc/apache2/apache2.conf
+RUN echo "    AllowOverride All" >> /etc/apache2/apache2.conf
+RUN echo "    Require all granted" >> /etc/apache2/apache2.conf
+RUN echo "</Directory>" >> /etc/apache2/apache2.conf
+
+# Configurer Apache pour que `/` affiche le bon index.html
+RUN echo "<IfModule mod_dir.c>" >> /etc/apache2/apache2.conf
+RUN echo "    DirectoryIndex html/index.html" >> /etc/apache2/apache2.conf
+RUN echo "</IfModule>" >> /etc/apache2/apache2.conf
 
 # Appliquer la nouvelle configuration Apache
 RUN a2ensite 000-default.conf
