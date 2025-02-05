@@ -4,6 +4,7 @@
     "ext-pdo": "*",
     "ext-mysqli": "*",
     "ext-mongodb": "*",
-    "mongodb/mongodb": "^1.11"
+    "mongodb/mongodb": "*",
+    "vlucas/phpdotenv": "*"
   }
 }
