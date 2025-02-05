@@ -1,13 +1,8 @@
 [build]
-builder = "nixpacks"
-buildCommand = """
-composer clear-cache
-composer install --no-dev --optimize-autoloader
-"""
 command = "docker build -t ecoride ."
 
 [start]
-cmd = "php -S 0.0.0.0:3000 -t php"
+cmd = "docker run -p 8080:8080 -p 8081:8081 ecoride"
 
 [env]
 BP_PHP_VERSION = "8.2"
@@ -15,7 +10,4 @@ BP_PHP_VERSION = "8.2"
 [service]
 name = "ecoride"
 env = "production"
-
-[deploy]
-startCommand = "apache2-foreground"
 
