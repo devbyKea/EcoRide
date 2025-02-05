@@ -18,7 +18,8 @@ try {
         $_ENV['DB_PASSWORD']
     );
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "✅ Connexion réussie à MySQL !";
+    // Connexion réussie, pas besoin d'afficher du texte ici
+
 } catch (Exception $e) {
     die("❌ Erreur de connexion MySQL : " . $e->getMessage());
 }

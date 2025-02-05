@@ -18,7 +18,8 @@ $mongoUri = $_ENV['MONGO_URI'] ?? getenv('MONGO_URI') ?? null;
 try {
     $client = new Client($mongoUri);
     $database = $client->selectDatabase('EcoRideDB'); // Remplace par le nom de ta base
-    echo "✅ Connexion réussie à MongoDB !";
+    // Connexion réussie, pas besoin d'afficher du texte ici
+
 } catch (Exception $e) {
     die("❌ Erreur de connexion à MongoDB : " . $e->getMessage());
 }
