@@ -26,7 +26,8 @@ $api_routes = [
     "/reset_password.php" => __DIR__ . "/api/reset_password.php",
     "/login.php" => __DIR__ . "/api/login.php",
     "/logout.php" => __DIR__ . "/api/logout.php",
-    "/protected.php" => __DIR__ . "/api/protected.php"
+    "/protected.php" => __DIR__ . "/api/protected.php",
+    "/update_user.php" => __DIR__ . "/api/update_user.php"
 ];
 
 
