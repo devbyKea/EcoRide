@@ -5,12 +5,16 @@ require '/var/www/html/vendor/autoload.php';
 use MongoDB\Client;
 use Dotenv\Dotenv;
 
-// Charger les variables d'environnement depuis le fichier .env
+// Charger les variables d'environnement
 $dotenv = Dotenv::createImmutable('/var/www/html');
 $dotenv->load();
 
-// Récupérer l'URI MongoDB depuis les variables d'environnement
-$mongoUri = getenv('MONGO_URL') ?: $_ENV['MONGO_URL'] ?? null;
+// Vérifier toutes les sources possibles de la variable
+$mongoUri = getenv('MONGO_URL') 
+    ?: $_ENV['MONGO_URL'] 
+    ?: getenv('MONGO_PUBLIC_URL') 
+    ?: $_ENV['MONGO_PUBLIC_URL'] 
+    ?: null;
 
 // Vérifier que l'URI MongoDB est bien définie
 if (!$mongoUri) {
