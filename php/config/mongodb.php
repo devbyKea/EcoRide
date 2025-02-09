@@ -1,29 +1,33 @@
 <?php
 
-require_once '/var/www/html/vendor/autoload.php';
-
-
+require '/var/www/html/vendor/autoload.php';
 
 use MongoDB\Client;
 use Dotenv\Dotenv;
 
-// Charger les variables d'environnement
+// Charger les variables d'environnement depuis le fichier .env
 $dotenv = Dotenv::createImmutable('/var/www/html');
-
 $dotenv->load();
 
-// Récupérer l'URI MongoDB
-$mongoUri = $_ENV['MONGO_URI'] ?? getenv('MONGO_URI');
+// Récupérer l'URI MongoDB depuis les variables d'environnement
+$mongoUri = getenv('MONGO_URL') ?: $_ENV['MONGO_URL'] ?? null;
 
+// Vérifier que l'URI MongoDB est bien définie
+if (!$mongoUri) {
+    die("❌ Erreur : Aucune URL MongoDB trouvée. Vérifie tes variables d'environnement.");
+}
+
+// Ajouter les options pour Railway
+$mongoUri .= "?ssl=true&retryWrites=true&w=majority";
 
 try {
     $client = new Client($mongoUri);
-    $database = $client->selectDatabase('EcoRideDB'); // Remplace par le nom de ta base
-    // Connexion réussie, pas besoin d'afficher du texte ici
-
+    $database = $client->selectDatabase('railway'); // Mets le bon nom ici si besoin
+    echo "✅ Connexion réussie à MongoDB !";
 } catch (Exception $e) {
     die("❌ Erreur de connexion à MongoDB : " . $e->getMessage());
 }
+
 
 
 // Sélectionner la collection "notifications"
