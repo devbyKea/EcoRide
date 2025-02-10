@@ -558,7 +558,7 @@ html, body {
 /* Responsive pour les écrans très petits */
 @media (max-width: 480px) {
   .calendar-dropdown {
-    width: 95%; /* Presque pleine largeur */
+    width: 80%; /* Presque pleine largeur */
     top: calc(100% + 5px); /* Réduit l'espacement */
   }
 
