@@ -532,7 +532,7 @@ html, body {
 @media (max-width: 768px) {
   .calendar-dropdown {
     width: 95%;
-    max-width: 260px; /* Encore plus réduit */
+    max-width: 280px; /* Ajustement pour éviter les coupures */
     left: 50%;
     transform: translateX(-50%);
     top: calc(100% + 10px);
@@ -543,37 +543,38 @@ html, body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.1rem 0; /* Moins d’espace */
+    padding: 0.1rem 0;
   }
 
   .calendar-header button {
-    padding: 0.1rem; /* Boutons plus petits */
+    padding: 0.1rem;
     font-size: 0.6rem;
     width: 20px;
     height: 20px;
   }
 
   .calendar-header span {
-    font-size: 0.7rem; /* Mois réduit */
+    font-size: 0.7rem;
   }
 
   .calendar-weekdays {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    font-size: 0.6rem; /* Jours de la semaine plus petits */
+    grid-template-columns: repeat(7, 1fr); /* Assure exactement 7 colonnes */
+    font-size: 0.6rem;
     padding-bottom: 2px;
+    text-align: center;
   }
 
   .calendar-grid {
     display: grid;
-    grid-template-columns: repeat(7, 1fr); /* Retour à une vraie grille */
-    gap: 1px; /* Espacement minimal */
+    grid-template-columns: repeat(7, 1fr); /* Correction pour ne pas couper Dim */
+    gap: 1px;
   }
 
   .calendar-day {
-    width: 100%; /* Évite l'écrasement */
-    height: auto; /* Adapte à la taille dispo */
-    font-size: 0.6rem; /* Texte plus petit */
+    width: 100%;
+    height: auto;
+    font-size: 0.6rem;
     text-align: center;
     padding: 0.2rem;
   }
@@ -583,7 +584,7 @@ html, body {
 @media (max-width: 480px) {
   .calendar-dropdown {
     width: 98%;
-    max-width: 230px; /* Encore plus compact */
+    max-width: 250px;
     top: calc(100% + 5px);
     padding: 0.1rem;
   }
@@ -593,18 +594,19 @@ html, body {
   }
 
   .calendar-weekdays {
-    font-size: 0.5rem; /* Encore plus petit */
+    font-size: 0.5rem;
   }
 
   .calendar-grid {
-    grid-template-columns: repeat(7, 1fr); /* Assure une grille propre */
+    grid-template-columns: repeat(7, 1fr);
   }
 
   .calendar-day {
-    font-size: 0.5rem; /* Texte encore plus petit */
+    font-size: 0.5rem;
     padding: 0.1rem;
   }
 }
+
 
 
 
