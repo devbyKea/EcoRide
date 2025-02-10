@@ -545,7 +545,7 @@ html, body {
   .calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, minmax(30px, 1fr)); /* Ajuste la largeur des colonnes */
-    gap: 1px; /* Moins d’espace entre les jours */
+    gap: 0.3px; /* Moins d’espace entre les jours */
   }
 
   .calendar-day {
