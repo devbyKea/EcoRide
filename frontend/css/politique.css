@@ -1,0 +1,141 @@
+/* ==============================
+   Styles Politique de Confidentialité
+============================== */
+
+/* En-tête */
+.header-privacy {
+    background-color: var(--main-green);
+    color: var(--text-light);
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.header-privacy h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+.header-privacy p {
+    font-size: 1rem;
+}
+
+/* Conteneur principal */
+.privacy-container {
+    width: 90%;
+    max-width: 800px;
+    margin: 30px auto;
+    background-color: var(--bg-light);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Sections */
+section {
+    margin-bottom: 30px;
+}
+
+h2 {
+    color: var(--dark-green);
+    border-bottom: 3px solid var(--light-green);
+    padding-bottom: 5px;
+    font-size: 1.5rem;
+}
+
+/* Listes */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    background: url('https://cdn-icons-png.flaticon.com/512/845/845646.png') no-repeat left center;
+    background-size: 20px;
+    padding-left: 30px;
+    margin-bottom: 10px;
+}
+
+/* Tableaux */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table, th, td {
+    border: 1px solid var(--bg-grey);
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: var(--dark-green);
+    color: var(--text-light);
+}
+
+td {
+    background-color: var(--bg-light);
+}
+
+/* =======================
+   Footer
+======================= */
+.footer {
+    background-color: var(--dark-green);
+    color: var(--text-light);
+    text-align: center;
+    padding: 1.5rem;
+    
+  }
+  
+  .footer-info p {
+    margin: 0.5rem 0;
+  }
+  
+  .footer-info a {
+    color: var(--light-green);
+    text-decoration: none;
+  }
+  
+  .footer-info a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Largeur / hauteur de la scrollbar */
+  ::-webkit-scrollbar {
+    width: 12px;  /* Ajuste la taille selon ton envie */
+  }
+  
+  /* Piste (arrière-plan) */
+  ::-webkit-scrollbar-track {
+    background-color: #F4ECD8;  /* Couleur rappelant un ton “bois clair” */
+  }
+  
+  /* Pouce (barre de défilement) */
+  ::-webkit-scrollbar-thumb {
+    border-radius: 6px; /* Bords arrondis pour un aspect plus organique */
+    border: 2px solid #F4ECD8; /* Laisse un peu d’espace autour pour mieux voir le motif */
+  
+    /* Motif bois simple (bandes diagonales) */
+    background: repeating-linear-gradient(
+      45deg,          /* Angle diagonal */
+      #8B4513 0px,    /* Couleur brune : début */
+      #8B4513 10px,   /* Jusqu'à 10px */
+      #A0522D 10px,   /* Deuxième couleur (brun plus clair) */
+      #A0522D 20px    /* Jusqu'à 20px, puis le cycle se répète */
+    );
+  }
+  
+  /* Survol de la barre : plus foncée, par exemple */
+  ::-webkit-scrollbar-thumb:hover {
+    background: repeating-linear-gradient(
+      45deg,
+      #8B4513 0px,    
+      #8B4513 10px,
+      #CD853F 10px,   /* Un marron un peu plus clair */
+      #CD853F 20px
+    );
+  }

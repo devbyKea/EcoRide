@@ -1,0 +1,1195 @@
+/* ==============================
+   Variables CSS (palette écolo)
+============================== */
+:root {
+  --main-green: #72A02D;       /* Vert moyen */
+  --dark-green: #4A6E18;       /* Vert plus sombre */
+  --light-green: #BEDC74;      /* Vert clair pastel */
+  --accent-orange: #FF9F1C;    /* Orange pour CTA (optionnel) */
+  --text-dark: #333333;
+  --text-light: #ffffff;
+  --bg-light: #f9f9f9;
+  --bg-grey: #eeeeee;
+
+  --font-main: "Poppins", Arial, sans-serif;
+}
+
+/* =======================
+   Reset rapide
+======================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow: visible;
+  font-family: var(--font-main);
+  color: var(--text-dark);
+  background-color: var(--bg-light);
+  line-height: 1.5;
+}
+
+/* =======================
+   Container Top
+   (pour le bandeau)
+======================= */
+.container-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 2rem;
+}
+
+/* =======================
+   Container Nav
+======================= */
+.container-nav {
+  max-width: 1200px; /* ou la largeur que tu souhaites */
+  margin: 0 auto;    /* centre le bloc */
+  display: flex;     
+  align-items: center;
+  justify-content: space-between; /* ou space-around, etc. selon ton layout */
+  padding: 0 2rem; /* marge intérieure horizontale */
+}
+
+/* =======================
+   Header Top
+======================= */
+.header-top {
+  position: fixed; /* Fixe le header en haut de la page */
+  top: 0; /* Aligné tout en haut */
+  width: 100%; /* Prend toute la largeur */
+  z-index: 1001;
+  background-color: var(--dark-green); 
+  color: var(--text-light); 
+  padding: 0.4rem 0;  
+  font-size: 0.9rem;
+}
+
+/* =======================
+   Navbar en mode Grid
+======================= */
+.navbar {
+  position: fixed; /* Rendre la navbar sticky */
+  top: 2rem; /* Fixer la navbar au sommet */
+  z-index: 1000;
+  width: 100%; /* Assure que la navbar est devant les autres éléments */
+  display: grid; /* Structure en grille */
+  grid-template-columns: auto 1fr auto; /* Colonnes : logo, menu, bouton */
+  justify-content: space-between; /* Espace entre les colonnes */
+  align-items: center; /* Aligne verticalement les éléments */
+  background-color: var(--main-green); /* Fond vert */
+  padding: 1rem 2rem; /* Espacement interne */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+}
+.navbar-wrapper {
+  position: relative; /* Définit un contexte pour la navbar */
+}
+
+/* ================= 
+    Navbar : logo 
+====================*/  
+.logo-text {
+  font-family: 'Lobster', cursive; /* Exemple avec une police plus artistique */
+  font-size: 1.8rem; /* Ajustez la taille du texte */
+  font-weight: 600; /* Gras pour plus de visibilité */
+  color: var(--text-light); /* Couleur du texte (par exemple, blanc) */
+  text-decoration: none; /* Pas de soulignement */
+}
+
+.logo-text:hover {
+  color: var(--light-green); /* Couleur au survol */
+  transition: color 0.3s ease; /* Transition fluide */
+}
+
+/* =======================
+   Navbar : menu central
+======================= */
+.navbar-main {
+  list-style: none;
+  display: flex;        /* On reste en flex pour aligner les liens */
+  gap: 2rem;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+.hamburger {
+  display: none; /* Caché par défaut */
+}
+
+.navbar-main li a {
+  color: var(--text-light);
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s ease; /* transition (couleur, scale) */
+  padding: 0.5rem 0.8rem; /* marge interne pour effet “pastille” */
+  border-radius: 4px;     
+}
+
+/* Hover sur le menu central */
+.navbar-main li a:hover {
+  background-color:  #3B5311; /* Un vert plus foncé */
+   
+}
+
+/* Zone de connexion */
+.navbar-connexion {
+  display: flex; /* Aligne la zone de connexion dans la navbar */
+  align-items: center; /* Centre verticalement */
+  height: 100%; /* Aligne sur toute la hauteur de la navbar */
+}
+
+.navbar-connexion .login-btn {
+  display: inline-flex; /* Aligne les éléments horizontalement */
+  align-items: center; /* Centre verticalement */
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.6rem 1rem;
+  border-radius: 4px;
+  color: var(--text-light);
+  transition: background-color 0.3s;
+}
+
+.navbar-connexion .user-logo {
+  display: inline-flex; /* Alignement horizontal des icônes */
+  align-items: center;
+  text-decoration: none;
+  font-size: 1.5rem; /* Taille des icônes */
+  color: var(--text-light); /* Couleur des icônes */
+  cursor: pointer;
+  gap: 0.5rem; /* Espacement entre l'icône et la flèche */
+}
+
+.user-logo {
+  width: 32px; /* Largeur souhaitée de l'image */
+  height: 32px; /* Hauteur correspondante */
+  border-radius: 50%; /* Rendre l'image circulaire (facultatif) */
+  object-fit: cover; /* Ajuste l'image pour qu'elle ne soit pas déformée */
+  margin-right: 0.5rem;
+}
+
+.navbar-connexion .fa-caret-down {
+  font-size: 1.2rem; /* Taille de la flèche */
+  color: var(--text-light); /* Couleur de la flèche */
+  margin-left: 5px; /* Espace entre l'icône et la flèche */
+  
+}
+
+
+.navbar-connexion .login-btn:hover {
+  background-color: #3B5311; /* Couleur de survol */
+}
+
+/* Styles pour le menu déroulant */
+.profile-dropdown-menu {
+  display: none; /* Masqué par défaut */
+  position: absolute;
+  top: 100%; /* Juste en dessous de l'icône */
+  right: 0; /* Aligné à droite */
+  background-color: var(--bg-light); /* Fond clair */
+  border: 1px solid #ccc; /* Bordure grise */
+  border-radius: 5px; /* Coins arrondis */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
+  z-index: 1000;
+  min-width: 150px; /* Largeur minimale */
+}
+
+.profile-dropdown-menu a {
+  display: block;
+  padding: 0.8rem 1rem;
+  color: var(--text-dark);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.profile-dropdown-menu a:hover {
+  background-color: var(--light-green); /* Couleur de survol */
+}
+
+
+
+
+.hamburger {
+  display: none; /* Masque l'icône par défaut */
+  position: absolute; /* Position absolue pour un placement flexible */
+  font-size: 2rem; /* Taille du menu */
+  color: var(--text-light); /* Couleur initiale */
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1001; /* Priorité devant le contenu */
+  transition: color 0.3s ease; /* Transition fluide pour la couleur */
+}
+
+/* Icône de profil dans le Hero (visible uniquement en mobile) */
+.profile-icon {
+  display: none; /* Masque l'icône par défaut */
+  position: absolute; /* Position absolue pour un placement flexible */
+  top: 1rem; /* Distance depuis le haut */
+  right: 1rem; /* Distance depuis la droite */
+  font-size: 2rem; /* Taille de l'icône */
+  color: var(--text-light); /* Couleur blanche */
+  cursor: pointer;
+  z-index: 1001; /* Toujours au-dessus des autres éléments */
+}
+
+
+.menu-btn {
+  font-size: 2rem;
+  color: var(--text-light);
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1000; /* Assure que le bouton est devant */
+  position: absolute;
+}
+
+/* ===== Dropdown Menu ===== */
+.dropdown-menu {
+  position: absolute;
+  top: 50px; /* Sous le bouton hamburger */
+  left: 10px; /* Aligné avec le bouton */
+  background-color: var(--main-green);
+  border-radius: 5px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: none; /* Masqué par défaut */
+  z-index: 1002; /* Priorité plus haute pour être devant */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-menu li {
+  margin: 0;
+}
+
+.dropdown-menu li a {
+  display: block;
+  padding: 0.8rem 1.2rem;
+  color: var(--text-light);
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-menu li a:hover {
+  background-color: var(--dark-green); /* Survol */
+}
+
+/* ===== Menu visible au survol ===== */
+.hamburger.active + .dropdown-menu {
+  display: block; /* Afficher le menu */
+}
+
+/* =======================
+   Section Hero
+======================= */
+.hero {
+  position: relative;
+  padding-top: 9rem;
+  min-height: 80vh;
+  background: url("../frontend/img/trouver.jpg") center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--text-light);
+}
+
+/* Overlay sombre transparent */
+.hero-overlay {
+  position: absolute;
+  top: 0; 
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    rgba(0, 0, 0, 0.6),
+    rgba(0, 0, 0, 0.3)  
+  );
+  z-index: 1; /* Au-dessus du fond, derrière le contenu */
+}
+
+.hero-header {
+  position: absolute;
+  top: 10px; /* Distance depuis le haut */
+  left: 10px; /* Distance depuis la gauche */
+  right: 10px; /* Distance depuis la droite */
+  display: flex;
+  justify-content: space-between; /* Espace entre le menu et le profil */
+  z-index: 1001; /* Assurez que le header est visible au-dessus */
+  display: none; /* Masqué par défaut */
+  color: var(--light-green); /* Forcer la couleur au survol */
+}
+
+
+/* Contenu de la hero : on le fait apparaître avec une animation */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 700px;
+  padding: 1rem;
+  text-align: center;
+  margin: 0 auto;
+
+  /* Animation */
+  animation: fadeInComplex 1.5s ease-in-out forwards;
+  opacity: 0; /* Par défaut invisible (animation prend le relais) */
+}
+
+.hero-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-light);
+}
+
+.hero-content p {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-light);
+}
+
+.hero-content .btn.btn-hero {
+  margin-bottom: 1.5rem;
+}
+
+/* Conteneur global */
+.search-bar-container {
+  display: flex;
+  flex-direction: column; /* Par défaut, les éléments sont empilés */
+  align-items: center; /* Centre tout horizontalement */
+  gap: 1.5rem; /* Espace entre la barre et le bouton */
+  width: 100%;
+}
+
+/* Barre de recherche */
+.search-bar {
+  display: flex; /* Champs alignés horizontalement */
+  flex-wrap: nowrap; /* Empêche le passage automatique à la ligne */
+  justify-content: space-between; /* Espacement uniforme entre les champs */
+  align-items: center; /* Centre verticalement */
+  gap: 1rem; /* Espace entre les champs */
+  background-color: #f9f9f9;
+  padding: 0.5rem;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 640px; /* Limite la largeur totale */
+  box-sizing: border-box; /* Garantit un dimensionnement correct */
+}
+
+/* Champ de recherche */
+.search-field {
+  display: flex;
+  align-items: center; /* Centre les icônes et le texte */
+  background-color: transparent;
+  padding: 0.5rem 1rem;
+  border: none; /* Supprime les bordures */
+  gap: 0.5rem;
+  flex: 1; /* Partage équitable de l'espace */
+  max-width: 300px; /* Largeur maximale */
+  min-width: 200px; /* Largeur minimale pour éviter les compressions */
+  box-sizing: border-box; /* Inclut les bordures dans la largeur */
+}
+
+
+/* Icône dans le champ */
+.search-field .field-logo {
+  width: 1.5rem;
+  height: 1.5rem;
+  object-fit: contain;
+}
+
+.field-logo {
+  margin-left: -5px;
+
+}
+
+/* Input */
+.search-field input {
+  border: none; /* Supprime les bordures */
+  outline: none; /* Supprime le focus natif */
+  flex: 1;
+  font-size: 1rem;
+  color: #333;
+  background-color: transparent; /* Fond transparent */
+  width: 100%; /* S'assure que l'input s'étire correctement */
+}
+
+/* Bouton de recherche */
+.btn-search {
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  background-color: #FF9F1C;
+  color: var(--text-light);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: auto;
+}
+
+.btn-search:hover {
+  background-color: var(--dark-green);
+}
+
+.search-title,
+.co2-info {
+  display: none; /* Caché sur les écrans desktop par défaut */
+}
+
+/* Icône de calendrier */
+.calendar-icon {
+  cursor: pointer; /* Change le curseur pour indiquer que l'icône est cliquable */
+  width: 1.5rem; /* Ajuste la taille de l'icône */
+  height: 1.5rem;
+}
+.calendar-dropdown {
+  color: #333; /* Couleur du texte */
+  display: none; /* Caché par défaut */
+  position: absolute;
+  top: calc(100% + 0.5rem); /* Juste en dessous du champ avec un espacement */
+  left: 09rem;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  padding: 1rem;
+  width: 400px; /* Ajustez la largeur pour qu'elle corresponde au contenu */
+  overflow: hidden; /* Empêche tout débordement visuel */
+}
+
+.calendar-dropdown table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.calendar-dropdown th,
+.calendar-dropdown td {
+  text-align: center;
+  padding: 0.4rem; /* Ajustez l'espacement interne */
+  cursor: pointer;
+  font-size: 0.9rem; /* Réduisez la taille de la police si nécessaire */
+}
+
+.calendar-dropdown th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+.calendar-dropdown td {
+  border: 1px solid transparent; /* Ajoutez un léger effet de séparation */
+}
+
+.calendar-dropdown td:hover {
+  background-color: var(--main-green);
+  border-radius: 4px; /* Coins légèrement arrondis pour les dates au survol */
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.calendar-header button {
+  background-color: var(--main-green);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 0.3rem 0.6rem; /* Boutons plus petits */
+  font-size: 1rem;
+}
+
+.calendar-header button:hover {
+  background-color: #4a6e18; /* Teinte plus foncée au survol */
+}
+
+.calendar-header span {
+  font-size: 1rem; /* Ajustez la taille du texte pour les mois et années */
+  font-weight: bold;
+}
+
+@media (min-width: 769px) { /* Pour les écrans desktop */
+  .search-field {
+    border-right: none; /* Par défaut, pas de bordure */
+  }
+
+  .search-field:not(:last-child) {
+    border-right: 1px solid #ccc; /* Applique une bordure sauf au dernier champ */
+    padding-right: 1rem; /* Ajoute un espace entre le champ et la bordure */
+  }
+
+  .search-field:last-child {
+    border: none !important; /* Supprime toute bordure */
+  }
+}
+
+
+
+/* Responsive pour les petits écrans */
+@media (max-width: 768px) {
+  .calendar-dropdown {
+    width: 90%; /* S'étend sur presque toute la largeur de l'écran */
+    left: 50%; /* Centré horizontalement */
+    transform: translateX(-50%); /* Ajuste le décalage pour centrer */
+    top: calc(100% + 10px); /* Décalage par rapport au champ */
+    padding: 0.8rem; /* Réduit le padding sur mobile */
+  }
+
+  .calendar-header button {
+    padding: 0.4rem; /* Réduit la taille des boutons */
+  }
+
+  .calendar-header span {
+    font-size: 1rem; /* Réduit la taille du texte */
+  }
+
+  .calendar-day {
+    padding: 0.3rem; /* Réduit les tailles de cellules */
+    font-size: 0.9rem; /* Diminue la taille du texte */
+  }
+}
+
+/* Responsive pour les écrans très petits */
+@media (max-width: 480px) {
+  .calendar-dropdown {
+    width: 95%; /* Presque pleine largeur */
+    top: calc(100% + 5px); /* Réduit l'espacement */
+  }
+
+  .calendar-header span {
+    font-size: 0.9rem; /* Taille plus petite pour les très petits écrans */
+  }
+
+  .calendar-day {
+    font-size: 0.8rem; /* Texte encore plus petit */
+    padding: 0.2rem; /* Cellules encore plus compactes */
+  }
+}
+
+
+/* Supprime l'icône native du champ de type date */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none; /* Cache l'icône native */
+  -webkit-appearance: none; /* Supprime le style par défaut */
+}
+
+/* Supprime l'icône pour Firefox */
+input[type="date"] {
+  -moz-appearance: textfield; /* Supprime l'icône dans Firefox */
+}
+
+@media (max-width: 768px) {
+
+  .header-top {
+    font-size: 0.75rem; /* Réduisez la taille de la police */
+}
+
+  /* Conteneur global */
+  .search-bar-container {
+    padding: 1rem; /* Maintient l'espacement autour des champs */
+    border-radius: 15px; /* Coins arrondis */
+    background-color: var(--bg-grey); /* Fond plus clair */
+    position: relative; /* Permet de positionner le bouton au bas */
+    overflow: visible;
+    display: flex;
+    flex-direction: column; /* Empile tous les éléments */
+    align-items: center; /* Étire les éléments pour occuper toute la largeur */
+    gap: 1rem; /* Espacement vertical entre les éléments */
+    padding: 1rem; /* Empêche tout débordement visuel */
+  }
+
+  /* Barre de recherche */
+  .search-bar {
+    width: 100%; /* La barre prend toute la largeur */
+    display: flex;
+    flex-direction: column; /* Empile les champs verticalement */
+    gap: 1rem;
+    background: none;
+    margin-right: 2rem; 
+  } 
+
+  /* Champ de recherche */
+  .search-field {
+    position: relative;
+    display: flex;
+    align-items: center; /* Aligne les icônes et le texte */
+    border: none !important;
+    box-shadow: none;
+    outline: none;
+    padding: 0; /* Espacement vertical */
+    gap: 0.5rem;
+    width: 100%;
+    margin-bottom: 2rem;
+    
+  }
+
+  .search-field::after {
+    all: unset; /* Réinitialise les styles */
+    content: '';
+    display: block;
+    width: 110%;
+    height: 1px;
+    background-color: #333333;
+    position: absolute;
+    bottom: -1.5rem;
+    margin-left: -1%;
+}
+
+  /* Icône dans le champ */
+  .search-field .field-logo {
+    width: 1.5rem;
+    height: 1.5rem;
+    object-fit: contain;
+  }
+
+  /* Input */
+  .search-field input {
+    border: none; /* Supprime les bordures internes */
+    outline: none; /* Supprime le focus natif */
+    box-shadow: none; /* Supprime toute ombre */
+    flex: 1; /* Les champs remplissent l'espace restant */
+    font-size: 1rem; /* Taille du texte */
+    color: #333; /* Couleur du texte */
+    background-color: transparent;
+  }
+
+  /* Placeholder */
+  .search-field input::placeholder {
+    color: #999; /* Couleur plus claire pour le placeholder */
+    font-style: italic; /* Texte en italique */
+  }
+
+  
+  /* Bouton de recherche */
+  .btn-search {
+    position: absolute; /* Place le bouton par rapport au conteneur */
+    bottom: 0; /* Aligne le bouton sur le bord inférieur */
+    left: 0; /* Étend le bouton à gauche */
+    right: 0; /* Étend le bouton à droite */
+    padding: 0.8rem; /* Ajuste l'espacement interne */
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #FFA500; /* Couleur orange */
+    border: none;
+    border-radius: 0 0 15px 15px; /* Coins arrondis uniquement en bas */
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .btn-search:hover {
+    background-color: var(--dark-green);
+  }
+
+  .btn-search {
+    width: 100%; /* Bouton occupe toute la largeur */
+    border-radius: 0 0 15px 15px; /* Coins arrondis en bas */
+    max-width: none; /* Supprime toute limite de largeur */
+    margin: 0; /* Enlève les marges pour aligner au conteneur */
+    padding: 1rem; /* Optionnel : Ajustez l'espacement interne */
+    box-sizing: border-box; /* S'assure que les bordures/marges sont incluses */
+  }
+
+  .search-title,
+  .co2-info {
+    color: #333 !important;/* Couleur de texte plus sombre */
+    display: block; /* Assurez-vous qu'ils sont visibles */
+    position: relative; /* Position relative pour éviter qu'ils soient en arrière-plan */
+    z-index: 10; /* Priorité plus élevée pour être devant d'autres éléments */
+    text-align: center; /* Centre le texte */
+    margin: 0 auto; /* Centre les éléments horizontalement */
+    font-size: 1rem; /* Ajustez la taille du texte si nécessaire */
+    
+  }
+
+  .co2-info {
+    color: var(--main-green) !important;
+    margin-left: 2rem;
+    margin-bottom: 1rem; /* Facultatif : espace sous le texte */
+    text-align: center;
+    font-size: 1rem !important;
+    font-weight: lighter !important;
+
+  }
+  
+  
+  .co2-info span {
+    font-weight: bold !important;
+    color: var(--main-green);
+   
+  }
+  
+}
+
+/* Animation d'apparition complexe */
+@keyframes fadeInComplex {
+  0% {
+    opacity: 0;            /* Début invisible */
+    transform: translateY(30px) scale(0.95); /* Légèrement en bas et plus petit */
+  }
+  50% {
+    opacity: 0.5;          /* Semi-visible au milieu */
+    transform: translateY(15px) scale(1.02); /* Légère montée et agrandissement */
+  }
+  100% {
+    opacity: 1;            /* Complètement visible */
+    transform: translateY(0) scale(1);       /* Position finale normale */
+  }
+}
+
+
+/* Style du h1 et p (optionnel) */
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+
+
+.profile-icon {
+  font-size: 2rem; /* Ajustez la taille ici */
+  color: var(--text-light); /* Couleur blanche */
+  cursor: pointer;
+}
+
+.profile-icon:hover {
+  color: var(--light-green); /* Change la couleur au survol */
+}
+
+/* Bouton “hero” (exemple) */
+.btn-hero {
+  background-color: var(--accent-orange);
+  font-size: 1.1rem;
+  padding: 0.8rem 1.2rem;
+}
+.btn-hero:hover {
+  background-color: #E68F00; /* orange un peu plus sombre au survol */
+}
+
+/* =======================
+   Boutons généraux
+======================= */
+.btn {
+  display: inline-block;
+  padding: 0.6rem 1rem;
+  border-radius: 4px;
+  background-color: var(--main-green);
+  color: var(--text-light);
+  text-decoration: none;
+  font-weight: 500;
+  transition: background-color 0.3s;
+  
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;  /* Centre horizontalement */
+  padding-top: 2rem;
+  
+}
+
+
+.btn:hover {
+  background-color: var(--dark-green);
+}
+
+.btn-secondary {
+  background-color: var(--accent-orange);
+  border-radius: 50px; /* Bouton en pilule */
+  
+}
+
+.btn-secondary:hover {
+  background-color: #8B4513; /* orange plus sombre */
+}
+
+.search-summary {
+  margin-bottom: 20px;
+  padding: 10px 20px;
+  background-color: var(--main-green); /* Couleur douce pour mettre en évidence */
+  border-radius: 8px;
+  text-align: center;
+}
+
+.search-summary h2 {
+  font-size: 1.8em;
+  color: var(--text-light);
+  margin: 0;
+}
+
+.loading-indicator {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 50%;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3; /* Couleur de fond */
+  border-top: 4px solid #72A02D; /* Couleur de l'animation */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+      transform: rotate(0deg);
+  }
+  to {
+      transform: rotate(360deg);
+  }
+}
+
+.suggestions-title {
+  text-align: center; /* Centre le titre "Suggestions :" */
+  margin-top: 40px; /* Augmente l'espace au-dessus du titre */
+  margin-bottom: 30px; /* Ajoute un espace sous le titre */
+  font-size: 1.8em; /* Augmente la taille du texte */
+  font-weight: bold;
+}
+
+#liste-trajets {
+  list-style-type: none; /* Supprime les puces */
+  padding: 0;
+  margin: 0 auto; /* Centre la liste horizontalement */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centre les éléments horizontalement */
+  justify-content: center; /* Centre les éléments verticalement */
+  max-width: 800px; /* Largeur max */
+}
+
+.trajet {
+  width: 100%;
+  max-width: 500px; /* Évite que les trajets soient trop larges */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px; /* Ajoute de l'espace entre les trajets */
+}
+
+.trajet .btn-container {
+  width: 100%; /* Prend toute la largeur */
+  display: flex;
+  justify-content: center; /* Centre le bouton */
+  margin-top: 15px; /* Ajoute un espace au-dessus du bouton */
+}
+
+.btn-detail {
+  background-color: #ff9800;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-size: 1em;
+  text-align: center;
+}
+
+.profile-container {
+  display: flex;
+  flex-direction: column; /* Aligner la photo et le nom en colonne */
+  align-items: center; /* Centrer horizontalement */
+  text-align: center; /* Centrer le texte */
+  gap: 8px; /* Espacement entre la photo et le texte */
+}
+
+.photo-chauffeur {
+  width: 50px; /* Taille standard pour la photo */
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.chauffeur-nom {
+  font-size: 1.1em; /* Ajuste la taille du nom */
+  font-weight: bold;
+}
+
+
+.btn-detail:hover {
+  background-color: #e68900;
+}
+
+
+.btn-detail:hover {
+  background-color: var(--dark-green);
+}
+
+/* Conteneur des filtres */
+.filters-container {
+  display: flex;
+  flex-wrap: wrap; /* Permet aux éléments de passer à la ligne si besoin */
+  justify-content: center; /* Centre les filtres */
+  align-items: center;
+  gap: 15px; /* Espacement entre les filtres */
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  max-width: 900px;
+  margin: 20px auto; /* Centre le bloc */
+}
+
+/* S'assurer que le texte est au-dessus de la case à cocher */
+.filters-container label {
+  display: flex;
+  flex-direction: column; /* Met le texte au-dessus de l'input */
+  align-items: center; /* Centre tout */
+  font-weight: bold;
+  font-size: 0.9em;
+  text-align: center;
+}
+
+
+/* Styles des champs de saisie */
+.filters-container input,
+.filters-container select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+  width: 150px;
+}
+
+/* Case à cocher pour le filtre écologique */
+.filters-container input[type="checkbox"] {
+  width: auto;
+}
+
+/* Bouton Filtrer */
+.filters-container .btn-filter {
+  background-color: #ff9800;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background 0.3s ease;
+}
+
+.filters-container .btn-filter:hover {
+  background-color: #e68900;
+}
+
+/* 📱 Design responsive : colonne sur mobile */
+@media screen and (max-width: 768px) {
+  .filters-container {
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+  }
+
+  .filters-container label {
+      width: 100%;
+      text-align: center;
+  }
+
+  .filters-container input,
+  .filters-container select {
+      width: 90%; /* Prend plus de place sur mobile */
+      max-width: 300px;
+  }
+
+  .filters-container .btn-filter {
+      width: 100%;
+      max-width: 200px;
+  }
+}
+
+
+/* =======================
+   Sections générales
+======================= */
+section {
+  padding: 3rem 2rem;
+}
+
+section h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+section p {
+  text-align: center;
+  max-width: 800px;
+  margin: 0.5rem auto 2rem auto;
+  line-height: 1.6;
+}
+
+/* =======================
+   Footer
+======================= */
+.footer {
+  background-color: var(--dark-green);
+  color: var(--text-light);
+  text-align: center;
+  padding: 1.5rem;
+  margin-top: 3rem;
+}
+
+.footer-info p {
+  margin: 0.5rem 0;
+}
+
+.footer-info a {
+  color: var(--light-green);
+  text-decoration: none;
+}
+
+.footer-info a:hover {
+  text-decoration: underline;
+}
+
+/* Largeur / hauteur de la scrollbar */
+::-webkit-scrollbar {
+  width: 12px;  /* Ajuste la taille selon ton envie */
+}
+
+/* Piste (arrière-plan) */
+::-webkit-scrollbar-track {
+  background-color: #F4ECD8;  /* Couleur rappelant un ton “bois clair” */
+}
+
+/* Pouce (barre de défilement) */
+::-webkit-scrollbar-thumb {
+  border-radius: 6px; /* Bords arrondis pour un aspect plus organique */
+  border: 2px solid #F4ECD8; /* Laisse un peu d’espace autour pour mieux voir le motif */
+
+  /* Motif bois simple (bandes diagonales) */
+  background: repeating-linear-gradient(
+    45deg,          /* Angle diagonal */
+    #8B4513 0px,    /* Couleur brune : début */
+    #8B4513 10px,   /* Jusqu'à 10px */
+    #A0522D 10px,   /* Deuxième couleur (brun plus clair) */
+    #A0522D 20px    /* Jusqu'à 20px, puis le cycle se répète */
+  );
+}
+
+/* Survol de la barre : plus foncée, par exemple */
+::-webkit-scrollbar-thumb:hover {
+  background: repeating-linear-gradient(
+    45deg,
+    #8B4513 0px,    
+    #8B4513 10px,
+    #CD853F 10px,   /* Un marron un peu plus clair */
+    #CD853F 20px
+  );
+}
+
+/* =======================
+   Media Queries (Responsive)
+======================= */
+@media (max-width: 1024px) {
+
+    .navbar {
+      display: none; /* Cache les liens */
+      flex-direction: column; /* Empile les liens verticalement */
+      position: absolute;
+      top: 100%; /* En dessous de la navbar */
+      right: 0;
+      background-color: var(--main-green);
+      width: 100%; /* Prend toute la largeur */
+      gap: 1rem;
+      padding: 1rem 0;
+      z-index: 999;
+    }
+  
+    
+  
+    .navbar-main {
+      flex-direction: column; /* Les liens passent en vertical */
+      gap: 0.5rem;
+      width: 100%; /* Prend toute la largeur */
+    }
+  
+    .navbar-main.show {
+      display: flex; /* Affiche le menu lorsqu'il est activé */
+    }
+    
+  
+    .navbar-connexion {
+      align-self: flex-end; /* Connexion reste aligné à droite */
+    }
+    
+    .hero {
+      height: auto;
+      padding: 4rem 2rem;
+    }
+    
+    .hero-content h1 {
+      font-size: 2rem;
+    }
+  
+    .presentation {
+      flex-direction: column;
+    }
+  
+    .responsive-image {
+      width: 100%; /* Image pleine largeur */
+      height: auto; /* Respecte les proportions */
+    }
+  
+    .hero-header {
+      top: 15px; /* Ajustez l'espacement pour les écrans plus petits */
+      left: 15px;
+      right: 15px;
+      display: flex; /* Affiche le menu et le logo de profil uniquement sur mobile */
+    }
+  
+    .menu-btn {
+      font-size: 1.8rem; /* Légèrement plus grand sur mobile */
+      top: 2rem; /* Distance ajustée pour mobile */
+      left: -0.5rem; /* Toujours dans le coin gauche */
+      width: 35px;
+      height: 35px;
+    }
+  
+    .menu-btn:hover {
+      color: var(--light-green); /* Couleur de survol */
+    }
+  
+    .profile-icon img {
+      width: 35px; /* Taille réduite sur mobile */
+      height: 35px;
+    }
+  
+    .search-bar input .serch-bar button {
+      width: 80%; /* Champ en pleine largeur sur mobile */
+    }  
+  
+    .profile-icon {
+      display: block;
+      top: 2rem; /* Distance ajustée pour mobile */
+      right: -0.5rem; /* Toujours dans le coin droit */
+    }
+
+    .profile-icon:hover {
+      color: var(--light-green); /* Couleur de survol */
+    }
+  }

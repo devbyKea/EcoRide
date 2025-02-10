@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+<!-- Viewport pour le responsive -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Meta description pour SEO (exemple) -->
+  <meta name="description" content="Rejoignez notre plateforme de covoiturage EcoRide pour voyager facilement, économiquement et de manière écologique.">
+  
+  <title>EcoRide – Connexion</title>
+  
+<!-- Google Fonts : Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link 
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" 
+    rel="stylesheet"
+  >
+<!-- Google Fonts logo -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <link 
+  href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" 
+  rel="stylesheet"
+  />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <!-- Feuille de style principale -->
+  <link rel="stylesheet" href="../frontend/css/connexion.css">
+
+</head>
+<body>
+
+<!-- ======= HEADER ======= -->
+  <header>
+<!-- Bandeau au-dessus de la nav bar -->
+    <div class="header-top">
+      <div class="container-top">
+        <p>🚗 EcoRide | Voyageons ensemble pour préserver notre écosystème.</p>
+      </div>
+    </div>
+
+<!-- Navigation principale -->
+    <nav class="navbar">
+      <div class="container-nav">
+<!-- Zone gauche : logo -->
+        <div class="navbar-logo">
+          <a href="index.html" class="logo-text">EcoRide
+          </a>
+        </div>
+      </div>
+      
+<!-- Bouton hamburger -->
+       <button class="hamburger" aria-label="Ouvrir le menu">
+         ☰
+       </button>
+      
+
+<!-- Zone centrale : menu principal -->
+      <ul class="navbar-main">
+        <li><a href="index.html" class="active">Accueil</a></li>
+        <li><a href="trajets.html">Trouver un trajet</a></li>
+        <li><a href="proposer.html">Proposer un trajet</a></li>
+        <li><a href="avis.html">Avis</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      
+<!-- Zone droite : Connexion -->
+<div class="navbar-connexion">
+  <a href="#" class="login-btn" id="user-logo">
+    <img src="../frontend/img/icons/account_circle.png" alt="Utilisateur" class="user-logo">
+
+    <i class="fas fa-caret-down"></i>
+  </a>
+  <div class="profile-dropdown-menu" id="profile-dropdown-menu">
+    <a href="login.html">Connexion</a>
+    <a href="inscription.html">Inscription</a>
+  </div>
+</div>
+      
+
+
+    </nav>
+  </header>
+  
+
+<!-- ======= SECTION HERO ======= -->
+<section class="hero">
+  <div class="hero-overlay"></div> <!-- Overlay pour assombrir l'image et donner du contraste -->
+    <div class="hero-header">
+      <button class="menu-btn" aria-label="Ouvrir le menu">☰
+      </button>
+
+<!-- Menu déroulant -->
+  <ul class="dropdown-menu">
+    <li><a href="index.html" class="active">Accueil</a></li>
+    <li><a href="trajets.html">Trouver un trajet</a></li>
+    <li><a href="proposer.html">Proposer un trajet</a></li>
+    <li><a href="avis.html">Avis</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+
+<!-- Logo profil -->
+  <a href="login.html" class="profile-icon" aria-label="Accéder à la page de connexion">
+    <i class="fas fa-user-circle"></i> <!-- Icône utilisateur -->
+  </a>
+    </div>
+  </div>
+
+    <div class="login-card">
+      <h2>Connexion</h2>
+      <input type="text" placeholder="Identifiant" />
+      <input type="password" placeholder="Mot de passe" />
+      <button class="btn-login">Se connecter</button>
+      <div class="extra-text">
+        Pas encore membre ? <a href="inscription.html">Rejoignez-nous !</a>
+      </div>  
+    </div>
+    
+  </section>
+
+
+  <!-- ======= FOOTER ======= -->
+  <footer class="footer">
+    <div class="footer-info">
+      <p>&copy; 2025 EcoRide - Tous droits réservés.</p>
+      <p>
+        <a href="mentions-legales.html">Mentions légales</a> | 
+        <a href="politique-confidentialite.html" target="_blank" rel="noopener noreferrer">Politique de confidentialité</a>
+      </p>
+      <p>📧 Contact : <a href="mailto:contact@ecoride.com">contact@ecoride.com</a></p>
+    </div>
+  </footer>
+
+  <script type="module" src="../frontend/js/connexion.js"></script>
+
+</body>
+
+</html>
+
+
+
