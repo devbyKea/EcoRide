@@ -290,7 +290,7 @@ html, body {
   position: relative;
   padding-top: 9rem;
   min-height: 80vh;
-  background: url("../img/proposer.jpg") center/cover no-repeat;
+  background: url("../frontend/img/proposer.jpg") center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;

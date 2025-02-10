@@ -290,7 +290,7 @@
     position: relative;
     padding-top: 9rem;
     min-height: 100vh;
-    background: url("../img/join.jpg") center/cover no-repeat;
+    background: url("../frontend/img/join.jpg") center/cover no-repeat;
     display: flex;
     align-items: center;
     justify-content: center;
