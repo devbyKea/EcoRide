@@ -1,12 +1,5 @@
 <?php
-// Vérifier si le module mod_headers est activé
-if (function_exists('apache_get_modules')) {
-    if (!in_array('mod_headers', apache_get_modules())) {
-        die("🚨 Erreur: Le module mod_headers n'est pas activé sur Apache !");
-    }
-} else {
-    echo "✅ Apache fonctionne, mais apache_get_modules() n'est pas disponible.<br>";
-}
+
 // Définir le bon chemin pour accéder aux fichiers de configuration
 require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/config/mongodb.php';
