@@ -528,69 +528,37 @@ html, body {
 }
 
 
-/* Responsive pour les petits écrans */
-@media (max-width: 768px) {
-  .calendar-dropdown {
-    width: 95%;
-    max-width: 280px; /* Ajustement pour éviter les coupures */
-    left: 50%;
-    transform: translateX(-50%);
-    top: calc(100% + 10px);
-    padding: 0.2rem;
-  }
-
-  .calendar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.1rem 0;
-  }
-
-  .calendar-header button {
-    padding: 0.1rem;
-    font-size: 0.6rem;
-    width: 20px;
-    height: 20px;
-  }
-
-  .calendar-header span {
-    font-size: 0.7rem;
-  }
-
-  .calendar-weekdays {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr); /* Assure exactement 7 colonnes */
-    font-size: 0.6rem;
-    padding-bottom: 2px;
-    text-align: center;
-  }
-
-  .calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr); /* Correction pour ne pas couper Dim */
-    gap: 1px;
-  }
-
-  .calendar-day {
-    width: 100%;
-    height: auto;
-    font-size: 0.6rem;
-    text-align: center;
-    padding: 0.2rem;
-  }
+/* Correction du conteneur pour éviter que Dim soit coupé */
+.calendar-dropdown {
+  width: auto; /* Permet au calendrier de s'ajuster automatiquement */
+  min-width: 280px; /* Minimum pour éviter la coupure */
+  max-width: 100%; /* Empêche qu'il soit trop large */
+  overflow: visible; /* Assure que tout est affiché */
+  white-space: nowrap; /* Évite la coupure des jours */
 }
 
-/* Responsive pour les écrans très petits */
+/* Correction de la grille pour bien répartir les colonnes */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* Assure bien 7 colonnes égales */
+  gap: 1px;
+  overflow: visible; /* Évite que des éléments soient cachés */
+}
+
+/* Empêche la coupure de Dim */
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* S'assure que "Dim" a sa place */
+  text-align: center;
+  width: 100%; /* Prend toute la largeur */
+  overflow: visible; /* Aucune coupure */
+}
+
+/* Ajustement pour petits écrans */
 @media (max-width: 480px) {
   .calendar-dropdown {
-    width: 98%;
-    max-width: 250px;
-    top: calc(100% + 5px);
+    min-width: 250px; /* Ajustement plus petit mais sans couper */
     padding: 0.1rem;
-  }
-
-  .calendar-header span {
-    font-size: 0.6rem;
   }
 
   .calendar-weekdays {
@@ -606,6 +574,7 @@ html, body {
     padding: 0.1rem;
   }
 }
+
 
 
 
