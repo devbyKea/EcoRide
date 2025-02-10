@@ -534,7 +534,7 @@ html, body {
 /* Responsive pour les petits écrans */
 @media (max-width: 768px) {
   .calendar-dropdown {
-    width: 90%; /* S'étend sur presque toute la largeur de l'écran */
+    width: 100%; /* S'étend sur presque toute la largeur de l'écran */
     left: 50%; /* Centré horizontalement */
     transform: translateX(-50%); /* Ajuste le décalage pour centrer */
     top: calc(100% + 10px); /* Décalage par rapport au champ */
@@ -558,7 +558,7 @@ html, body {
 /* Responsive pour les écrans très petits */
 @media (max-width: 480px) {
   .calendar-dropdown {
-    width: 80%; /* Presque pleine largeur */
+    width: 100%; /* Presque pleine largeur */
     top: calc(100% + 5px); /* Réduit l'espacement */
   }
 
