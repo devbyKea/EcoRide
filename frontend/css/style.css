@@ -530,12 +530,11 @@ html, body {
 @media (max-width: 768px) {
   .calendar-dropdown {
     position: absolute;
-    right: 10px; /* Décale à gauche pour éviter le débordement */
-    left: auto; /* Réinitialise la position */
-    transform: none; /* Supprime le centrage */
-    width: 95vw; /* S'assure qu'il s'ajuste à l'écran */
-    max-width: 300px; /* Empêche qu'il soit trop large */
-    padding: 0.2rem; /* Réduit l'espace intérieur */
+    left: 50%; /* Place le bord gauche du calendrier au centre de l'écran */
+    transform: translateX(-50%); /* Décale de moitié pour être bien centré */
+    width: 95vw; /* Ajustement pour ne pas être trop large */
+    max-width: 300px; /* Taille max pour ne pas déborder */
+    padding: 0.2rem;
   }
 
   .calendar-header {
@@ -582,9 +581,10 @@ html, body {
 /* Ajustement pour les très petits écrans */
 @media (max-width: 480px) {
   .calendar-dropdown {
-    position: center;
+    left: 50%;
+    transform: translateX(-50%);
     width: 90vw;
-    max-width: 350px; /* Plus petit sur mobiles étroits */
+    max-width: 280px;
     padding: 0.1rem;
   }
 
