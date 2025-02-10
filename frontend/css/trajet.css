@@ -534,43 +534,56 @@ html, body {
 /* Responsive pour les petits écrans */
 @media (max-width: 768px) {
   .calendar-dropdown {
-    width: 100%; /* S'étend sur presque toute la largeur de l'écran */
-    left: 50%; /* Centré horizontalement */
-    transform: translateX(-50%); /* Ajuste le décalage pour centrer */
-    top: calc(100% + 10px); /* Décalage par rapport au champ */
-    padding: 0.8rem; /* Réduit le padding sur mobile */
+    width: 80%; /* Réduit la largeur globale */
+    max-width: 300px; /* Limite la largeur pour éviter qu'il prenne trop de place */
+    left: 50%;
+    transform: translateX(-50%);
+    top: calc(100% + 10px);
+    padding: 0.5rem; /* Moins d’espace intérieur */
   }
 
   .calendar-header button {
-    padding: 0.4rem; /* Réduit la taille des boutons */
+    padding: 0.3rem; /* Réduction supplémentaire des boutons */
+    font-size: 0.9rem; /* Réduction de la police des boutons */
   }
 
   .calendar-header span {
-    font-size: 1rem; /* Réduit la taille du texte */
+    font-size: 0.9rem; /* Réduction de la police */
+  }
+
+  .calendar-grid {
+    gap: 2px; /* Moins d'espace entre les jours */
   }
 
   .calendar-day {
-    padding: 0.3rem; /* Réduit les tailles de cellules */
-    font-size: 0.9rem; /* Diminue la taille du texte */
+    width: 30px; /* Taille plus petite des cellules */
+    height: 30px;
+    padding: 0.2rem;
+    font-size: 0.8rem;
   }
 }
 
 /* Responsive pour les écrans très petits */
 @media (max-width: 480px) {
   .calendar-dropdown {
-    width: 100%; /* Presque pleine largeur */
-    top: calc(100% + 5px); /* Réduit l'espacement */
+    width: 90%; /* Encore plus petit */
+    max-width: 250px;
+    top: calc(100% + 5px);
+    padding: 0.3rem;
   }
 
   .calendar-header span {
-    font-size: 0.7rem; /* Taille plus petite pour les très petits écrans */
+    font-size: 0.7rem;
   }
 
   .calendar-day {
-    font-size: 0.5rem; /* Texte encore plus petit */
-    padding: 0.1rem; /* Cellules encore plus compactes */
+    width: 25px;
+    height: 25px;
+    font-size: 0.6rem;
+    padding: 0.1rem;
   }
 }
+
 
 
 /* Supprime l'icône native du champ de type date */
