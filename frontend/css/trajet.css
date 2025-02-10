@@ -563,12 +563,12 @@ html, body {
   }
 
   .calendar-header span {
-    font-size: 0.9rem; /* Taille plus petite pour les très petits écrans */
+    font-size: 0.7rem; /* Taille plus petite pour les très petits écrans */
   }
 
   .calendar-day {
-    font-size: 0.8rem; /* Texte encore plus petit */
-    padding: 0.2rem; /* Cellules encore plus compactes */
+    font-size: 0.5rem; /* Texte encore plus petit */
+    padding: 0.1rem; /* Cellules encore plus compactes */
   }
 }
 
