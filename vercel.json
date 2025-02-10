@@ -4,11 +4,15 @@
     "name": "eco-ride",
     "builds": [
       {
-        "src": "frontend/html/**",
+        "src": "frontend/**",
         "use": "@vercel/static"
       }
     ],
     "routes": [
+      {
+        "src": "/css/(.*)",
+        "dest": "/frontend/css/$1"
+      },
       {
         "src": "/(.*)",
         "dest": "/frontend/html/$1"
