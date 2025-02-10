@@ -530,55 +530,56 @@ html, body {
 }
 
 
-
 /* Responsive pour les petits écrans */
 @media (max-width: 768px) {
   .calendar-dropdown {
-    width: 95%; 
-    max-width: 280px; /* Réduction encore plus forte */
+    width: 95%;
+    max-width: 260px; /* Encore plus réduit */
     left: 50%;
     transform: translateX(-50%);
     top: calc(100% + 10px);
-    padding: 0.3rem;
+    padding: 0.2rem;
   }
 
   .calendar-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.1rem 0; /* Encore moins d’espace */
+    padding: 0.1rem 0; /* Moins d’espace */
   }
 
   .calendar-header button {
-    padding: 0.15rem; /* Boutons encore plus petits */
+    padding: 0.1rem; /* Boutons plus petits */
     font-size: 0.6rem;
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
   }
 
   .calendar-header span {
-    font-size: 0.8rem; /* Réduction du mois */
+    font-size: 0.7rem; /* Mois réduit */
   }
 
   .calendar-weekdays {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    font-size: 0.6rem; /* Réduction de la taille des jours */
-    padding-bottom: 2px;
+    font-size: 0.5rem; /* Jours de la semaine plus petits */
+    padding-bottom: 1px;
   }
 
   .calendar-grid {
     display: grid;
-    grid-template-columns: repeat(7, minmax(16px, 1fr)); /* Colonnes encore plus compactes */
-    gap: 1px;
+    grid-template-columns: repeat(7, 1fr); /* Suppression de min-width */
+    gap: 0.5px;
   }
 
   .calendar-day {
-    min-width: 16px;
-    height: 16px;
-    font-size: 0.6rem; /* Réduction des chiffres */
-    padding: 0.05rem;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.5rem; /* Réduction maximale */
+    padding: 0.1rem;
+    width: auto; /* Ajustement automatique */
+    height: auto; /* Ajustement automatique */
   }
 }
 
@@ -586,30 +587,29 @@ html, body {
 @media (max-width: 480px) {
   .calendar-dropdown {
     width: 98%;
-    max-width: 250px; /* Encore plus serré */
+    max-width: 230px; /* Encore plus compact */
     top: calc(100% + 5px);
-    padding: 0.2rem;
+    padding: 0.1rem;
   }
 
   .calendar-header span {
-    font-size: 0.7rem; /* Mois encore plus petit */
+    font-size: 0.6rem;
   }
 
   .calendar-weekdays {
-    font-size: 0.5rem; /* Réduction extrême des jours */
+    font-size: 0.4rem; /* Encore plus petit */
   }
 
   .calendar-grid {
-    grid-template-columns: repeat(7, minmax(14px, 1fr)); /* Colonnes ultra serrées */
+    gap: 0.2px;
   }
 
   .calendar-day {
-    min-width: 14px;
-    height: 14px;
-    font-size: 0.5rem; /* Encore plus petit */
-    padding: 0.02rem;
+    font-size: 0.4rem; /* Ultra compact */
+    padding: 0;
   }
 }
+
 
 
 
