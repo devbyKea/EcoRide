@@ -288,7 +288,7 @@ html, body {
   position: relative;
   padding-top: 9rem;
   min-height: 80vh;
-  background: url("../img/park.jpg") center/cover no-repeat;
+  background: url("../frontend/img/park.jpg") center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -828,7 +828,7 @@ input[type="date"] {
 /* Section trajet */
 .trajet-highlight {
   position: relative; /* Nécessaire pour positionner l'overlay */
-  background: url("../img/map.jpg")
+  background: url("../frontend/img/map.jpg")
     center/cover 
     no-repeat;
   color: var(--text-light); /* Texte blanc */
@@ -1006,7 +1006,7 @@ section p {
 .card-assurance {
   background: 
   linear-gradient(rgba(44, 105, 46, 0.3), rgba(0, 0, 0, 0.6)),
-  url("../img/assurance.jpg") center/cover no-repeat;
+  url("../frontend/img/assurance.jpg") center/cover no-repeat;
   
   overflow: hidden;
 }
@@ -1014,7 +1014,7 @@ section p {
 .card-frais {
   background: 
   linear-gradient(rgba(44, 105, 46, 0.3), rgba(0, 0, 0, 0.6)),
-  url("../img/frais.jpg") center/cover no-repeat; 
+  url("../frontend/img/frais.jpg") center/cover no-repeat; 
   
   overflow: hidden;
 }
@@ -1022,7 +1022,7 @@ section p {
 .card-support {
   background: 
   linear-gradient(rgba(44, 105, 46, 0.3), rgba(0, 0, 0, 0.6)),
-  url("../img/support.jpg") center/cover no-repeat; 
+  url("../frontend/img/support.jpg") center/cover no-repeat; 
   
   overflow: hidden;
 }

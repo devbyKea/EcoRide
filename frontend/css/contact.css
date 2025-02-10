@@ -289,7 +289,7 @@
     position: relative;
     padding-top: 9rem;
     min-height: 100vh;
-    background: url("../img/contact.jpg") center/cover no-repeat;
+    background: url("../frontend/img/contact.jpg") center/cover no-repeat;
     display: flex;
     align-items: center;
     justify-content: center;
