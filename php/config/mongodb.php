@@ -26,7 +26,7 @@ $mongoUri .= "?ssl=true&retryWrites=true&w=majority";
 
 try {
     $client = new Client($mongoUri);
-    $database = $client->selectDatabase('railway'); // Mets le bon nom ici si besoin
+    $database = $client->selectDatabase('EcoRideDB'); // Mets le bon nom ici si besoin
     echo "✅ Connexion réussie à MongoDB !";
 } catch (Exception $e) {
     die("❌ Erreur de connexion à MongoDB : " . $e->getMessage());
