@@ -1,14 +1,18 @@
 {
     "version": 2,
     "public": true,
+    "name": "eco-ride",
     "builds": [
       {
-        "src": "frontend/**",
+        "src": "frontend/html/**",
         "use": "@vercel/static"
       }
     ],
     "routes": [
-      { "src": "/(.*)", "dest": "/frontend/$1" }
+      {
+        "src": "/(.*)",
+        "dest": "/frontend/html/$1"
+      }
     ]
   }
   
