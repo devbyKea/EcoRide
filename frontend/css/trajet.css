@@ -534,52 +534,42 @@ html, body {
 /* Responsive pour les petits écrans */
 @media (max-width: 768px) {
   .calendar-dropdown {
-    width: 80%; /* Réduit la largeur globale */
-    max-width: 300px; /* Limite la largeur pour éviter qu'il prenne trop de place */
+    width: 90%; /* Ajusté pour mieux s’adapter */
+    max-width: 320px; /* Pour éviter qu’il soit trop large */
     left: 50%;
     transform: translateX(-50%);
     top: calc(100% + 10px);
-    padding: 0.5rem; /* Moins d’espace intérieur */
-  }
-
-  .calendar-header button {
-    padding: 0.3rem; /* Réduction supplémentaire des boutons */
-    font-size: 0.9rem; /* Réduction de la police des boutons */
-  }
-
-  .calendar-header span {
-    font-size: 0.9rem; /* Réduction de la police */
+    padding: 0.5rem;
   }
 
   .calendar-grid {
-    gap: 2px; /* Moins d'espace entre les jours */
+    display: grid;
+    grid-template-columns: repeat(7, 1fr); /* 7 jours parfaitement répartis */
+    gap: 2px; /* Réduction des espaces */
   }
 
   .calendar-day {
-    width: 30px; /* Taille plus petite des cellules */
-    height: 30px;
+    width: auto; /* Permet aux jours de s’adapter */
+    min-width: 28px; /* Taille minimale pour éviter le débordement */
+    height: 28px;
     padding: 0.2rem;
     font-size: 0.8rem;
   }
 }
 
-/* Responsive pour les écrans très petits */
+/* Responsive pour les très petits écrans */
 @media (max-width: 480px) {
   .calendar-dropdown {
-    width: 90%; /* Encore plus petit */
-    max-width: 250px;
+    width: 95%;
+    max-width: 280px;
     top: calc(100% + 5px);
     padding: 0.3rem;
   }
 
-  .calendar-header span {
-    font-size: 0.7rem;
-  }
-
   .calendar-day {
-    width: 25px;
+    min-width: 25px;
     height: 25px;
-    font-size: 0.6rem;
+    font-size: 0.7rem;
     padding: 0.1rem;
   }
 }
