@@ -1,11 +1,15 @@
 <?php
+// Vérifier si le module mod_headers est activé
+if (!in_array('mod_headers', apache_get_modules())) {
+    die("🚨 Erreur: Le module mod_headers n'est pas activé sur Apache !");
+}
 // Définir le bon chemin pour accéder aux fichiers de configuration
 require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/config/mongodb.php';
 
 
 
-header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Origin: https://eco-ride-one.vercel.app");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Content-Type: application/json");
