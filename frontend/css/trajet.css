@@ -584,6 +584,7 @@ html, body {
 /* Ajustement pour les très petits écrans */
 @media (max-width: 480px) {
   .calendar-dropdown {
+    position: center;
     width: 90vw;
     max-width: 350px; /* Plus petit sur mobiles étroits */
     padding: 0.1rem;
