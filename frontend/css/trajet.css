@@ -586,7 +586,7 @@ html, body {
   .calendar-dropdown {
     right: 5px; /* Décale encore plus à gauche si nécessaire */
     width: 90vw;
-    max-width: 280px; /* Plus petit sur mobiles étroits */
+    max-width: 350px; /* Plus petit sur mobiles étroits */
     padding: 0.1rem;
   }
 
