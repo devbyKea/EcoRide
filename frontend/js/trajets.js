@@ -1,4 +1,4 @@
-import API_URL from "./config.js";
+
 
 document.addEventListener('DOMContentLoaded', () => {
   const userLogo = document.getElementById('user-logo');

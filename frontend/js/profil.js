@@ -1,4 +1,4 @@
-import API_URL from "./config.js";
+
 
 async function chargerProfil() {
     const userId = localStorage.getItem("user_id");
