@@ -10,6 +10,12 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Content-Type: application/json");
 
+// Gérer les requêtes OPTIONS pour éviter les blocages CORS
+if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+    http_response_code(200);
+    exit();
+}
+
 // Page d'accueil simple
 if ($_SERVER['REQUEST_URI'] == "/") {
     echo json_encode(["message" => "Bienvenue sur EcoRide - Backend opérationnel avec MySQL et MongoDB !"]);
