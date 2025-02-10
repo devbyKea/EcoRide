@@ -560,24 +560,22 @@ html, body {
   .calendar-weekdays {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    font-size: 0.5rem; /* Jours de la semaine plus petits */
-    padding-bottom: 1px;
+    font-size: 0.6rem; /* Jours de la semaine plus petits */
+    padding-bottom: 2px;
   }
 
   .calendar-grid {
     display: grid;
-    grid-template-columns: repeat(7, 1fr); /* Suppression de min-width */
-    gap: 0.5px;
+    grid-template-columns: repeat(7, 1fr); /* Retour à une vraie grille */
+    gap: 1px; /* Espacement minimal */
   }
 
   .calendar-day {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 0.5rem; /* Réduction maximale */
-    padding: 0.1rem;
-    width: auto; /* Ajustement automatique */
-    height: auto; /* Ajustement automatique */
+    width: 100%; /* Évite l'écrasement */
+    height: auto; /* Adapte à la taille dispo */
+    font-size: 0.6rem; /* Texte plus petit */
+    text-align: center;
+    padding: 0.2rem;
   }
 }
 
@@ -595,18 +593,19 @@ html, body {
   }
 
   .calendar-weekdays {
-    font-size: 0.4rem; /* Encore plus petit */
+    font-size: 0.5rem; /* Encore plus petit */
   }
 
   .calendar-grid {
-    gap: 0.2px;
+    grid-template-columns: repeat(7, 1fr); /* Assure une grille propre */
   }
 
   .calendar-day {
-    font-size: 0.4rem; /* Ultra compact */
-    padding: 0;
+    font-size: 0.5rem; /* Texte encore plus petit */
+    padding: 0.1rem;
   }
 }
+
 
 
 
