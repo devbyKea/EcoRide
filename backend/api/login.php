@@ -1,7 +1,8 @@
 <?php
-header("Access-Control-Allow-Origin: https://eco-ride-one.vercel.app"); // Autorise Vercel
+header("Access-Control-Allow-Origin: https://eco-ride-one.vercel.app");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
+header("Content-Type: application/json");
 
 // Si une requête OPTIONS est envoyée (préflight), on répond OK direct
 if ($_SERVER["REQUEST_METHOD"] == "OPTIONS") {
@@ -10,7 +11,6 @@ if ($_SERVER["REQUEST_METHOD"] == "OPTIONS") {
 }
 
 require_once "../config.php";
-
 
 $data = json_decode(file_get_contents("php://input"));
 
@@ -38,4 +38,8 @@ try {
     echo json_encode(["message" => "Erreur serveur : " . $e->getMessage()]);
     http_response_code(500);
 }
+
+// 🔹 DEBUG : S'assurer qu'il n'y a rien après le JSON
+exit;
 ?>
+
