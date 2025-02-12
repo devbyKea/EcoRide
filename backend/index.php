@@ -1,3 +1,5 @@
 <?php
-echo "Backend EcoRide est en ligne !";
+error_reporting(E_ALL);
+ini_set("display_errors", 1);
+echo "Backend EcoRide fonctionne !";
 ?>
