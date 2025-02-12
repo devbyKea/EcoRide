@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  console.log("connexion.js chargé !"); // 🔹 Vérifier si le script est bien chargé
+  console.log("connexion.js chargé !");
 
   const loginForm = document.getElementById("login-form");
 
@@ -10,11 +10,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
   console.log("✅ Formulaire détecté !");
 
-  loginForm.addEventListener("submit", (event) => {
+  loginForm.addEventListener("submit", async (event) => {
     event.preventDefault();
     console.log("✅ Formulaire soumis !");
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    console.log("📤 Envoi des données :", { email, password });
+
+    try {
+      const response = await fetch("https://ecoride-production-f991.up.railway.app/api/login.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      console.log("🔄 Réponse reçue :", response);
+
+      const data = await response.json();
+      console.log("📥 Données du backend :", data);
+
+      if (response.ok) {
+        alert("Connexion réussie !");
+        localStorage.setItem("user", JSON.stringify(data.user));
+        window.location.href = "profil.html";
+      } else {
+        document.getElementById("error-message").textContent = data.message;
+        document.getElementById("error-message").style.display = "block";
+      }
+    } catch (error) {
+      console.error("❌ Erreur lors de la requête :", error);
+      document.getElementById("error-message").textContent = "Erreur de connexion.";
+      document.getElementById("error-message").style.display = "block";
+    }
   });
 });
+
 
 document.addEventListener('DOMContentLoaded', () => {
   // 🎯 GESTION DU MENU UTILISATEUR
