@@ -1,10 +1,16 @@
 <?php
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: POST");
+header("Access-Control-Allow-Origin: https://eco-ride-one.vercel.app"); // Autorise Vercel
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
-header("Content-Type: application/json");
+
+// Si une requête OPTIONS est envoyée (préflight), on répond OK direct
+if ($_SERVER["REQUEST_METHOD"] == "OPTIONS") {
+    http_response_code(200);
+    exit;
+}
 
 require_once "../config.php";
+
 
 $data = json_decode(file_get_contents("php://input"));
 
