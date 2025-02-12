@@ -1,4 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
+  console.log("connexion.js chargé !"); // 🔹 Vérifier si le script est bien chargé
+
+  const loginForm = document.getElementById("login-form");
+
+  if (!loginForm) {
+    console.error("❌ Formulaire de connexion introuvable !");
+    return;
+  }
+
+  console.log("✅ Formulaire détecté !");
+
+  loginForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    console.log("✅ Formulaire soumis !");
+  });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
   // 🎯 GESTION DU MENU UTILISATEUR
   const userLogo = document.getElementById('user-logo');
   const dropdownMenu = document.getElementById('profile-dropdown-menu');
