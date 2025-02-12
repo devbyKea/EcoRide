@@ -19,6 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     console.log("📤 Envoi des données :", { email, password });
 
+    // Vérifier si fetch() est bien exécuté
+    console.log("🚀 Début du fetch vers l'API");
+
     try {
       const response = await fetch("https://ecoride-production-f991.up.railway.app/api/login.php", {
         method: "POST",
@@ -48,6 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
 
 
 document.addEventListener('DOMContentLoaded', () => {

@@ -4,7 +4,10 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
 
-// Si une requête OPTIONS est envoyée (préflight), on répond OK direct
+// 🚨 IMPORTANT : Désactiver toutes les erreurs PHP pour éviter d'envoyer du texte parasite
+error_reporting(0);
+ini_set('display_errors', 0);
+
 if ($_SERVER["REQUEST_METHOD"] == "OPTIONS") {
     http_response_code(200);
     exit;
@@ -35,11 +38,10 @@ try {
         http_response_code(401);
     }
 } catch (PDOException $e) {
-    echo json_encode(["message" => "Erreur serveur : " . $e->getMessage()]);
+    echo json_encode(["message" => "Erreur serveur."]);
     http_response_code(500);
 }
 
-// 🔹 DEBUG : S'assurer qu'il n'y a rien après le JSON
+// 🚨 IMPORTANT : Assurer qu'il n'y a aucune sortie après le JSON
 exit;
 ?>
-
