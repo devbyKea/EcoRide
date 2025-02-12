@@ -1,4 +1,5 @@
 {
+  "root": "backend",
   "build": {
     "builder": "nixpacks",
     "nixpacks": {
@@ -7,5 +8,5 @@
       }
     }
   },
-  "start": "php -S 0.0.0.0:8000 -t ."
+  "start": "php -S 0.0.0.0:$PORT -t ."
 }
