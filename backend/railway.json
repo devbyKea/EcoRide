@@ -1,7 +1,12 @@
 {
   "root": "backend",
   "build": {
-    "builder": "null"
+    "builder": "nixpacks",
+    "nixpacks": {
+      "plan": {
+        "packages": ["php", "php-cgi"]
+      }
+    }
   },
   "start": "php -S 0.0.0.0:$PORT -t backend"
 }
