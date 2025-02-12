@@ -1,12 +1,11 @@
 {
-    "build": {
-      "builder": "nixpacks",
-      "nixpacks": {
-        "plan": {
-          "packages": ["php", "php-cgi"]
-        }
+  "build": {
+    "builder": "nixpacks",
+    "nixpacks": {
+      "plan": {
+        "packages": ["php", "php-cgi"]
       }
-    },
-    "start": "php -S 0.0.0.0:8000 -t backend/"
-  }
-  
+    }
+  },
+  "start": "php -S 0.0.0.0:8000 -t ."
+}
