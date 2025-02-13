@@ -355,133 +355,76 @@
     margin-bottom: 1.5rem;
   }
 
-/* ==============================
-   Profil Card (Alignement & Style)
-============================== */
-
-/* Conteneur général pour centrer la carte */
-.profil-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    min-height: 60vh; /* Ajustable selon besoin */
-    margin-top: 50px;
-    z-index: 2; /* Assure que le contenu est devant l'overlay */
-}
-
-/* Carte de profil */
-.profil-card {
+  .profil-card {
+    z-index: 2;
+    background-color: white;
     padding: 2rem;
     border-radius: 15px;
-    background-color: var(--bg-light);
-    width: 100%;
-    max-width: 400px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
-}
-
-/* Titre */
-.profil-card h2 {
-    font-size: 1.8rem;
+    max-width: 400px;
+    margin: 2rem auto;
+  }
+  
+  .profil-card h2 {
     color: var(--main-green);
-    margin-bottom: 1rem;
-}
-
-/* Image de profil */
-.profil-image {
-    width: 90px;
-    height: 90px;
+    font-size: 1.5rem;
+  }
+  
+  .profil-image {
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
-    object-fit: cover;
+    margin: 1rem auto;
     border: 3px solid var(--main-green);
-    margin-bottom: 1rem;
-}
-
-/* Infos du profil */
-.profil-info {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
+  }
+  
+  .profil-card label {
+    display: block;
+    font-weight: bold;
+    margin-top: 0.5rem;
     text-align: left;
-}
-
-/* Labels */
-.profil-info label {
-    font-weight: bold;
-    color: var(--text-dark);
-    font-size: 0.9rem;
-}
-
-/* Champs de saisie */
-.profil-info input {
+  }
+  
+  .profil-card input, .profil-card select {
     width: 100%;
-    padding: 0.9rem;
-    border: none;
+    padding: 0.5rem;
     border-radius: 8px;
-    font-size: 1rem;
-    background-color: #F5F5F5;
-    outline: none;
-    transition: all 0.3s ease-in-out;
-}
-
-.profil-info input:focus {
-    border: 2px solid var(--main-green);
-    background-color: #ffffff;
-}
-
-/* Boutons Modifier et Sauvegarder */
-.profil-buttons {
+    border: 1px solid #ccc;
+    margin-top: 0.3rem;
+  }
+  
+  .profil-buttons {
     display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 1rem;
+    justify-content: space-between;
     margin-top: 1rem;
-}
-
-.btn {
-    width: 100%;
-    padding: 1rem;
+  }
+  
+  .btn {
+    padding: 0.8rem;
     border: none;
     border-radius: 8px;
     font-size: 1rem;
-    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
-}
-
-/* Bouton Modifier */
-.btn-edit {
+  }
+  
+  .btn-edit {
     background-color: var(--accent-orange);
-    color: var(--text-light);
-}
-
-.btn-edit:hover {
-    background-color: #e68400;
-}
-
-/* Bouton Sauvegarder */
-.btn-save {
-    background-color: var(--main-green);
-    color: var(--text-light);
-    display: none; /* Caché par défaut */
-}
-
-.btn-save:hover {
+    color: white;
+  }
+  
+  .btn-save {
     background-color: var(--dark-green);
-}
-
-#chauffeur-section {
+    color: white;
+  }
+  
+  #chauffeur-section {
     margin-top: 1.5rem;
     padding: 1rem;
     background: #f3f3f3;
     border-radius: 10px;
   }
+  
 
 
   
