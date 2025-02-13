@@ -1,24 +1,17 @@
 
-
-async function chargerProfil() {
-    const userId = localStorage.getItem("user_id");
-    if (!userId) {
-        alert("Utilisateur non connecté");
-        window.location.href = "connexion.html";
-        return;
-    }
-
-    const response = await fetch(`${API_URL}/users.php?id=${userId}`);
-    const data = await response.json();
-
-    if (data.error) {
-        alert("Erreur : " + data.error);
+document.addEventListener("DOMContentLoaded", () => {
+    const user = JSON.parse(localStorage.getItem("user"));
+  
+    if (!user) {
+      alert("Vous devez être connecté !");
+      window.location.href = "login.html"; // Redirige vers la page de connexion
     } else {
-        document.getElementById("pseudo").textContent = data.pseudo;
-        document.getElementById("email").textContent = data.email;
-        document.getElementById("telephone").textContent = data.telephone;
-        document.getElementById("adresse").textContent = data.adresse;
+      document.getElementById("user-email").textContent = user.email;
     }
-}
-
-document.addEventListener("DOMContentLoaded", chargerProfil);
+  });
+  
+  document.getElementById("logout").addEventListener("click", () => {
+    localStorage.removeItem("user");
+    window.location.href = "login.html"; // Redirection après déconnexion
+  });
+  
