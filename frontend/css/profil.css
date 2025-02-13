@@ -367,6 +367,7 @@
     width: 100%;
     min-height: 60vh; /* Ajustable selon besoin */
     margin-top: 50px;
+    z-index: 2; /* Assure que le contenu est devant l'overlay */
 }
 
 /* Carte de profil */
