@@ -7,7 +7,7 @@
 <!-- Meta description pour SEO (exemple) -->
   <meta name="description" content="Rejoignez notre plateforme de covoiturage EcoRide pour voyager facilement, économiquement et de manière écologique.">
   
-  <title>EcoRide – Connexion</title>
+  <title>EcoRide – Profil</title>
   
 <!-- Google Fonts : Poppins -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -89,13 +89,12 @@
 <!-- ======= SECTION HERO ======= -->
 <section class="hero">
     <div class="hero-overlay"></div> <!-- Overlay pour assombrir l'image et donner du contraste -->
-    
     <div class="hero-header">
       <button class="menu-btn" aria-label="Ouvrir le menu">☰</button>
   
       <!-- Menu déroulant -->
       <ul class="dropdown-menu">
-        <li><a href="index.html" class="active">Accueil</a></li>
+        <li><a href="index.html">Accueil</a></li>
         <li><a href="trajets.html">Trouver un trajet</a></li>
         <li><a href="proposer.html">Proposer un trajet</a></li>
         <li><a href="avis.html">Avis</a></li>
@@ -108,31 +107,75 @@
       </a>
     </div>
   
-    <!-- Conteneur centré pour le profil -->
-    <div class="profil-container">
-      <div class="profil-card">
-        <h2>Informations du compte</h2>
-        <img src="img/icons/account_circle.png" alt="Photo de profil" class="profil-image">
+    <!-- ====== Profil Card ====== -->
+    <div class="profil-card">
+      <h2>Informations du compte</h2>
+      <img src="img/icons/account_circle.png" alt="Photo de profil" class="profil-image">
+      
+      <label for="email">Email :</label>
+      <input type="email" id="email" value="user@example.com" disabled>
   
-        <div class="profil-info">
-          <label for="email">Email :</label>
-          <input type="email" id="email" value="user@example.com" disabled>
+      <label for="nom">Nom :</label>
+      <input type="text" id="nom" value="Nom de l'utilisateur" disabled>
   
-          <label for="nom">Nom :</label>
-          <input type="text" id="nom" value="Nom de l'utilisateur" disabled>
+      <label for="telephone">Téléphone :</label>
+      <input type="text" id="telephone" value="06 12 34 56 78" disabled>
   
-          <label for="telephone">Téléphone :</label>
-          <input type="text" id="telephone" value="06 12 34 56 78" disabled>
+      <!-- Sélecteur de rôle -->
+      <label for="role">Rôle :</label>
+      <select id="role">
+        <option value="passager">Passager</option>
+        <option value="chauffeur">Chauffeur</option>
+        <option value="chauffeur_passager">Chauffeur & Passager</option>
+      </select>
+  
+      <!-- Section supplémentaire pour Chauffeur -->
+      <div id="chauffeur-section" style="display: none;">
+        <h3>Informations Chauffeur</h3>
+  
+        <label for="plaque">Plaque d'immatriculation :</label>
+        <input type="text" id="plaque">
+  
+        <label for="date-immatriculation">Date de première immatriculation :</label>
+        <input type="date" id="date-immatriculation">
+  
+        <!-- Liste des véhicules -->
+        <h4>Véhicules</h4>
+        <div id="vehicules-container">
+          <div class="vehicule">
+            <label>Marque :</label>
+            <input type="text" class="vehicule-marque">
+            
+            <label>Modèle :</label>
+            <input type="text" class="vehicule-modele">
+            
+            <label>Couleur :</label>
+            <input type="text" class="vehicule-couleur">
+            
+            <label>Places disponibles :</label>
+            <input type="number" min="1" class="vehicule-places">
+          </div>
         </div>
+        <button id="ajouter-vehicule">Ajouter un véhicule</button>
   
-        <div class="profil-buttons">
+        <!-- Préférences -->
+        <h4>Préférences</h4>
+        <label><input type="checkbox" id="fumeur"> Fumeur accepté</label>
+        <label><input type="checkbox" id="animaux"> Animaux acceptés</label>
+  
+        <label for="custom-preferences">Autres préférences :</label>
+        <input type="text" id="custom-preferences" placeholder="Ajouter une préférence">
+      </div>
+  
+      <!-- Boutons -->
+      <div class="profil-buttons">
           <button class="btn btn-edit" id="edit-btn">Modifier</button>
           <button class="btn btn-save" id="save-btn">Sauvegarder</button>
-        </div>
       </div>
     </div>
   
   </section>
+  
   
 
 

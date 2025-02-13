@@ -79,3 +79,53 @@ document.addEventListener("DOMContentLoaded", () => {
         // 🔽 Ici tu peux ajouter un fetch() pour sauvegarder les infos sur le serveur
     });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const roleSelect = document.getElementById("role");
+    const chauffeurSection = document.getElementById("chauffeur-section");
+    const editBtn = document.getElementById("edit-btn");
+    const saveBtn = document.getElementById("save-btn");
+    const inputs = document.querySelectorAll(".profil-card input, .profil-card select");
+    const addVehicleBtn = document.getElementById("ajouter-vehicule");
+    const vehiclesContainer = document.getElementById("vehicules-container");
+
+    // Gestion affichage des champs chauffeur
+    roleSelect.addEventListener("change", () => {
+        if (roleSelect.value.includes("chauffeur")) {
+            chauffeurSection.style.display = "block";
+        } else {
+            chauffeurSection.style.display = "none";
+        }
+    });
+
+    // Activer/Désactiver modification
+    editBtn.addEventListener("click", () => {
+        inputs.forEach(input => input.disabled = false);
+    });
+
+    // Ajouter un véhicule
+    addVehicleBtn.addEventListener("click", () => {
+        const vehicleHTML = `
+            <div class="vehicule">
+                <label>Marque :</label>
+                <input type="text" class="vehicule-marque">
+                
+                <label>Modèle :</label>
+                <input type="text" class="vehicule-modele">
+                
+                <label>Couleur :</label>
+                <input type="text" class="vehicule-couleur">
+                
+                <label>Places disponibles :</label>
+                <input type="number" min="1" class="vehicule-places">
+            </div>
+        `;
+        vehiclesContainer.insertAdjacentHTML("beforeend", vehicleHTML);
+    });
+
+    // Sauvegarder (simulation)
+    saveBtn.addEventListener("click", () => {
+        alert("Informations sauvegardées !");
+        inputs.forEach(input => input.disabled = true);
+    });
+});
