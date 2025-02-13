@@ -59,24 +59,47 @@ html, body {
     text-align: center;
 }
 
-/* =======================
-   Navbar
+/* ======================= 
+   Navbar en mode Grid 
 ======================= */
 .navbar {
-    position: fixed;
-    top: 30px; /* Ajuste pour ne pas chevaucher le top-header */
+    position: fixed; /* Fixe la navbar */
+    top: 2rem; /* Ajustement pour ne pas chevaucher le top-header */
     left: 0;
-    width: 100%;
-    z-index: 1000;
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--main-green);
-    padding: 1rem 2rem;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%; /* S'étend sur toute la largeur */
+    z-index: 1000; /* Assure qu'elle reste au-dessus */
+    display: grid; /* Utilisation de Grid */
+    grid-template-columns: auto 1fr auto; /* Structure en 3 colonnes */
+    justify-content: space-between; /* Alignement */
+    align-items: center; /* Centre verticalement */
+    background-color: var(--main-green); /* Fond vert */
+    padding: 1rem 2rem; /* Espacement interne */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombre subtile */
 }
 
+.navbar-wrapper {
+    position: relative; /* Garde le contexte */
+}
+
+/* ================= 
+   Navbar : logo 
+===================*/  
+.logo-text {
+    font-family: 'Lobster', cursive;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--text-light);
+    text-decoration: none;
+}
+
+.logo-text:hover {
+    color: var(--light-green);
+    transition: color 0.3s ease;
+}
+
+/* ======================= 
+   Navbar : menu central 
+======================= */
 .navbar-main {
     list-style: none;
     display: flex;
@@ -98,6 +121,66 @@ html, body {
 .navbar-main li a:hover {
     background-color: #3B5311;
 }
+
+/* ======================= 
+   Zone de connexion 
+======================= */
+.navbar-connexion {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-connexion .user-logo {
+    display: inline-flex;
+    align-items: center;
+    font-size: 1.5rem;
+    color: var(--text-light);
+    cursor: pointer;
+    gap: 0.5rem;
+}
+
+.user-logo {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 0.5rem;
+}
+
+.navbar-connexion .fa-caret-down {
+    font-size: 1.2rem;
+    color: var(--text-light);
+    margin-left: 5px;
+}
+
+/* ======================= 
+   Menu déroulant du profil 
+======================= */
+.profile-dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: var(--bg-light);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    min-width: 150px;
+}
+
+.profile-dropdown-menu a {
+    display: block;
+    padding: 0.8rem 1rem;
+    color: var(--text-dark);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.profile-dropdown-menu a:hover {
+    background-color: var(--light-green);
+}
+
 
 /* =======================
    Section Profil
