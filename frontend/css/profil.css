@@ -355,81 +355,108 @@
     margin-bottom: 1.5rem;
   }
 
-/* Carte de connexion */
-.profil-card {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 2rem;
-    border-radius: 15px; /* Coins arrondis */
-    background-color: var(--bg-grey); /* Fond similaire */
-    width: 100%;
-    max-width: 400px; /* Largeur maximale pour une belle apparence */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Légère ombre pour l'effet de profondeur */
+/* ==============================
+   Profil Card (Style Inscription)
+============================== */
+
+.profil-container {
+    flex: 1;
     display: flex;
-    flex-direction: column; /* Organise les éléments verticalement */
-    align-items: center; /* Centre le contenu */
-    gap: 1.5rem; /* Espacement entre les éléments */
-    z-index: 999;
-  }
-  
-  /* Titre de la carte */
-  .profil-card h2 {
-    font-size: 1.5rem;
-    color: var(--main-green); /* Couleur principale verte */
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px; /* Ajuste en fonction de ta navbar */
+}
+
+/* Carte Profil */
+.profil-card {
+    padding: 2rem;
+    border-radius: 15px;
+    background-color: var(--bg-light);
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Ombre plus marquée */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
     text-align: center;
+}
+
+/* Titre */
+.profil-card h2 {
+    font-size: 1.8rem;
+    color: var(--main-green);
     margin-bottom: 1rem;
-  }
-  
-  /* Champs d'entrée */
-  .profil-card input {
+}
+
+/* Photo de profil */
+.profil-image {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--main-green);
+    margin-bottom: 1rem;
+}
+
+/* Champs de saisie */
+.profil-card input {
     width: 100%;
-    padding: 0.8rem;
-    border: 1px solid #ccc; /* Bordure grise claire */
-    border-radius: 10px; /* Coins arrondis */
-    outline: none;
-    font-size: 1rem;
-    box-sizing: border-box; /* Inclut le padding dans la largeur totale */
-  }
-  
-  .profil-card input:focus {
-    border-color: var(--main-green); /* Bordure verte au focus */
-  }
-  
-  /* Bouton de connexion */
-  .profil-card .profil-buttons {
-    width: 100%;
-    padding: 0.8rem;
-    background-color: #FFA500; /* Couleur orange */
+    padding: 0.9rem;
     border: none;
-    border-radius: 10px;
-    color: #fff;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #F5F5F5;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.profil-card input:focus {
+    border: 2px solid var(--main-green);
+    background-color: #ffffff;
+}
+
+/* Boutons Modifier et Sauvegarder */
+.profil-buttons {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.btn {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
     font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
-    text-align: center;
-  }
-  
-  .profil-card .profil-buttons:hover {
-    background-color: var(--dark-green); /* Couleur verte au survol */
-  }
-  
-  /* Texte supplémentaire */
-  .profil-card .extra-text {
-    font-size: 0.9rem;
-    color: #333;
-    text-align: center;
-  }
-  
-  .profil-card .extra-text a {
-    color: var(--main-green); /* Couleur verte pour les liens */
-    text-decoration: none;
-  }
-  
-  .profil-card .extra-text a:hover {
-    text-decoration: underline; /* Souligné au survol */
-  }
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Bouton Modifier */
+.btn-edit {
+    background-color: var(--accent-orange);
+    color: var(--text-light);
+}
+
+.btn-edit:hover {
+    background-color: #e68400;
+}
+
+/* Bouton Sauvegarder */
+.btn-save {
+    background-color: var(--main-green);
+    color: var(--text-light);
+    display: none; /* Caché par défaut */
+}
+
+.btn-save:hover {
+    background-color: var(--dark-green);
+}
+
   
   
 /* =======================
