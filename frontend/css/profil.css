@@ -356,25 +356,27 @@
   }
 
 /* ==============================
-   Profil Card (Style Inscription)
+   Profil Card (Alignement & Style)
 ============================== */
 
+/* Conteneur général pour centrer la carte */
 .profil-container {
-    flex: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 100px; /* Ajuste en fonction de ta navbar */
+    width: 100%;
+    min-height: 60vh; /* Ajustable selon besoin */
+    margin-top: 50px;
 }
 
-/* Carte Profil */
+/* Carte de profil */
 .profil-card {
     padding: 2rem;
     border-radius: 15px;
     background-color: var(--bg-light);
     width: 100%;
     max-width: 400px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Ombre plus marquée */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -389,7 +391,7 @@
     margin-bottom: 1rem;
 }
 
-/* Photo de profil */
+/* Image de profil */
 .profil-image {
     width: 90px;
     height: 90px;
@@ -399,8 +401,24 @@
     margin-bottom: 1rem;
 }
 
+/* Infos du profil */
+.profil-info {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    text-align: left;
+}
+
+/* Labels */
+.profil-info label {
+    font-weight: bold;
+    color: var(--text-dark);
+    font-size: 0.9rem;
+}
+
 /* Champs de saisie */
-.profil-card input {
+.profil-info input {
     width: 100%;
     padding: 0.9rem;
     border: none;
@@ -411,7 +429,7 @@
     transition: all 0.3s ease-in-out;
 }
 
-.profil-card input:focus {
+.profil-info input:focus {
     border: 2px solid var(--main-green);
     background-color: #ffffff;
 }
@@ -456,6 +474,7 @@
 .btn-save:hover {
     background-color: var(--dark-green);
 }
+
 
   
   
