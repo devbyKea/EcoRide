@@ -59,3 +59,23 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location.href = "login.html"; // Redirection après déconnexion
   });
 })
+
+document.addEventListener("DOMContentLoaded", () => {
+    const editBtn = document.getElementById("edit-btn");
+    const saveBtn = document.getElementById("save-btn");
+    const inputs = document.querySelectorAll(".profil-card input");
+
+    editBtn.addEventListener("click", () => {
+        inputs.forEach(input => input.disabled = false);
+        editBtn.style.display = "none";
+        saveBtn.style.display = "inline-block";
+    });
+
+    saveBtn.addEventListener("click", () => {
+        inputs.forEach(input => input.disabled = true);
+        editBtn.style.display = "inline-block";
+        saveBtn.style.display = "none";
+
+        // 🔽 Ici tu peux ajouter un fetch() pour sauvegarder les infos sur le serveur
+    });
+});
