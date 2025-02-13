@@ -10,278 +10,600 @@
     --text-light: #ffffff;
     --bg-light: #f9f9f9;
     --bg-grey: #eeeeee;
-
+  
     --font-main: "Poppins", Arial, sans-serif;
-}
-
-/* =======================
-   Reset et Bases
-======================= */
-* {
+  }
+  
+  /* =======================
+     Reset rapide
+  ======================= */
+  * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-html, body {
-    height: 100%; /* Assurer que la page prend toute la hauteur */
-    display: flex;
-    flex-direction: column; /* Organisation verticale de la page */
+  }
+  
+  html, body {
+    overflow: visible;
     font-family: var(--font-main);
     color: var(--text-dark);
     background-color: var(--bg-light);
     line-height: 1.5;
-}
-
-/* =======================
-   Container Top (Bandeau)
-======================= */
-.container-top {
+  }
+  
+  /* =======================
+     Container Top
+     (pour le bandeau)
+  ======================= */
+  .container-top {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0 2rem;
-}
-
-/* =======================
-   Top Header
-======================= */
-.header-top {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+  }
+  
+  /* =======================
+     Container Nav
+  ======================= */
+  .container-nav {
+    max-width: 1200px; /* ou la largeur que tu souhaites */
+    margin: 0 auto;    /* centre le bloc */
+    display: flex;     
+    align-items: center;
+    justify-content: space-between; /* ou space-around, etc. selon ton layout */
+    padding: 0 2rem; /* marge intérieure horizontale */
+  }
+  
+  /* =======================
+     Header Top
+  ======================= */
+  .header-top {
+    position: fixed; /* Fixe le header en haut de la page */
+    top: 0; /* Aligné tout en haut */
+    width: 100%; /* Prend toute la largeur */
     z-index: 1001;
-    background-color: var(--dark-green);
-    color: var(--text-light);
-    padding: 0.4rem 0;
+    background-color: var(--dark-green); 
+    color: var(--text-light); 
+    padding: 0.4rem 0;  
     font-size: 0.9rem;
-    text-align: center;
-}
-
-/* ======================= 
-   Navbar en mode Grid 
-======================= */
-.navbar {
-    position: fixed; /* Fixe la navbar */
-    top: 2rem; /* Ajustement pour ne pas chevaucher le top-header */
-    left: 0;
-    width: 100%; /* S'étend sur toute la largeur */
-    z-index: 1000; /* Assure qu'elle reste au-dessus */
-    display: grid; /* Utilisation de Grid */
-    grid-template-columns: auto 1fr auto; /* Structure en 3 colonnes */
-    justify-content: space-between; /* Alignement */
-    align-items: center; /* Centre verticalement */
+  }
+  
+  /* =======================
+     Navbar en mode Grid
+  ======================= */
+  .navbar {
+    position: fixed; /* Rendre la navbar sticky */
+    top: 2rem; /* Fixer la navbar au sommet */
+    z-index: 1000;
+    width: 100%; /* Assure que la navbar est devant les autres éléments */
+    display: grid; /* Structure en grille */
+    grid-template-columns: auto 1fr auto; /* Colonnes : logo, menu, bouton */
+    justify-content: space-between; /* Espace entre les colonnes */
+    align-items: center; /* Aligne verticalement les éléments */
     background-color: var(--main-green); /* Fond vert */
     padding: 1rem 2rem; /* Espacement interne */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombre subtile */
-}
-
-.navbar-wrapper {
-    position: relative; /* Garde le contexte */
-}
-
-/* ================= 
-   Navbar : logo 
-===================*/  
-.logo-text {
-    font-family: 'Lobster', cursive;
-    font-size: 1.8rem;
-    font-weight: 600;
-    color: var(--text-light);
-    text-decoration: none;
-}
-
-.logo-text:hover {
-    color: var(--light-green);
-    transition: color 0.3s ease;
-}
-
-/* ======================= 
-   Navbar : menu central 
-======================= */
-.navbar-main {
+  }
+  .navbar-wrapper {
+    position: relative; /* Définit un contexte pour la navbar */
+  }
+  
+  /* ================= 
+      Navbar : logo 
+  ====================*/  
+  .logo-text {
+    font-family: 'Lobster', cursive; /* Exemple avec une police plus artistique */
+    font-size: 1.8rem; /* Ajustez la taille du texte */
+    font-weight: 600; /* Gras pour plus de visibilité */
+    color: var(--text-light); /* Couleur du texte (par exemple, blanc) */
+    text-decoration: none; /* Pas de soulignement */
+  }
+  
+  .logo-text:hover {
+    color: var(--light-green); /* Couleur au survol */
+    transition: color 0.3s ease; /* Transition fluide */
+  }
+  
+  /* =======================
+     Navbar : menu central
+  ======================= */
+  .navbar-main {
     list-style: none;
-    display: flex;
+    display: flex;        /* On reste en flex pour aligner les liens */
     gap: 2rem;
     justify-content: center;
     margin: 0;
     padding: 0;
-}
-
-.navbar-main li a {
+  }
+  
+  .hamburger {
+    display: none; /* Caché par défaut */
+  }
+  
+  .navbar-main li a {
     color: var(--text-light);
     text-decoration: none;
     font-weight: 500;
-    padding: 0.5rem 0.8rem;
-    border-radius: 4px;
-    transition: 0.3s ease;
-}
-
-.navbar-main li a:hover {
-    background-color: #3B5311;
-}
-
-/* ======================= 
-   Zone de connexion 
-======================= */
+    transition: 0.3s ease; /* transition (couleur, scale) */
+    padding: 0.5rem 0.8rem; /* marge interne pour effet “pastille” */
+    border-radius: 4px;     
+  }
+  
+  /* Hover sur le menu central */
+  .navbar-main li a:hover {
+    background-color:  #3B5311; /* Un vert plus foncé */
+     
+  }
+  
+/* Zone de connexion */
 .navbar-connexion {
-    display: flex;
-    align-items: center;
+  display: flex; /* Aligne la zone de connexion dans la navbar */
+  align-items: center; /* Centre verticalement */
+  height: 100%; /* Aligne sur toute la hauteur de la navbar */
+}
+
+.navbar-connexion .login-btn {
+  display: inline-flex; /* Aligne les éléments horizontalement */
+  align-items: center; /* Centre verticalement */
+  text-decoration: none;
+  font-weight: 600;
+  padding: 0.6rem 1rem;
+  border-radius: 4px;
+  color: var(--text-light);
+  transition: background-color 0.3s;
 }
 
 .navbar-connexion .user-logo {
-    display: inline-flex;
-    align-items: center;
-    font-size: 1.5rem;
-    color: var(--text-light);
-    cursor: pointer;
-    gap: 0.5rem;
+  display: inline-flex; /* Alignement horizontal des icônes */
+  align-items: center;
+  text-decoration: none;
+  font-size: 1.5rem; /* Taille des icônes */
+  color: var(--text-light); /* Couleur des icônes */
+  cursor: pointer;
+  gap: 0.5rem; /* Espacement entre l'icône et la flèche */
 }
 
 .user-logo {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 0.5rem;
+  width: 32px; /* Largeur souhaitée de l'image */
+  height: 32px; /* Hauteur correspondante */
+  border-radius: 50%; /* Rendre l'image circulaire (facultatif) */
+  object-fit: cover; /* Ajuste l'image pour qu'elle ne soit pas déformée */
+  margin-right: 0.5rem;
 }
 
 .navbar-connexion .fa-caret-down {
-    font-size: 1.2rem;
-    color: var(--text-light);
-    margin-left: 5px;
+  font-size: 1.2rem; /* Taille de la flèche */
+  color: var(--text-light); /* Couleur de la flèche */
+  margin-left: 5px; /* Espace entre l'icône et la flèche */
+  
 }
 
-/* ======================= 
-   Menu déroulant du profil 
-======================= */
+
+.navbar-connexion .login-btn:hover {
+  background-color: #3B5311; /* Couleur de survol */
+}
+
+/* Styles pour le menu déroulant */
 .profile-dropdown-menu {
-    display: none;
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background-color: var(--bg-light);
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    min-width: 150px;
+  display: none; /* Masqué par défaut */
+  position: absolute;
+  top: 100%; /* Juste en dessous de l'icône */
+  right: 0; /* Aligné à droite */
+  background-color: var(--bg-light); /* Fond clair */
+  border: 1px solid #ccc; /* Bordure grise */
+  border-radius: 5px; /* Coins arrondis */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
+  z-index: 1000;
+  min-width: 150px; /* Largeur minimale */
 }
 
 .profile-dropdown-menu a {
-    display: block;
-    padding: 0.8rem 1rem;
-    color: var(--text-dark);
-    text-decoration: none;
-    font-size: 0.9rem;
+  display: block;
+  padding: 0.8rem 1rem;
+  color: var(--text-dark);
+  text-decoration: none;
+  font-size: 0.9rem;
 }
 
 .profile-dropdown-menu a:hover {
-    background-color: var(--light-green);
+  background-color: var(--light-green); /* Couleur de survol */
 }
 
-
-/* =======================
-   Section Profil
-======================= */
-main {
-    flex: 1; /* Permet au contenu de s'étendre et pousse le footer en bas */
-    max-width: 800px;
-    margin: 100px auto 20px auto; /* Marge ajustée pour éviter la superposition avec la navbar */
-    padding: 2rem;
-    background: var(--bg-grey);
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.profil-info {
-    background: var(--text-light);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-.profil-info h2 {
-    color: var(--main-green);
-    margin-bottom: 10px;
-}
-
-.profil-info p {
-    font-size: 18px;
-    margin: 10px 0;
-}
-
-/* =======================
-   Bouton Déconnexion
-======================= */
-.profil-actions {
-    margin-top: 20px;
-    text-align: center;
-}
-
-button {
-    background-color: var(--accent-orange);
-    color: var(--text-light);
+  
+  
+  
+  .hamburger {
+    display: none; /* Masque l'icône par défaut */
+    position: absolute; /* Position absolue pour un placement flexible */
+    font-size: 2rem; /* Taille du menu */
+    color: var(--text-light); /* Couleur initiale */
+    background: none;
     border: none;
-    padding: 10px 20px;
-    font-size: 18px;
     cursor: pointer;
+    z-index: 1001; /* Priorité devant le contenu */
+    transition: color 0.3s ease; /* Transition fluide pour la couleur */
+  }
+  
+  /* Icône de profil dans le Hero (visible uniquement en mobile) */
+  .profile-icon {
+    display: none; /* Masque l'icône par défaut */
+    position: absolute; /* Position absolue pour un placement flexible */
+    top: 1rem; /* Distance depuis le haut */
+    right: 1rem; /* Distance depuis la droite */
+    font-size: 2rem; /* Taille de l'icône */
+    color: var(--text-light); /* Couleur blanche */
+    cursor: pointer;
+    z-index: 1001; /* Toujours au-dessus des autres éléments */
+  }
+  
+  
+  .menu-btn {
+    font-size: 2rem;
+    color: var(--text-light);
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1000; /* Assure que le bouton est devant */
+    position: absolute;
+  }
+  
+  /* ===== Dropdown Menu ===== */
+  .dropdown-menu {
+    position: absolute;
+    top: 50px; /* Sous le bouton hamburger */
+    left: 10px; /* Aligné avec le bouton */
+    background-color: var(--main-green);
     border-radius: 5px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: none; /* Masqué par défaut */
+    z-index: 1002; /* Priorité plus haute pour être devant */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dropdown-menu li {
+    margin: 0;
+  }
+  
+  .dropdown-menu li a {
+    display: block;
+    padding: 0.8rem 1.2rem;
+    color: var(--text-light);
+    text-decoration: none;
     transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #e68400;
-}
-
-/* =======================
-   Footer Sticky (Fixé en bas)
-======================= */
-.footer {
+  }
+  
+  .dropdown-menu li a:hover {
+    background-color: var(--dark-green); /* Survol */
+  }
+  
+  /* ===== Menu visible au survol ===== */
+  .hamburger.active + .dropdown-menu {
+    display: block; /* Afficher le menu */
+  }
+  
+  /* =======================
+     Section Hero
+  ======================= */
+  .hero {
+    position: relative;
+    padding-top: 9rem;
+    min-height: 100vh;
+    background: url("../frontend/img/connexion.jpg") center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--text-light);
+  }
+  
+  /* Overlay sombre transparent */
+  .hero-overlay {
+    position: absolute;
+    top: 0; 
+    left: 0;
     width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      rgba(0, 0, 0, 0.6),
+      rgba(0, 0, 0, 0.3)  
+    );
+    z-index: 1; /* Au-dessus du fond, derrière le contenu */
+  }
+  
+  .hero-header {
+    position: absolute;
+    top: 10px; /* Distance depuis le haut */
+    left: 10px; /* Distance depuis la gauche */
+    right: 10px; /* Distance depuis la droite */
+    display: flex;
+    justify-content: space-between; /* Espace entre le menu et le profil */
+    z-index: 1001; /* Assurez que le header est visible au-dessus */
+    display: none; /* Masqué par défaut */
+    color: var(--light-green); /* Forcer la couleur au survol */
+  }
+  
+  
+  /* Contenu de la hero : on le fait apparaître avec une animation */
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+    padding: 1rem;
+    text-align: center;
+    margin: 0 auto;
+  
+    /* Animation */
+    animation: fadeInComplex 1.5s ease-in-out forwards;
+    opacity: 0; /* Par défaut invisible (animation prend le relais) */
+  }
+  
+  .hero-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-light);
+  }
+  
+  .hero-content p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    color: var(--text-light);
+  }
+  
+  .hero-content .btn.btn-hero {
+    margin-bottom: 1.5rem;
+  }
+
+/* Carte de connexion */
+.profil-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 2rem;
+    border-radius: 15px; /* Coins arrondis */
+    background-color: var(--bg-grey); /* Fond similaire */
+    width: 100%;
+    max-width: 400px; /* Largeur maximale pour une belle apparence */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Légère ombre pour l'effet de profondeur */
+    display: flex;
+    flex-direction: column; /* Organise les éléments verticalement */
+    align-items: center; /* Centre le contenu */
+    gap: 1.5rem; /* Espacement entre les éléments */
+    z-index: 999;
+  }
+  
+  /* Titre de la carte */
+  .profil-card h2 {
+    font-size: 1.5rem;
+    color: var(--main-green); /* Couleur principale verte */
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  /* Champs d'entrée */
+  .profil-card input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ccc; /* Bordure grise claire */
+    border-radius: 10px; /* Coins arrondis */
+    outline: none;
+    font-size: 1rem;
+    box-sizing: border-box; /* Inclut le padding dans la largeur totale */
+  }
+  
+  .profil-card input:focus {
+    border-color: var(--main-green); /* Bordure verte au focus */
+  }
+  
+  /* Bouton de connexion */
+  .profil-card .profil-buttons {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: #FFA500; /* Couleur orange */
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .profil-card .profil-buttons:hover {
+    background-color: var(--dark-green); /* Couleur verte au survol */
+  }
+  
+  /* Texte supplémentaire */
+  .profil-card .extra-text {
+    font-size: 0.9rem;
+    color: #333;
+    text-align: center;
+  }
+  
+  .profil-card .extra-text a {
+    color: var(--main-green); /* Couleur verte pour les liens */
+    text-decoration: none;
+  }
+  
+  .profil-card .extra-text a:hover {
+    text-decoration: underline; /* Souligné au survol */
+  }
+  
+  
+/* =======================
+   Sections générales
+======================= */
+section {
+    padding: 3rem 2rem;
+  }
+  
+  section h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  section p {
+    text-align: center;
+    max-width: 800px;
+    margin: 0.5rem auto 2rem auto;
+    line-height: 1.6;
+  }
+  
+  /* =======================
+     Footer
+  ======================= */
+  .footer {
     background-color: var(--dark-green);
     color: var(--text-light);
     text-align: center;
     padding: 1.5rem;
-    margin-top: auto; /* Permet au footer de rester en bas */
-}
-
-.footer-info p {
+    margin-top: 0rem;
+  }
+  
+  .footer-info p {
     margin: 0.5rem 0;
-}
-
-.footer-info a {
+  }
+  
+  .footer-info a {
     color: var(--light-green);
     text-decoration: none;
-}
-
-.footer-info a:hover {
+  }
+  
+  .footer-info a:hover {
     text-decoration: underline;
-}
+  }
+  
+  /* Largeur / hauteur de la scrollbar */
+  ::-webkit-scrollbar {
+    width: 12px;  /* Ajuste la taille selon ton envie */
+  }
+  
+  /* Piste (arrière-plan) */
+  ::-webkit-scrollbar-track {
+    background-color: #F4ECD8;  /* Couleur rappelant un ton “bois clair” */
+  }
+  
+  /* Pouce (barre de défilement) */
+  ::-webkit-scrollbar-thumb {
+    border-radius: 6px; /* Bords arrondis pour un aspect plus organique */
+    border: 2px solid #F4ECD8; /* Laisse un peu d’espace autour pour mieux voir le motif */
+  
+    /* Motif bois simple (bandes diagonales) */
+    background: repeating-linear-gradient(
+      45deg,          /* Angle diagonal */
+      #8B4513 0px,    /* Couleur brune : début */
+      #8B4513 10px,   /* Jusqu'à 10px */
+      #A0522D 10px,   /* Deuxième couleur (brun plus clair) */
+      #A0522D 20px    /* Jusqu'à 20px, puis le cycle se répète */
+    );
+  }
+  
+  /* Survol de la barre : plus foncée, par exemple */
+  ::-webkit-scrollbar-thumb:hover {
+    background: repeating-linear-gradient(
+      45deg,
+      #8B4513 0px,    
+      #8B4513 10px,
+      #CD853F 10px,   /* Un marron un peu plus clair */
+      #CD853F 20px
+    );
+  }
+  
+  /* =======================
+     Media Queries (Responsive)
+  ======================= */
+  @media (max-width: 1024px) {
 
-/* =======================
-   Media Queries (Responsive)
-======================= */
-@media (max-width: 1024px) {
     .header-top {
-        font-size: 0.7rem;
+        font-size: 0.7rem; /* Taille de la police réduite */
     }
-
-    .navbar {
-        padding: 0.8rem 1rem;
-    }
-
-    .navbar-main {
+  
+      .navbar {
+        display: none; /* Cache les liens */
+        flex-direction: column; /* Empile les liens verticalement */
+        position: absolute;
+        top: 100%; /* En dessous de la navbar */
+        right: 0;
+        background-color: var(--main-green);
+        width: 100%; /* Prend toute la largeur */
         gap: 1rem;
-    }
+        padding: 1rem 0;
+        z-index: 999;
+      }
+    
+      
+    
+      .navbar-main {
+        flex-direction: column; /* Les liens passent en vertical */
+        gap: 0.5rem;
+        width: 100%; /* Prend toute la largeur */
+      }
+    
+      .navbar-main.show {
+        display: flex; /* Affiche le menu lorsqu'il est activé */
+      }
+      
+    
+      .navbar-connexion {
+        align-self: flex-end; /* Connexion reste aligné à droite */
+      }
+      
+      .hero {
+        height: auto;
+        padding: 4rem 2rem;
+      }
+      
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+    
+      .presentation {
+        flex-direction: column;
+      }
+    
+      .responsive-image {
+        width: 100%; /* Image pleine largeur */
+        height: auto; /* Respecte les proportions */
+      }
+    
+      .hero-header {
+        top: 15px; /* Ajustez l'espacement pour les écrans plus petits */
+        left: 15px;
+        right: 15px;
+        display: flex; /* Affiche le menu et le logo de profil uniquement sur mobile */
+      }
+    
+      .menu-btn {
+        font-size: 1.8rem; /* Légèrement plus grand sur mobile */
+        top: 2rem; /* Distance ajustée pour mobile */
+        left: -0.5rem; /* Toujours dans le coin gauche */
+        width: 35px;
+        height: 35px;
+      }
+    
+      .menu-btn:hover {
+        color: var(--light-green); /* Couleur de survol */
+      }
+    
+      .profile-icon img {
+        width: 35px; /* Taille réduite sur mobile */
+        height: 35px;
+      }
+    
+      .search-bar input .serch-bar button {
+        width: 80%; /* Champ en pleine largeur sur mobile */
+      }  
+    
+      .profile-icon {
+        display: block;
+        top: 2rem; /* Distance ajustée pour mobile */
+        right: -0.5rem; /* Toujours dans le coin droit */
+      }
 
-    .profil-info {
-        padding: 15px;
+      .profile-icon:hover {
+        color: var(--light-green); /* Couleur de survol */
+      }
     }
-
-    .profil-info p {
-        font-size: 16px;
-    }
-}

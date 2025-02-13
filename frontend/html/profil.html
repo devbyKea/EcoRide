@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil Utilisateur</title>
-    <link rel="stylesheet" href="css/profil.css">
-
-    <!-- Google Fonts : Poppins -->
+  <meta charset="UTF-8">
+<!-- Viewport pour le responsive -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Meta description pour SEO (exemple) -->
+  <meta name="description" content="Rejoignez notre plateforme de covoiturage EcoRide pour voyager facilement, économiquement et de manière écologique.">
+  
+  <title>EcoRide – Connexion</title>
+  
+<!-- Google Fonts : Poppins -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link 
@@ -23,11 +26,14 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <!-- Feuille de style principale -->
+  <link rel="stylesheet" href="/css/connexion.css">
 
 </head>
 <body>
 
- <!-- ======= HEADER ======= -->
+<!-- ======= HEADER ======= -->
   <header>
 <!-- Bandeau au-dessus de la nav bar -->
     <div class="header-top">
@@ -78,55 +84,55 @@
 
     </nav>
   </header>
+  
 
 <!-- ======= SECTION HERO ======= -->
 <section class="hero">
-    <div class="hero-overlay"></div> <!-- Overlay pour assombrir l'image et donner du contraste -->
-      <div class="hero-header">
-        <button class="menu-btn" aria-label="Ouvrir le menu">☰
-        </button>
-  
-  <!-- Menu déroulant -->
-    <ul class="dropdown-menu">
-      <li><a href="index.html" class="active">Accueil</a></li>
-      <li><a href="trajets.html">Trouver un trajet</a></li>
-      <li><a href="proposer.html">Proposer un trajet</a></li>
-      <li><a href="avis.html">Avis</a></li>
-      <li><a href="contact.html">Contact</a></li>
-    </ul>
-  
-  <!-- Logo profil -->
-    <a href="login.html" class="profile-icon" aria-label="Accéder à la page de connexion">
-      <i class="fas fa-user-circle"></i> <!-- Icône utilisateur -->
-    </a>
-      </div>
+  <div class="hero-overlay"></div> <!-- Overlay pour assombrir l'image et donner du contraste -->
+    <div class="hero-header">
+      <button class="menu-btn" aria-label="Ouvrir le menu">☰
+      </button>
+
+<!-- Menu déroulant -->
+  <ul class="dropdown-menu">
+    <li><a href="index.html" class="active">Accueil</a></li>
+    <li><a href="trajets.html">Trouver un trajet</a></li>
+    <li><a href="proposer.html">Proposer un trajet</a></li>
+    <li><a href="avis.html">Avis</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+
+<!-- Logo profil -->
+  <a href="login.html" class="profile-icon" aria-label="Accéder à la page de connexion">
+    <i class="fas fa-user-circle"></i> <!-- Icône utilisateur -->
+  </a>
     </div>
+  </div>
+
+  <div class="profil-card">
+    <h2>Informations du compte</h2>
+    <img src="img/icons/account_circle.png" alt="Photo de profil" class="profil-image">
+    
+    <label for="email">Email :</label>
+    <input type="email" id="email" value="user@example.com" disabled>
+
+    <label for="nom">Nom :</label>
+    <input type="text" id="nom" value="Nom de l'utilisateur" disabled>
+
+    <label for="telephone">Téléphone :</label>
+    <input type="text" id="telephone" value="06 12 34 56 78" disabled>
+
+    <div class="profil-buttons">
+        <button class="btn btn-edit" id="edit-btn">Modifier</button>
+        <button class="btn btn-save" id="save-btn">Sauvegarder</button>
+    </div>
+</div>
   
-    </section>
+    
+  </section>
 
-    <main class="profil-container">
-        <div class="profil-card">
-            <h2>Informations du compte</h2>
-            <img src="img/icons/account_circle.png" alt="Photo de profil" class="profil-image">
-            
-            <label for="email">Email :</label>
-            <input type="email" id="email" value="user@example.com" disabled>
-    
-            <label for="nom">Nom :</label>
-            <input type="text" id="nom" value="Nom de l'utilisateur" disabled>
-    
-            <label for="telephone">Téléphone :</label>
-            <input type="text" id="telephone" value="06 12 34 56 78" disabled>
-    
-            <div class="profil-buttons">
-                <button class="btn btn-edit" id="edit-btn">Modifier</button>
-                <button class="btn btn-save" id="save-btn">Sauvegarder</button>
-            </div>
-        </div>
-    </main>
-    
 
-      <!-- ======= FOOTER ======= -->
+  <!-- ======= FOOTER ======= -->
   <footer class="footer">
     <div class="footer-info">
       <p>&copy; 2025 EcoRide - Tous droits réservés.</p>
@@ -138,6 +144,11 @@
     </div>
   </footer>
 
-    <script src="js/profil.js"></script>
+  <script type="module" src="/js/connexion.js"></script>
+
 </body>
+
 </html>
+
+
+
