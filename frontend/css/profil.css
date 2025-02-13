@@ -89,7 +89,7 @@ body {
   
   .navbar {
     position: fixed;
-    top: 35px; /* Décale la navbar sous le top-header */
+    top: 30px; /* Décale la navbar sous le top-header */
     left: 0;
     width: 100%;
     background-color: var(--main-green);
