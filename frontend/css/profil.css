@@ -46,7 +46,7 @@
 
   /* Ajouter un padding en haut au body pour éviter le chevauchement */
 body {
-    padding-top: 80px; /* Ajuste en fonction de la hauteur du top-header + navbar */
+    padding-top: 100px; /* Ajuste en fonction de la hauteur du top-header + navbar */
 }
 
   /* =======================
@@ -89,7 +89,7 @@ body {
   
   .navbar {
     position: fixed;
-    top: 40px; /* Décale la navbar sous le top-header */
+    top: 35px; /* Décale la navbar sous le top-header */
     left: 0;
     width: 100%;
     background-color: var(--main-green);
