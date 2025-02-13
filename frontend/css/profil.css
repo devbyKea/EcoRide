@@ -86,6 +86,7 @@
   ======================= */
   .navbar {
     position: fixed; /* Rendre la navbar sticky */
+    margin: 0;
     top: 2rem; /* Fixer la navbar au sommet */
     z-index: 1000;
     width: 100%; /* Assure que la navbar est devant les autres éléments */
