@@ -81,26 +81,26 @@
     font-size: 0.9rem;
   }
   
-  /* =======================
-     Navbar en mode Grid
-  ======================= */
   .navbar {
-    position: fixed; /* Rendre la navbar sticky */
-    margin: 0;
-    top: 2rem; /* Fixer la navbar au sommet */
-    z-index: 1000;
-    width: 100%; /* Assure que la navbar est devant les autres éléments */
-    display: grid; /* Structure en grille */
-    grid-template-columns: auto 1fr auto; /* Colonnes : logo, menu, bouton */
-    justify-content: space-between; /* Espace entre les colonnes */
-    align-items: center; /* Aligne verticalement les éléments */
-    background-color: var(--main-green); /* Fond vert */
-    padding: 1rem 2rem; /* Espacement interne */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombre subtile */
-  }
-  .navbar-wrapper {
-    position: relative; /* Définit un contexte pour la navbar */
-  }
+    position: fixed; /* Garde la navbar fixée */
+    top: 0; /* Fixe la navbar tout en haut */
+    left: 0; /* Colle la navbar complètement à gauche */
+    width: 100%; /* Assure qu'elle prend toute la largeur */
+    z-index: 1000; /* S'assure qu'elle reste au-dessus */
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--main-green);
+    padding: 1rem; /* Réduit le padding latéral pour éviter les marges */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-wrapper {
+    position: relative;
+    width: 100%;
+}
+
   
   /* ================= 
       Navbar : logo 
