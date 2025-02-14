@@ -7,11 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (userLogo && dropdownMenu) {
         userLogo.addEventListener("click", (event) => {
-            event.preventDefault(); // Empêche le comportement par défaut du lien
+            event.preventDefault();
             dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
         });
 
-        // Fermer le menu si on clique ailleurs
         document.addEventListener("click", (event) => {
             if (!userLogo.contains(event.target) && !dropdownMenu.contains(event.target)) {
                 dropdownMenu.style.display = "none";
@@ -35,7 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 🎯 ANIMATION DU BOUTON HAMBURGER
     const hamburger = document.querySelector(".hamburger");
-
     if (hamburger) {
         hamburger.addEventListener("click", () => {
             hamburger.classList.toggle("active");
@@ -49,18 +47,16 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("Vous devez être connecté !");
         window.location.href = "login.html"; // Redirection vers la page de connexion
     } else {
-        document.getElementById("user-email").textContent = user.email;
+        document.getElementById("email").value = user.email;
+    }
 
-        // 🎯 Modifier le menu déroulant pour afficher "Modifier le profil" et "Déconnexion"
-        dropdownMenu.innerHTML = `
-            <a href="profil.html">Modifier le profil</a>
-            <a href="#" id="logout">Déconnexion</a>
-        `;
-
-        // 🔓 Gestion du bouton Déconnexion
-        document.getElementById("logout").addEventListener("click", (event) => {
+    // 🔓 Gestion de la déconnexion (fixe dans la navbar)
+    const logoutBtn = document.getElementById("logout");
+    if (logoutBtn) {
+        logoutBtn.addEventListener("click", (event) => {
             event.preventDefault();
-            localStorage.removeItem("user");
+            console.log("👋 Déconnexion en cours...");
+            localStorage.removeItem("user"); // Suppression des données de l'utilisateur
             window.location.href = "login.html"; // Redirection après déconnexion
         });
     }
@@ -70,20 +66,21 @@ document.addEventListener("DOMContentLoaded", () => {
     const saveBtn = document.getElementById("save-btn");
     const inputs = document.querySelectorAll(".profil-card input, .profil-card select");
 
-    editBtn.addEventListener("click", () => {
-        inputs.forEach(input => input.disabled = false);
-        editBtn.style.display = "none";
-        saveBtn.style.display = "inline-block";
-    });
+    if (editBtn && saveBtn) {
+        editBtn.addEventListener("click", () => {
+            inputs.forEach(input => input.disabled = false);
+            editBtn.style.display = "none";
+            saveBtn.style.display = "inline-block";
+        });
 
-    saveBtn.addEventListener("click", () => {
-        inputs.forEach(input => input.disabled = true);
-        editBtn.style.display = "inline-block";
-        saveBtn.style.display = "none";
+        saveBtn.addEventListener("click", () => {
+            inputs.forEach(input => input.disabled = true);
+            editBtn.style.display = "inline-block";
+            saveBtn.style.display = "none";
 
-        // 🔽 Envoi des données au serveur
-        updateUserProfile();
-    });
+            updateUserProfile();
+        });
+    }
 
     // 🚗 Gestion des options Chauffeur / Passager
     const roleSelect = document.getElementById("role");
@@ -98,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ➕ Ajouter un véhicule
-    if (addVehicleBtn) {
+    if (addVehicleBtn && vehiclesContainer) {
         addVehicleBtn.addEventListener("click", () => {
             const vehicleHTML = `
                 <div class="vehicule">
