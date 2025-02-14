@@ -50,12 +50,16 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "login.html"; // Redirection vers la page de connexion
     } else {
         document.getElementById("user-email").textContent = user.email;
-    }
 
-    // 🔓 Déconnexion
-    const logoutBtn = document.getElementById("logout");
-    if (logoutBtn) {
-        logoutBtn.addEventListener("click", () => {
+        // 🎯 Modifier le menu déroulant pour afficher "Modifier le profil" et "Déconnexion"
+        dropdownMenu.innerHTML = `
+            <a href="profil.html">Modifier le profil</a>
+            <a href="#" id="logout">Déconnexion</a>
+        `;
+
+        // 🔓 Gestion du bouton Déconnexion
+        document.getElementById("logout").addEventListener("click", (event) => {
+            event.preventDefault();
             localStorage.removeItem("user");
             window.location.href = "login.html"; // Redirection après déconnexion
         });
