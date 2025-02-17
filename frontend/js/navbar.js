@@ -1,58 +1,61 @@
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("Script chargé !");
 
-    document.addEventListener("DOMContentLoaded", () => {
-        console.log("Script chargé !"); // Vérifie que le script se charge bien
+    const dropdownMenu = document.getElementById("profile-dropdown-menu");
+    const profileButton = document.getElementById("user-logo");
 
-        const dropdownMenu = document.getElementById("profile-dropdown-menu");
-        const profileButton = document.getElementById("user-logo");
+    // Vérification sécurisée de localStorage avant JSON.parse()
+    let user = null;
+    try {
         const userData = localStorage.getItem("user");
-        const user = userData ? JSON.parse(userData) : null;
+        user = userData && userData !== "undefined" ? JSON.parse(userData) : null;
+    } catch (error) {
+        console.error("Erreur de parsing JSON du localStorage:", error);
+        user = null;
+    }
 
+    console.log("User data:", user);
 
-        console.log("profileButton:", profileButton); // Vérifie si profileButton est bien trouvé
-        console.log("dropdownMenu:", dropdownMenu); // Vérifie si dropdownMenu est bien trouvé
-        console.log("User data:", user); // Vérifie le contenu de localStorage
+    // Met à jour le menu en fonction de l'état de connexion
+    function updateDropdownMenu() {
+        if (user) {
+            dropdownMenu.innerHTML = `
+                <a href="profil.html">Modifier le profil</a>
+                <a href="#" id="logout">Déconnexion</a>
+            `;
 
-        // Met à jour le menu en fonction de l'état de connexion
-        function updateDropdownMenu() {
-            if (user) {
-                dropdownMenu.innerHTML = `
-                    <a href="profil.html">Modifier le profil</a>
-                    <a href="#" id="logout">Déconnexion</a>
-                `;
+            console.log("Utilisateur connecté : affichage du menu connecté");
 
-                console.log("Utilisateur connecté : affichage du menu connecté");
-
-                // Gestion de la déconnexion
-                document.getElementById("logout").addEventListener("click", (event) => {
-                    event.preventDefault();
-                    localStorage.removeItem("user"); // Supprime l'utilisateur du localStorage
-                    window.location.href = "login.html"; // Redirige vers la connexion
-                });
-            } else {
-                dropdownMenu.innerHTML = `
-                    <a href="login.html">Connexion</a>
-                    <a href="inscription.html">Inscription</a>
-                `;
-
-                console.log("Utilisateur non connecté : affichage du menu invité");
-            }
+            // Gérer la déconnexion
+            document.getElementById("logout").addEventListener("click", (event) => {
+                event.preventDefault();
+                localStorage.removeItem("user");
+                window.location.href = "login.html";
+            });
+        } else {
+            dropdownMenu.innerHTML = `
+                <a href="login.html">Connexion</a>
+                <a href="inscription.html">Inscription</a>
+            `;
+            console.log("Utilisateur non connecté : affichage du menu invité");
         }
+    }
 
-        // Mettre à jour le menu au chargement
-        updateDropdownMenu();
+    // ✅ Appel immédiat pour s'assurer que le menu est mis à jour
+    updateDropdownMenu();
 
-        // Gérer l'affichage du menu au clic
-        profileButton.addEventListener("click", (event) => {
-            event.preventDefault();
-            console.log("Bouton de profil cliqué !");
-            dropdownMenu.classList.toggle("visible"); // Ajoute/enlève la classe "visible"
-        });
-
-        // Cacher le menu si on clique en dehors
-        document.addEventListener("click", (event) => {
-            if (!profileButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
-                console.log("Clique en dehors du menu, fermeture...");
-                dropdownMenu.classList.remove("visible");
-            }
-        });
+    // Gérer l'affichage du menu au clic
+    profileButton.addEventListener("click", (event) => {
+        event.preventDefault();
+        console.log("Bouton de profil cliqué !");
+        dropdownMenu.classList.toggle("visible");
     });
+
+    // Cacher le menu si on clique en dehors
+    document.addEventListener("click", (event) => {
+        if (!profileButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
+            console.log("Clique en dehors du menu, fermeture...");
+            dropdownMenu.classList.remove("visible");
+        }
+    });
+});
