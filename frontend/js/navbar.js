@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
     const dropdownMenu = document.getElementById("profile-dropdown-menu");
-    const profileButton = document.getElementById("profile-button");
+    const profileButton = document.getElementById("user-logo");
     const user = JSON.parse(localStorage.getItem("user")); // Vérifie si un utilisateur est connecté
 
-    // Mise à jour du contenu du menu en fonction de l'état de connexion
+    // Met à jour le menu en fonction de l'état de connexion
     function updateDropdownMenu() {
         if (user) {
             dropdownMenu.innerHTML = `
@@ -25,11 +25,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Mettre à jour le menu au chargement de la page
+    // Mettre à jour le menu au chargement
     updateDropdownMenu();
 
     // Gérer l'affichage du menu au clic
-    profileButton.addEventListener("click", () => {
+    profileButton.addEventListener("click", (event) => {
+        event.preventDefault();
         dropdownMenu.classList.toggle("visible"); // Ajoute/enlève la classe "visible"
     });
 
