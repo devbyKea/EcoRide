@@ -1,5 +1,24 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const userLogo = document.getElementById('user-logo');
+    const dropdownMenu = document.getElementById('profile-dropdown-menu');
+  
+    userLogo.addEventListener('click', (event) => {
+      event.preventDefault(); // Empêche le comportement par défaut du lien
+      dropdownMenu.style.display =
+        dropdownMenu.style.display === 'block' ? 'none' : 'block';
+    });
+  
+    // Fermer le menu si on clique ailleurs
+    document.addEventListener('click', (event) => {
+      if (!userLogo.contains(event.target) && !dropdownMenu.contains(event.target)) {
+        dropdownMenu.style.display = 'none';
+      }
+    });
+  });
+
 document.addEventListener("DOMContentLoaded", () => {
     console.log("Script chargé !");
+    
 
     const dropdownMenu = document.getElementById("profile-dropdown-menu");
     const profileButton = document.getElementById("user-logo");
@@ -40,22 +59,5 @@ document.addEventListener("DOMContentLoaded", () => {
             console.log("Utilisateur non connecté : affichage du menu invité");
         }
     }
-
-    // ✅ Appel immédiat pour s'assurer que le menu est mis à jour
-    updateDropdownMenu();
-
-    // Gérer l'affichage du menu au clic
-    profileButton.addEventListener("click", (event) => {
-        event.preventDefault();
-        console.log("Bouton de profil cliqué !");
-        dropdownMenu.classList.toggle("visible");
-    });
-
-    // Cacher le menu si on clique en dehors
-    document.addEventListener("click", (event) => {
-        if (!profileButton.contains(event.target) && !dropdownMenu.contains(event.target)) {
-            console.log("Clique en dehors du menu, fermeture...");
-            dropdownMenu.classList.remove("visible");
-        }
-    });
 });
+
