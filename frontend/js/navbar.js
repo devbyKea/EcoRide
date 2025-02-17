@@ -4,7 +4,9 @@
 
         const dropdownMenu = document.getElementById("profile-dropdown-menu");
         const profileButton = document.getElementById("user-logo");
-        const user = JSON.parse(localStorage.getItem("user")); // Vérifie si un utilisateur est connecté
+        const userData = localStorage.getItem("user");
+        const user = userData ? JSON.parse(userData) : null;
+
 
         console.log("profileButton:", profileButton); // Vérifie si profileButton est bien trouvé
         console.log("dropdownMenu:", dropdownMenu); // Vérifie si dropdownMenu est bien trouvé
