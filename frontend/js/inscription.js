@@ -40,7 +40,14 @@ signupButton.addEventListener("click", async () => {
   const confirmPasswordInput = document.getElementById("confirm-password");
   
 
-  console.log("Champ prénom trouvé :", prenomInput);
+  console.log("Champs détectés :", {
+    prenom: prenomInput,
+    nom: nameInput,
+    email: emailInput,
+    password: passwordInput,
+    confirmPassword: confirmPasswordInput
+  });
+  
 
   if (!prenomInput || !nameInput || !emailInput || !passwordInput || !confirmPasswordInput) {
     alert("Tous les champs sont obligatoires !");
