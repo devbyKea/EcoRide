@@ -9,12 +9,6 @@ header("Access-Control-Allow-Origin: https://eco-ride-one.vercel.app"); // Autor
 header("Access-Control-Allow-Methods: POST, OPTIONS"); // Autoriser POST et OPTIONS
 header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Autoriser JSON et Auth
 
-// Gérer la requête préflight (OPTIONS)
-if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
-    http_response_code(204); // Réponse vide mais valide pour CORS
-    exit;
-}
-
 require_once __DIR__ . "/../config.php"; // Connexion BDD
 
 // Vérifier si la requête est en POST
@@ -34,13 +28,14 @@ if (!$data) {
 }
 
 // Vérifier les champs
-if (empty($data["name"]) || empty($data["email"]) || empty($data["password"]) || empty($data["confirm_password"])) {
+if (empty($data["name"]) || empty($data["prenom"]) || empty($data["pseudo"]) ||empty($data["email"]) || empty($data["password"]) || empty($data["confirm_password"])) {
     echo json_encode(["status" => "error", "message" => "Tous les champs sont obligatoires"]);
     exit;
 }
 
 $name = htmlspecialchars(trim($data["name"]));
 $prenom = htmlspecialchars(trim($data["prenom"] ?? ""));
+$pseudo = htmlspecialchars(trim($data["pseudo"] ?? ""));
 $email = filter_var($data["email"], FILTER_VALIDATE_EMAIL);
 $password = trim($data["password"]);
 $confirm_password = trim($data["confirm_password"]);
