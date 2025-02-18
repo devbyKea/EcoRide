@@ -55,25 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 🎯 GESTION DU MENU UTILISATEUR
-  const userLogo = document.getElementById('user-logo');
-  const dropdownMenu = document.getElementById('profile-dropdown-menu');
-
-  if (userLogo && dropdownMenu) {
-    userLogo.addEventListener('click', (event) => {
-      event.preventDefault(); // Empêche le comportement par défaut du lien
-      dropdownMenu.style.display =
-        dropdownMenu.style.display === 'block' ? 'none' : 'block';
-    });
-
-    // Fermer le menu si on clique ailleurs
-    document.addEventListener('click', (event) => {
-      if (!userLogo.contains(event.target) && !dropdownMenu.contains(event.target)) {
-        dropdownMenu.style.display = 'none';
-      }
-    });
-  }
-
   // 🎯 GESTION DU MENU HAMBURGER
   const menuBtn = document.querySelector(".menu-btn");
   const dropdownNav = document.querySelector(".dropdown-menu");
