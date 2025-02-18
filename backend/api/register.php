@@ -2,6 +2,7 @@
 // Activer les erreurs pour debug temporaire (désactiver en prod)
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+header('Content-Type: application/json');
 
 // Gérer les en-têtes CORS
 header("Access-Control-Allow-Origin: https://eco-ride-one.vercel.app"); // Autoriser ton frontend
