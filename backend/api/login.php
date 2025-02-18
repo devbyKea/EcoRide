@@ -55,6 +55,12 @@ error_log("Utilisateur trouvé : " . json_encode($user));
 error_log("Mot de passe hashé en BDD : " . $user["mot_de_passe"]);
 error_log("Mot de passe fourni : " . $password);
 
+if (password_verify($password, $user["mot_de_passe"])) {
+    error_log("Mot de passe vérifié avec succès !");
+} else {
+    error_log("Échec de la vérification du mot de passe !");
+}
+
 
 if (!password_verify($password, $user["mot_de_passe"])) {
     error_log("Le mot de passe ne correspond pas !");
