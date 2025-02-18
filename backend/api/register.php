@@ -8,8 +8,15 @@ header('Content-Type: application/json');
 header("Access-Control-Allow-Origin: https://eco-ride-one.vercel.app"); // Autoriser ton frontend
 header("Access-Control-Allow-Methods: POST, OPTIONS"); // Autoriser POST et OPTIONS
 header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Autoriser JSON et Auth
+header("Access-Control-Allow-Credentials: true");
 
 require_once __DIR__ . "/../config.php"; // Connexion BDD
+
+// Gérer la requête préflight `OPTIONS`
+if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
+    http_response_code(204); // Réponse sans contenu mais valide
+    exit;
+}
 
 // Vérifier si la requête est en POST
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
