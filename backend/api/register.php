@@ -69,7 +69,7 @@ if ($stmt->fetch()) {
 $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
 // Insérer l'utilisateur
-$stmt = $pdo->prepare("INSERT INTO utilisateur (prenom, nom, email, mot_de_passe) VALUES (?, ?, ?)");
+$stmt = $pdo->prepare("INSERT INTO utilisateur (prenom, nom, email, mot_de_passe) VALUES (?, ?, ?, ?)");
 if ($stmt->execute([$prenom, $name, $email, $hashed_password])) {
     echo json_encode(["status" => "success", "message" => "Inscription réussie"]);
 } else {
