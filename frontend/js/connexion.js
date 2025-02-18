@@ -34,8 +34,9 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   loginButton.addEventListener("click", async () => {
-    const emailInput = document.querySelector("input[placeholder='Adresse email']");
-    const passwordInput = document.querySelector("input[placeholder='Mot de passe']");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    
 
     if (!emailInput || !passwordInput) {
       alert("Veuillez remplir tous les champs !");
