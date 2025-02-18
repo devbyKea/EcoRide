@@ -33,11 +33,12 @@ if (!signupButton) {
 signupButton.addEventListener("click", async () => {
   console.log("Bouton inscription cliqué !");
   
-  const prenomInput = document.querySelector("input[placeholder='Prénom']");
-  const nameInput = document.querySelector("input[placeholder='Nom complet']");
-  const emailInput = document.querySelector("input[placeholder='Adresse email']");
-  const passwordInput = document.querySelector("input[placeholder='Mot de passe']");
-  const confirmPasswordInput = document.querySelector("input[placeholder='Confirmez le mot de passe']");
+  const prenomInput = document.getElementById("prenom");
+  const nameInput = document.getElementById("nom");
+  const emailInput = document.getElementById("email");
+  const passwordInput = document.getElementById("password");
+  const confirmPasswordInput = document.getElementById("confirm-password");
+  
 
   console.log("Champ prénom trouvé :", prenomInput);
 
@@ -46,6 +47,7 @@ signupButton.addEventListener("click", async () => {
     console.error("Un ou plusieurs champs du formulaire sont introuvables !");
     return;
   }
+  
 
   const prenom = prenomInput.value.trim();
   const name = nameInput.value.trim();
