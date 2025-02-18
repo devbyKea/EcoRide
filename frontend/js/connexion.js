@@ -50,28 +50,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       const response = await fetch("https://ecoride-production-f991.up.railway.app/api/login.php", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        credentials: "include", // Garde la session ouverte
-        body: JSON.stringify({ email, password })
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json"
+          },
+          credentials: "include", // Garde la session ouverte
+          body: JSON.stringify({ email, password })
       });
-
-      const data = await response.json();
-      console.log("Réponse du serveur :", data);
-
-      if (data.status === "success") {
-        alert("Connexion réussie !");
-        localStorage.setItem("user", JSON.stringify(data.user)); // Stocker les infos en local
-        window.location.href = "profil.html"; // Rediriger vers le profil
-      } else {
-        alert(data.message);
+  
+      console.log("Réponse reçue du serveur :", response);
+  
+      const textResponse = await response.text(); // Lire le texte brut avant d'essayer JSON
+      console.log("Texte brut reçu du serveur :", textResponse);
+  
+      let data;
+      try {
+          data = JSON.parse(textResponse);
+      } catch (error) {
+          console.error("Erreur lors de la conversion JSON :", error);
+          alert("Le serveur a renvoyé une réponse invalide.");
+          return;
       }
-    } catch (error) {
+  
+      console.log("Réponse JSON :", data);
+  
+      if (data.status === "success") {
+          alert("Connexion réussie !");
+          localStorage.setItem("user", JSON.stringify(data.user)); // Stocker les infos en local
+          window.location.href = "profil.html"; // Rediriger vers le profil
+      } else {
+          alert(data.message);
+      }
+  } catch (error) {
       console.error("Erreur lors de la connexion :", error);
       alert("Une erreur est survenue. Veuillez réessayer.");
-    }
+  }
+  
   });
 });
 
