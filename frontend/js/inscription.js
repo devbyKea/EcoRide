@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => { 
   console.log("Le script d'inscription est chargé !");
 
 // Gestion du menu hamburger
@@ -6,13 +6,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const dropdownMenu = document.querySelector(".dropdown-menu");
 
   if (menuBtn && dropdownMenu) {
-// Ouvrir/Fermer le menu au clic
     menuBtn.addEventListener("click", () => {
       dropdownMenu.style.display =
         dropdownMenu.style.display === "block" ? "none" : "block";
     });
 
-// Fermer le menu si la souris quitte le menu
     dropdownMenu.addEventListener("mouseleave", () => {
       dropdownMenu.style.display = "none";
     });
@@ -27,7 +25,14 @@ if (hamburger) {
 }
 
 const signupButton = document.querySelector(".btn-signup");
+if (!signupButton) {
+  console.error("Le bouton d'inscription (.btn-signup) est introuvable !");
+  return;
+}
+
 signupButton.addEventListener("click", async () => {
+  console.log("Bouton inscription cliqué !");
+  
   const prenomInput = document.querySelector("input[placeholder='Prénom']");
   const nameInput = document.querySelector("input[placeholder='Nom complet']");
   const emailInput = document.querySelector("input[placeholder='Adresse email']");
@@ -36,22 +41,25 @@ signupButton.addEventListener("click", async () => {
 
   console.log("Champ prénom trouvé :", prenomInput);
 
-  if (!nameInput || !emailInput || !passwordInput || !confirmPasswordInput) {
+  if (!prenomInput || !nameInput || !emailInput || !passwordInput || !confirmPasswordInput) {
     alert("Tous les champs sont obligatoires !");
+    console.error("Un ou plusieurs champs du formulaire sont introuvables !");
     return;
   }
 
-  const prenom = prenomInput ? prenomInput.value.trim() : "";
+  const prenom = prenomInput.value.trim();
   const name = nameInput.value.trim();
   const email = emailInput.value.trim();
   const password = passwordInput.value.trim();
   const confirmPassword = confirmPasswordInput.value.trim();
 
+  console.log("Données récupérées :", { prenom, name, email, password, confirmPassword });
+
   if (password !== confirmPassword) {
     alert("Les mots de passe ne correspondent pas !");
     return;
   }
-  
+
   console.log("Envoi des données au serveur...");
 
   try {
@@ -62,10 +70,19 @@ signupButton.addEventListener("click", async () => {
       },
       body: JSON.stringify({ prenom, name, email, password, confirm_password: confirmPassword })
     });
-    
-  console.log("Réponse reçue du serveur :", response);
+
+    console.log("Réponse reçue du serveur :", response);
+
+    // Vérifier si la réponse est correcte
+    if (!response.ok) {
+      console.error("Erreur HTTP :", response.status, response.statusText);
+      alert("Erreur lors de l'inscription. Veuillez réessayer.");
+      return;
+    }
 
     const data = await response.json();
+    console.log("Réponse JSON :", data);
+
     if (data.status === "success") {
       alert("Inscription réussie !");
       window.location.href = "profil.html";
