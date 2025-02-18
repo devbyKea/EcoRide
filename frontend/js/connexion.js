@@ -65,7 +65,9 @@ document.addEventListener("DOMContentLoaded", () => {
         credentials: "include",
         body: JSON.stringify({ email, password })
       });
+      
 
+      
       console.log("Réponse reçue du serveur :", response);
 
       const textResponse = await response.text();

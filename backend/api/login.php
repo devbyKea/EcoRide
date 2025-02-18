@@ -45,12 +45,23 @@ $stmt = $pdo->prepare("
 $stmt->execute([$email]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-
-
-if (!$user || !password_verify($password, $user["mot_de_passe"])) {
+if (!$user) {
+    error_log("Aucun utilisateur trouvé avec cet email : " . $email);
     echo json_encode(["status" => "error", "message" => "Identifiants incorrects"]);
     exit;
 }
+
+error_log("Utilisateur trouvé : " . json_encode($user));
+error_log("Mot de passe hashé en BDD : " . $user["mot_de_passe"]);
+error_log("Mot de passe fourni : " . $password);
+
+
+if (!password_verify($password, $user["mot_de_passe"])) {
+    error_log("Le mot de passe ne correspond pas !");
+    echo json_encode(["status" => "error", "message" => "Identifiants incorrects"]);
+    exit;
+}
+
 
 // Stocker l'utilisateur en session
 $_SESSION["user_id"] = $user["utilisateur_id"];
