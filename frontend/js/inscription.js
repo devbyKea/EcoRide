@@ -73,34 +73,40 @@ signupButton.addEventListener("click", async () => {
 
   try {
     const response = await fetch("https://ecoride-production-f991.up.railway.app/api/register.php", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ prenom, name, email, password, confirm_password: confirmPassword })
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ prenom, name, email, password, confirm_password: confirmPassword })
     });
 
     console.log("Réponse reçue du serveur :", response);
+    
+    const textResponse = await response.text();
+    console.log("Texte brut reçu du serveur :", textResponse); // 🔍 Vérifier le JSON brut
 
-    // Vérifier si la réponse est correcte
-    if (!response.ok) {
-      console.error("Erreur HTTP :", response.status, response.statusText);
-      alert("Erreur lors de l'inscription. Veuillez réessayer.");
-      return;
+    // Vérifier si la réponse est JSON valide
+    let data;
+    try {
+        data = JSON.parse(textResponse);
+    } catch (error) {
+        console.error("Erreur lors de la conversion JSON :", error);
+        alert("Problème interne du serveur. Veuillez réessayer plus tard.");
+        return;
     }
 
-    const data = await response.json();
     console.log("Réponse JSON :", data);
 
     if (data.status === "success") {
-      alert("Inscription réussie !");
-      window.location.href = "profil.html";
+        alert("Inscription réussie !");
+        window.location.href = "profil.html";
     } else {
-      alert(data.message);
+        alert(data.message);
     }
-  } catch (error) {
+} catch (error) {
     console.error("Erreur lors de l'inscription :", error);
     alert("Une erreur est survenue. Veuillez réessayer plus tard.");
-  }
+}
+
 });
 });
