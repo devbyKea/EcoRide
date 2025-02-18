@@ -38,12 +38,13 @@ if (!$email || empty($password)) {
 $stmt = $pdo->prepare("
     SELECT u.utilisateur_id, u.pseudo, u.nom, u.email, u.mot_de_passe, u.telephone, r.libelle AS role
     FROM utilisateur u
-    JOIN role r ON u.role_id = r.role_id
+    JOIN possede p ON u.utilisateur_id = p.utilisateur_id
+    JOIN role r ON p.role_id = r.role_id
     WHERE u.email = ?
 ");
-
 $stmt->execute([$email]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
 
 
 if (!$user || !password_verify($password, $user["mot_de_passe"])) {
