@@ -57,7 +57,7 @@ if ($password !== $confirm_password) {
 }
 
 // Vérifier si l'email est déjà utilisé
-$stmt = $pdo->prepare("SELECT utilisateur_id FROM Utilisateur WHERE email = ?");
+$stmt = $pdo->prepare("SELECT utilisateur_id FROM utilisateur WHERE email = ?");
 $stmt->execute([$email]);
 if ($stmt->fetch()) {
     echo json_encode(["status" => "error", "message" => "Cet email est déjà utilisé"]);
