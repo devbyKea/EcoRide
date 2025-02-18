@@ -51,6 +51,8 @@ signupButton.addEventListener("click", async () => {
     alert("Les mots de passe ne correspondent pas !");
     return;
   }
+  
+  console.log("Envoi des données au serveur...");
 
   try {
     const response = await fetch("https://ecoride-production-f991.up.railway.app/api/register.php", {
@@ -60,6 +62,8 @@ signupButton.addEventListener("click", async () => {
       },
       body: JSON.stringify({ prenom, name, email, password, confirm_password: confirmPassword })
     });
+    
+  console.log("Réponse reçue du serveur :", response);
 
     const data = await response.json();
     if (data.status === "success") {
