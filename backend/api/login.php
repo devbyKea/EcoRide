@@ -36,11 +36,12 @@ if (!$email || empty($password)) {
 
 // Vérifier si l'utilisateur existe
 $stmt = $pdo->prepare("
-    SELECT u.utilisateur_id, u.pseudo, u.nom, u.email, u.mot_de_passe, u.telephone, r.nom AS role
+    SELECT u.utilisateur_id, u.pseudo, u.nom, u.email, u.mot_de_passe, u.telephone, r.libelle AS role
     FROM utilisateur u
     JOIN role r ON u.role_id = r.role_id
     WHERE u.email = ?
 ");
+
 $stmt->execute([$email]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
