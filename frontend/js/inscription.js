@@ -101,7 +101,7 @@ signupButton.addEventListener("click", async () => {
 
     if (data.status === "success") {
         alert("Inscription réussie !");
-        window.location.href = "profil.html";
+        window.location.href = "connexion.html";
     } else {
         alert(data.message);
     }
