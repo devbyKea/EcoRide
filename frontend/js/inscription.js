@@ -26,20 +26,26 @@ if (hamburger) {
   });
 }
 
-const signupForm = document.querySelector(".signup-card");
-if (!signupForm) return;
-
 const signupButton = document.querySelector(".btn-signup");
 signupButton.addEventListener("click", async () => {
-  const name = document.querySelector("input[placeholder='Nom complet']").value.trim();
-  const email = document.querySelector("input[placeholder='Adresse email']").value.trim();
-  const password = document.querySelector("input[placeholder='Mot de passe']").value.trim();
-  const confirmPassword = document.querySelector("input[placeholder='Confirmez le mot de passe']").value.trim();
+  const prenomInput = document.querySelector("input[placeholder='Prénom']");
+  const nameInput = document.querySelector("input[placeholder='Nom complet']");
+  const emailInput = document.querySelector("input[placeholder='Adresse email']");
+  const passwordInput = document.querySelector("input[placeholder='Mot de passe']");
+  const confirmPasswordInput = document.querySelector("input[placeholder='Confirmez le mot de passe']");
 
-  if (!name || !email || !password || !confirmPassword) {
+  console.log("Champ prénom trouvé :", prenomInput);
+
+  if (!nameInput || !emailInput || !passwordInput || !confirmPasswordInput) {
     alert("Tous les champs sont obligatoires !");
     return;
   }
+
+  const prenom = prenomInput ? prenomInput.value.trim() : "";
+  const name = nameInput.value.trim();
+  const email = emailInput.value.trim();
+  const password = passwordInput.value.trim();
+  const confirmPassword = confirmPasswordInput.value.trim();
 
   if (password !== confirmPassword) {
     alert("Les mots de passe ne correspondent pas !");
@@ -52,13 +58,13 @@ signupButton.addEventListener("click", async () => {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ name, email, password, confirm_password: confirmPassword })
+      body: JSON.stringify({ prenom, name, email, password, confirm_password: confirmPassword })
     });
 
     const data = await response.json();
     if (data.status === "success") {
       alert("Inscription réussie !");
-      window.location.href = "profil.html"; // Redirection après succès
+      window.location.href = "profil.html";
     } else {
       alert(data.message);
     }
