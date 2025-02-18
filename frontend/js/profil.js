@@ -1,22 +1,36 @@
 document.addEventListener("DOMContentLoaded", () => {
+    console.log("Chargement du profil...");
+  
+    const user = JSON.parse(localStorage.getItem("user"));
+  
+    if (!user) {
+      alert("Vous devez être connecté pour accéder à cette page !");
+      window.location.href = "login.html";
+      return;
+    }
+  
+    // Mettre à jour les champs du profil avec les infos stockées
+    document.getElementById("email").value = user.email;
+    document.getElementById("nom").value = user.nom;
+    document.getElementById("telephone").value = user.telephone || "";
+    document.getElementById("role").value = user.role || "passager";
+  
+    console.log("Profil chargé :", user);
+  });
+  
+  document.getElementById("logout").addEventListener("click", () => {
+    localStorage.removeItem("user"); // Supprimer les infos stockées
+    fetch("https://ecoride-production-f991.up.railway.app/api/logout.php", {
+      method: "POST",
+      credentials: "include"
+    }).then(() => {
+      window.location.href = "login.html"; // Rediriger vers la page de connexion
+    });
+  });
+  
+document.addEventListener("DOMContentLoaded", () => {
     console.log("✅ Script profil.js chargé !");
 
-    // 🎯 GESTION DU MENU UTILISATEUR
-    const userLogo = document.getElementById("user-logo");
-    const dropdownMenu = document.getElementById("profile-dropdown-menu");
-
-    if (userLogo && dropdownMenu) {
-        userLogo.addEventListener("click", (event) => {
-            event.preventDefault();
-            dropdownMenu.style.display = dropdownMenu.style.display === "block" ? "none" : "block";
-        });
-
-        document.addEventListener("click", (event) => {
-            if (!userLogo.contains(event.target) && !dropdownMenu.contains(event.target)) {
-                dropdownMenu.style.display = "none";
-            }
-        });
-    }
 
     // 🎯 GESTION DU MENU HAMBURGER
     const menuBtn = document.querySelector(".menu-btn");
@@ -48,17 +62,6 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "login.html"; // Redirection vers la page de connexion
     } else {
         document.getElementById("email").value = user.email;
-    }
-
-    // 🔓 Gestion de la déconnexion (fixe dans la navbar)
-    const logoutBtn = document.getElementById("logout");
-    if (logoutBtn) {
-        logoutBtn.addEventListener("click", (event) => {
-            event.preventDefault();
-            console.log("👋 Déconnexion en cours...");
-            localStorage.removeItem("user"); // Suppression des données de l'utilisateur
-            window.location.href = "login.html"; // Redirection après déconnexion
-        });
     }
 
     // ✏️ Gestion de la modification du profil
