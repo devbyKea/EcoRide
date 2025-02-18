@@ -35,6 +35,7 @@ signupButton.addEventListener("click", async () => {
   
   const prenomInput = document.getElementById("prenom");
   const nameInput = document.getElementById("nom");
+  const pseudoInput = document.getElementById("pseudo");
   const emailInput = document.getElementById("email");
   const passwordInput = document.getElementById("password");
   const confirmPasswordInput = document.getElementById("confirm-password");
@@ -49,7 +50,7 @@ signupButton.addEventListener("click", async () => {
   });
   
 
-  if (!prenomInput || !nameInput || !emailInput || !passwordInput || !confirmPasswordInput) {
+  if (!prenomInput || !nameInput || !pseudoInput || !emailInput || !passwordInput || !confirmPasswordInput) {
     alert("Tous les champs sont obligatoires !");
     console.error("Un ou plusieurs champs du formulaire sont introuvables !");
     return;
@@ -58,11 +59,12 @@ signupButton.addEventListener("click", async () => {
 
   const prenom = prenomInput.value.trim();
   const name = nameInput.value.trim();
+  const pseudo = pseudoInput.value.trim();
   const email = emailInput.value.trim();
   const password = passwordInput.value.trim();
   const confirmPassword = confirmPasswordInput.value.trim();
 
-  console.log("Données récupérées :", { prenom, name, email, password, confirmPassword });
+  console.log("Données récupérées :", { prenom, name, pseudo, email, password, confirmPassword });
 
   if (password !== confirmPassword) {
     alert("Les mots de passe ne correspondent pas !");
@@ -77,7 +79,7 @@ signupButton.addEventListener("click", async () => {
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ prenom, name, email, password, confirm_password: confirmPassword })
+        body: JSON.stringify({ prenom, name, pseudo, email, password, confirm_password: confirmPassword })
     });
 
     console.log("Réponse reçue du serveur :", response);
