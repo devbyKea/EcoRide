@@ -35,9 +35,15 @@ if (!$email || empty($password)) {
 }
 
 // Vérifier si l'utilisateur existe
-$stmt = $pdo->prepare("SELECT utilisateur_id, pseudo, nom, email, mot_de_passe, telephone, role FROM utilisateur WHERE email = ?");
+$stmt = $pdo->prepare("
+    SELECT u.utilisateur_id, u.pseudo, u.nom, u.email, u.mot_de_passe, u.telephone, r.nom AS role
+    FROM utilisateur u
+    JOIN role r ON u.role_id = r.role_id
+    WHERE u.email = ?
+");
 $stmt->execute([$email]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
 
 if (!$user || !password_verify($password, $user["mot_de_passe"])) {
     echo json_encode(["status" => "error", "message" => "Identifiants incorrects"]);
