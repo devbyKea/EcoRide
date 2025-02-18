@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once "../config.php";
+require_once __DIR__ . "/../config.php";
+;
 
 // 🔧 Configuration des en-têtes CORS
 header("Access-Control-Allow-Origin: https://eco-ride-one.vercel.app");

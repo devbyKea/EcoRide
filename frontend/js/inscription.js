@@ -47,7 +47,7 @@ signupButton.addEventListener("click", async () => {
   }
 
   try {
-    const response = await fetch("https://ecoride-production-f991.up.railway.app/register.php", {
+    const response = await fetch("https://ecoride-production-f991.up.railway.app/api/register.php", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

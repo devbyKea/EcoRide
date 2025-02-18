@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
     exit;
 }
 
-require_once "config.php"; // Connexion BDD
+require_once __DIR__ . "/../config.php"; // Connexion BDD
 
 // Vérifier si la requête est en POST
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
