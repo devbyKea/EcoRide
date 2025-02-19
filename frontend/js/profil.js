@@ -22,6 +22,39 @@
     document.addEventListener("DOMContentLoaded", () => {
         console.log("✅ Script profil.js chargé !");
 
+        const logoutButton = document.getElementById("logout");
+
+        if (logoutButton) {
+            logoutButton.addEventListener("click", async (event) => {
+                event.preventDefault(); // Empêche le rechargement de la page
+    
+                console.log("🔴 Déconnexion demandée...");
+    
+                try {
+                    const response = await fetch("https://ecoride-production-f991.up.railway.app/api/logout.php", {
+                        method: "POST",
+                        credentials: "include"
+                    });
+    
+                    const result = await response.json();
+                    console.log("✅ Réponse du serveur :", result);
+    
+                    if (result.success) {
+                        alert("Déconnexion réussie !");
+                        localStorage.removeItem("user"); // Supprime les infos de l'utilisateur stockées
+                        window.location.href = "index.html"; // Redirige vers la page d'accueil
+                    } else {
+                        alert("❌ Erreur lors de la déconnexion !");
+                    }
+                } catch (error) {
+                    console.error("❌ Erreur de déconnexion :", error);
+                    alert("Une erreur est survenue !");
+                }
+            });
+        } else {
+            console.error("❌ Bouton de déconnexion introuvable !");
+        }
+
         // 🎯 Vérification des éléments essentiels
         const roleSelect = document.getElementById("role");
         const chauffeurSection = document.getElementById("chauffeur-section");
