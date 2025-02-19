@@ -72,7 +72,7 @@ $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
 // Insérer l'utilisateur
 $stmt = $pdo->prepare("INSERT INTO utilisateur (prenom, nom, pseudo, email, mot_de_passe) VALUES (?, ?, ?, ?, ?)");
-if ($stmt->execute([$prenom, $nom, $pseudo, $email, $hashed_password])) {
+if ($stmt->execute([$prenom, $name, $pseudo, $email, $hashed_password])) {
     // Récupérer l'ID du nouvel utilisateur
     $user_id = $pdo->lastInsertId();
 
