@@ -23,83 +23,55 @@ document.addEventListener("DOMContentLoaded", () => {
             hamburger.classList.toggle("active");
         });
     }
-
-    // 🎯 GESTION DU FORMULAIRE DE PROFIL
-        const roleSelect = document.getElementById("role");
     
+        // 🎯 Vérification des éléments essentiels
+        const roleSelect = document.getElementById("role");
+        const chauffeurSection = document.getElementById("chauffeur-section");
+        const editButton = document.getElementById("edit-btn");
+        const saveButton = document.getElementById("save-btn");
+    
+        if (!roleSelect) console.error("❌ Élément 'role' introuvable !");
+        if (!chauffeurSection) console.error("❌ Élément 'chauffeur-section' introuvable !");
+        if (!editButton || !saveButton) console.error("❌ Bouton Modifier ou Sauvegarder introuvable !");
+    
+        // 🎯 Charger les données de l'utilisateur
         fetch("https://ecoride-production-f991.up.railway.app/api/profil.php", {
             method: "GET",
-            credentials: "include", // Assure que les cookies/session sont envoyés
-            mode: "cors", // Permet au navigateur de gérer correctement CORS
+            credentials: "include",
+            mode: "cors",
         })
-        
         .then(response => response.json())
         .then(data => {
             console.log("✅ Données utilisateur reçues :", data);
-            
             if (data.error) {
                 console.error("❌ Erreur :", data.error);
                 alert("Erreur lors du chargement des données.");
                 return;
             }
     
-            console.log("📌 Mise à jour des champs avec :", {
-                email: data.email,
-                nom: data.nom,
-                telephone: data.telephone,
-                pseudo: data.pseudo
-            });
-    
-            // ✅ Assurer que les champs ne sont pas null avant insertion
+            // 🎯 Mise à jour des champs
             document.getElementById("email").value = data.email || "";
             document.getElementById("nom").value = data.nom || "";
             document.getElementById("telephone").value = data.telephone || "";
             document.getElementById("pseudo").value = data.pseudo || "";
-    
-            // ✅ Supprimer l'attribut `disabled` pour s'assurer que les valeurs s'affichent
-            document.getElementById("email").removeAttribute("disabled");
-            document.getElementById("nom").removeAttribute("disabled");
-            document.getElementById("telephone").removeAttribute("disabled");
-            document.getElementById("pseudo").removeAttribute("disabled");
-
-            console.log("🔍 email trouvé ?", document.getElementById("email"));
-            console.log("🔍 nom trouvé ?", document.getElementById("nom"));
-            console.log("🔍 téléphone trouvé ?", document.getElementById("telephone"));
-            console.log("🔍 pseudo trouvé ?", document.getElementById("pseudo"));
-            console.log("🔍 rôle trouvé ?", roleSelect);
-
-    
+            
             if (data.role) {
-                roleSelect.value = data.role.toLowerCase().replace(" ", "_"); // Adapter au <select>
+                roleSelect.value = data.role.toLowerCase().replace(" ", "_");
+                console.log("📌 Rôle détecté :", roleSelect.value);
+                afficherChampsSupplementaires(roleSelect.value);
             }
         })
         .catch(error => console.error("❌ Erreur de récupération :", error));
-
-        const editButton = document.getElementById("edit-btn");
-        const saveButton = document.getElementById("save-btn");
-
-          if (!editButton || !saveButton) {
-            console.error("❌ Bouton Modifier ou Sauvegarder introuvable !");
-         } else {
-            console.log("✅ Boutons trouvés :", editButton, saveButton);
-         }
-
     
-        // 📝 Rendre les champs modifiables au clic sur "Modifier"
-        editButton.addEventListener("click", () => {
-            console.log("🛠 Mode édition activé");
-            inputs.forEach(input => input.disabled = false);
-            saveButton.style.display = "block";
-            editButton.style.display = "none";
-        });
-    
-        // 🚗 Afficher ou masquer les champs supplémentaires selon le rôle
+        // 🎯 Détection du changement de rôle
         roleSelect.addEventListener("change", (event) => {
             console.log("📌 Rôle sélectionné :", event.target.value);
             afficherChampsSupplementaires(event.target.value);
         });
     
         function afficherChampsSupplementaires(role) {
+            console.log("🔄 Affichage des champs pour :", role);
+    
             if (role === "chauffeur" || role === "chauffeur_passager") {
                 console.log("🚗 Affichage des champs pour les chauffeurs");
                 chauffeurSection.style.display = "block";
@@ -109,8 +81,17 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     
-        // 📤 Envoyer les modifications à l'API
+        // 🎯 Mode édition
+        editButton.addEventListener("click", () => {
+            console.log("🛠 Mode édition activé");
+            document.querySelectorAll("input, select").forEach(input => input.disabled = false);
+            saveButton.style.display = "block";
+            editButton.style.display = "none";
+        });
+    
+        // 🎯 Sauvegarde des modifications
         saveButton.addEventListener("click", async () => {
+            console.log("📤 Sauvegarde demandée !");
             const data = {
                 nom: document.getElementById("nom").value,
                 prenom: document.getElementById("prenom") ? document.getElementById("prenom").value : "",
@@ -118,23 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 telephone: document.getElementById("telephone").value,
                 pseudo: document.getElementById("pseudo").value,
                 role: roleSelect.value,
-                vehicules: []
             };
-    
-            // 🚗 Si l'utilisateur est un chauffeur, on récupère ses véhicules
-            if (chauffeurSection.style.display === "block") {
-                console.log("📋 Collecte des données véhicules...");
-                document.querySelectorAll(".vehicule").forEach((vehicule, index) => {
-                    data.vehicules.push({
-                        voiture_id: vehicule.dataset.voitureId || null,
-                        modele: vehicule.querySelector(".vehicule-marque").value,
-                        immatriculation: vehicule.querySelector(".plaque").value,
-                        energie: vehicule.querySelector(".vehicule-energie").value,
-                        couleur: vehicule.querySelector(".vehicule-couleur").value,
-                        date_premiere_immatriculation: vehicule.querySelector(".date-immatriculation").value
-                    });
-                });
-            }
     
             console.log("📤 Données envoyées :", data);
     
@@ -161,3 +126,4 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+    
