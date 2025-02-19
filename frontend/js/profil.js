@@ -72,6 +72,16 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         })
         .catch(error => console.error("❌ Erreur de récupération :", error));
+
+        const editButton = document.getElementById("edit-btn");
+        const saveButton = document.getElementById("save-btn");
+
+          if (!editButton || !saveButton) {
+            console.error("❌ Bouton Modifier ou Sauvegarder introuvable !");
+         } else {
+            console.log("✅ Boutons trouvés :", editButton, saveButton);
+         }
+
     
         // 📝 Rendre les champs modifiables au clic sur "Modifier"
         editButton.addEventListener("click", () => {
