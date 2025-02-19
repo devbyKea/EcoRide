@@ -424,6 +424,14 @@
   margin-top: 10px;
 }
 
+.btn-save:hover {
+  background-color: var (--orange-accent);
+ } 
+
+ .btn-edit:hover {
+  background-color: var (--main-green);
+ }
+
 
   
   #chauffeur-section {
