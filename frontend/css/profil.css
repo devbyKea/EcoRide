@@ -395,28 +395,30 @@
   }
   
   .profil-buttons {
-    display: flex;
+    display: flex !important;
     justify-content: space-between;
-    margin-top: 1rem;
-  }
-  
+    margin-top: 20px;
+}
+
   .btn {
-    padding: 0.8rem;
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: #28a745;
+    color: white;
     border: none;
-    border-radius: 8px;
-    font-size: 1rem;
+    border-radius: 5px;
     cursor: pointer;
-  }
-  
-  .edit-btn {
-    background-color: var(--accent-orange);
-    color: white;
-  }
-  
-  .save-btn {
-    background-color: var(--dark-green);
-    color: white;
-  }
+}
+
+  .btn-edit {
+    background-color: #007bff;
+}
+
+  .btn-save {
+    background-color: #28a745;
+    display: none;
+}
+
   
   #chauffeur-section {
     margin-top: 1.5rem;
