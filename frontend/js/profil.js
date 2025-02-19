@@ -99,17 +99,18 @@
         // 🎯 Sauvegarde des modifications
         saveButton.addEventListener("click", async () => {
             console.log("📤 Sauvegarde demandée !");
+            
             const data = {
                 nom: document.getElementById("nom").value,
                 prenom: document.getElementById("prenom") ? document.getElementById("prenom").value : "",
                 email: document.getElementById("email").value,
                 telephone: document.getElementById("telephone").value,
                 pseudo: document.getElementById("pseudo").value,
-                role: roleSelect.value,
+                role: document.getElementById("role").value
             };
-    
+        
             console.log("📤 Données envoyées :", data);
-    
+        
             try {
                 const response = await fetch("https://ecoride-production-f991.up.railway.app/api/profil.php", {
                     method: "POST",
@@ -117,13 +118,20 @@
                     credentials: "include",
                     body: JSON.stringify(data)
                 });
-    
+        
                 const result = await response.json();
                 console.log("✅ Réponse du serveur :", result);
-    
+        
                 if (result.success) {
                     alert("Profil mis à jour !");
-                    location.reload();
+                    
+                    // 🔄 Désactiver à nouveau les champs après la sauvegarde
+                    document.querySelectorAll("input, select").forEach(input => input.disabled = true);
+        
+                    // ✅ Rendre le bouton "Modifier" visible et cacher "Sauvegarder"
+                    saveButton.style.display = "none";
+                    editButton.style.display = "block";
+        
                 } else {
                     alert("❌ Erreur : " + result.error);
                 }
@@ -132,4 +140,4 @@
                 alert("Une erreur est survenue !");
             }
         });
-    });
+    })
