@@ -29,8 +29,10 @@ document.addEventListener("DOMContentLoaded", () => {
     
         fetch("https://ecoride-production-f991.up.railway.app/api/profil.php", {
             method: "GET",
-            credentials: "include"
+            credentials: "include", // Assure que les cookies/session sont envoyés
+            mode: "cors", // Permet au navigateur de gérer correctement CORS
         })
+        
         .then(response => response.json())
         .then(data => {
             console.log("✅ Données utilisateur reçues :", data);
