@@ -432,10 +432,18 @@
   background-color: var (--main-green);
  }
 
+ .ajouter-vehicule {
+  background-color: var(--main-green);
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+ }
 
   
   #chauffeur-section {
-    display: block !important;
+    color: var(--text-dark);
     margin-top: 1.5rem;
     padding: 1rem;
     background: var (--light-green); 
