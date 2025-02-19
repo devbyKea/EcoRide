@@ -39,5 +39,4 @@ if (ini_get("session.use_cookies")) {
 http_response_code(200);
 echo json_encode(["success" => "Déconnexion réussie"]);
 exit;
-?>
 

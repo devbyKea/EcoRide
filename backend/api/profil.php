@@ -1,10 +1,4 @@
 <?php
-error_log("Session ID : " . session_id());
-error_log("Contenu de SESSION : " . json_encode($_SESSION));
-
-session_start();
-require_once __DIR__ . "/../config.php";
-
 // 🔧 Configuration des en-têtes CORS
 header("Access-Control-Allow-Origin: https://eco-ride-one.vercel.app");
 header("Access-Control-Allow-Credentials: true");
@@ -17,6 +11,9 @@ if ($_SERVER["REQUEST_METHOD"] == "OPTIONS") {
     http_response_code(200);
     exit;
 }
+
+session_start();
+require_once __DIR__ . "/../config.php";
 
 // ✅ Vérification de l'utilisateur connecté
 $user_id = $_SESSION["user_id"] ?? null;
@@ -61,6 +58,7 @@ try {
 
         echo json_encode($user);
         http_response_code(200);
+        exit;
     } 
     
     elseif ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -127,6 +125,7 @@ try {
 
         echo json_encode(["success" => "Profil mis à jour"]);
         http_response_code(200);
+        exit;
     }
 } catch (PDOException $e) {
     echo json_encode(["error" => "Erreur BDD : " . $e->getMessage()]);
