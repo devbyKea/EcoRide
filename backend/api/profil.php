@@ -1,9 +1,13 @@
 <?php
+error_log("Session ID : " . session_id());
+error_log("Contenu de SESSION : " . json_encode($_SESSION));
+
 session_start();
 require_once __DIR__ . "/../config.php";
 
 // 🔧 Configuration des en-têtes CORS
 header("Access-Control-Allow-Origin: https://eco-ride-one.vercel.app");
+header("Access-Control-Allow-Credentials: true");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
