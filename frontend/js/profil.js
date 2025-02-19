@@ -1,8 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
-    console.log("✅ Script profil.js chargé !");
-
-
-    // 🎯 GESTION DU MENU HAMBURGER
+// 🎯 GESTION DU MENU HAMBURGER
     const menuBtn = document.querySelector(".menu-btn");
     const dropdownNav = document.querySelector(".dropdown-menu");
 
@@ -23,15 +19,24 @@ document.addEventListener("DOMContentLoaded", () => {
             hamburger.classList.toggle("active");
         });
     }
-    
+    document.addEventListener("DOMContentLoaded", () => {
+        console.log("✅ Script profil.js chargé !");
+
         // 🎯 Vérification des éléments essentiels
         const roleSelect = document.getElementById("role");
         const chauffeurSection = document.getElementById("chauffeur-section");
         const editButton = document.getElementById("edit-btn");
         const saveButton = document.getElementById("save-btn");
     
-        if (!roleSelect) console.error("❌ Élément 'role' introuvable !");
-        if (!chauffeurSection) console.error("❌ Élément 'chauffeur-section' introuvable !");
+        if (!roleSelect) {
+            console.error("❌ Élément 'role' introuvable !");
+            return;
+        }
+        if (!chauffeurSection) {
+            console.error("❌ Élément 'chauffeur-section' introuvable !");
+            return;
+        }
+
         if (!editButton || !saveButton) console.error("❌ Bouton Modifier ou Sauvegarder introuvable !");
     
         // 🎯 Charger les données de l'utilisateur
@@ -63,23 +68,25 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .catch(error => console.error("❌ Erreur de récupération :", error));
     
-        // 🎯 Détection du changement de rôle
-        roleSelect.addEventListener("change", (event) => {
-            console.log("📌 Rôle sélectionné :", event.target.value);
-            afficherChampsSupplementaires(event.target.value);
-        });
-    
-        function afficherChampsSupplementaires(role) {
-            console.log("🔄 Affichage des champs pour :", role);
-    
-            if (role === "chauffeur" || role === "chauffeur_passager") {
-                console.log("🚗 Affichage des champs pour les chauffeurs");
-                chauffeurSection.style.display = "block";
-            } else {
-                console.log("🚫 Cacher les champs supplémentaires");
-                chauffeurSection.style.display = "none";
-            }
+    // 🎯 Détection du changement de rôle
+    roleSelect.addEventListener("change", () => {
+        console.log("📌 Rôle sélectionné :", roleSelect.value);
+        afficherChampsSupplementaires(roleSelect.value);
+    });
+
+    function afficherChampsSupplementaires(role) {
+        if (role === "chauffeur" || role === "chauffeur_passager") {
+            console.log("🚗 Affichage des champs pour les chauffeurs");
+            chauffeurSection.style.display = "block";
+        } else {
+            console.log("🚫 Cacher les champs supplémentaires");
+            chauffeurSection.style.display = "none";
         }
+    }
+
+    // Vérifier si un rôle est déjà sélectionné au chargement de la page
+    afficherChampsSupplementaires(roleSelect.value);
+
     
         // 🎯 Mode édition
         editButton.addEventListener("click", () => {
@@ -126,4 +133,3 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
-    

@@ -438,7 +438,7 @@
     display: block !important;
     margin-top: 1.5rem;
     padding: 1rem;
-    background: yellow; 
+    background: var (--light-green); 
     border-radius: 10px;
   }
   
