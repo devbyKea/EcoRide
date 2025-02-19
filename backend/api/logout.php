@@ -29,7 +29,8 @@ if (ini_get("session.use_cookies")) {
     setcookie(session_name(), "", time() - 42000, "/");
 }
 
-// Réponse JSON confirmant la déconnexion
+// ✅ Réponse JSON correcte
 echo json_encode(["success" => "Déconnexion réussie"]);
 http_response_code(200);
+exit; // 🔥 IMPORTANT : Empêche tout texte supplémentaire
 ?>
