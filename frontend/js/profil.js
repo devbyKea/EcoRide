@@ -24,9 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
-        console.log("✅ Script profil.js chargé !");
-    
+    // 🎯 GESTION DU FORMULAIRE DE PROFIL
         const roleSelect = document.getElementById("role");
     
         fetch("https://ecoride-production-f991.up.railway.app/api/profil.php", {
@@ -151,4 +149,3 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
-})
