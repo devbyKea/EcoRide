@@ -1,4 +1,7 @@
 <?php
+// ✅ Capture toute sortie inattendue pour éviter les erreurs JSON
+ob_start();
+
 // 🔧 Configuration des en-têtes CORS
 header("Access-Control-Allow-Origin: https://eco-ride-one.vercel.app");
 header("Access-Control-Allow-Credentials: true");
@@ -6,19 +9,24 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
 
-// Gestion requête OPTIONS (CORS)
-if ($_SERVER["REQUEST_METHOD"] == "OPTIONS") {
-    http_response_code(200);
+// ✅ Gérer la requête OPTIONS pour éviter les erreurs CORS
+if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
+    http_response_code(204);
     exit;
 }
 
-session_start();
+// ✅ Vérifier si la session est déjà active
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 require_once __DIR__ . "/../config.php";
 
 // ✅ Vérification de l'utilisateur connecté
 $user_id = $_SESSION["user_id"] ?? null;
 
 if (!$user_id) {
+    ob_end_clean(); // 🔥 Supprime toute sortie parasite
     echo json_encode(["error" => "Utilisateur non authentifié"]);
     http_response_code(401);
     exit;
@@ -39,6 +47,7 @@ try {
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if (!$user) {
+            ob_end_clean();
             echo json_encode(["error" => "Utilisateur introuvable"]);
             http_response_code(404);
             exit;
@@ -56,6 +65,7 @@ try {
         $stmtVehicules->execute([$user_id]);
         $user["vehicules"] = $stmtVehicules->fetchAll(PDO::FETCH_ASSOC);
 
+        ob_end_clean(); // 🔥 Supprime toute sortie avant d'envoyer du JSON
         echo json_encode($user);
         http_response_code(200);
         exit;
@@ -123,12 +133,15 @@ try {
             }
         }
 
+        ob_end_clean();
         echo json_encode(["success" => "Profil mis à jour"]);
         http_response_code(200);
         exit;
     }
 } catch (PDOException $e) {
+    ob_end_clean();
     echo json_encode(["error" => "Erreur BDD : " . $e->getMessage()]);
     http_response_code(500);
+    exit;
 }
-exit;
+?>
