@@ -411,13 +411,19 @@
 }
 
   .btn-edit {
-    background-color: #007bff;
+    background-color: var(--accent-orange); 
 }
 
   .btn-save {
-    background-color: #28a745;
-    display: none;
+  display: block !important; /* Forcer l'affichage */
+  background-color: var(--main-green);
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
 }
+
 
   
   #chauffeur-section {
