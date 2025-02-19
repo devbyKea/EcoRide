@@ -435,9 +435,10 @@
 
   
   #chauffeur-section {
+    display: block !important;
     margin-top: 1.5rem;
     padding: 1rem;
-    background: #f3f3f3;
+    background: yellow; 
     border-radius: 10px;
   }
   
