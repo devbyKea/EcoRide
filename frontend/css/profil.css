@@ -364,91 +364,119 @@
     text-align: center;
     max-width: 400px;
     margin: 2rem auto;
-  }
-  
-  .profil-card h2 {
+}
+
+.profil-card h2 {
     color: var(--main-green);
     font-size: 1.5rem;
-  }
-  
-  .profil-image {
+}
+
+.profil-image {
     width: 80px;
     height: 80px;
     border-radius: 50%;
     margin: 1rem auto;
     border: 3px solid var(--main-green);
-  }
-  
-  .profil-card label {
+}
+
+.profil-card label {
     display: block;
     font-weight: bold;
     margin-top: 0.5rem;
     text-align: left;
-  }
-  
-  .profil-card input, .profil-card select {
+}
+
+.profil-card input, .profil-card select {
     width: 100%;
     padding: 0.5rem;
     border-radius: 8px;
     border: 1px solid #ccc;
     margin-top: 0.3rem;
-  }
-  
-  .profil-buttons {
+}
+
+/* ✅ Harmonisation des boutons */
+.profil-buttons {
     display: flex !important;
     justify-content: space-between;
     margin-top: 20px;
 }
 
-  .btn {
-    padding: 10px 15px;
+.btn {
+    padding: 12px 20px; /* Augmenté pour que les boutons soient plus visibles */
     font-size: 16px;
-    background-color: #28a745;
-    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s;
 }
 
-  .btn-edit {
+/* ✅ Correction des couleurs des boutons */
+.btn-edit {
     background-color: var(--accent-orange); 
 }
 
-  .btn-save {
-  display: block !important; /* Forcer l'affichage */
-  background-color: var(--main-green);
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  cursor: pointer;
-  margin-top: 10px;
+.btn-edit:hover {
+    background-color: var(--main-green);
+    transform: scale(1.05);
+}
+
+.btn-save {
+    background-color: var(--main-green);
+    color: white;
 }
 
 .btn-save:hover {
-  background-color: var (--orange-accent);
- } 
+    background-color: var(--accent-orange);
+    transform: scale(1.05);
+}
 
- .btn-edit:hover {
-  background-color: var (--main-green);
- }
+/* ✅ Style du bouton "Ajouter un véhicule" */
+#ajouter-vehicule {
+    display: block;
+    background-color: var(--main-green);
+    color: white;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 15px auto;
+    transition: background-color 0.3s ease, transform 0.1s;
+}
 
- .ajouter-vehicule {
-  background-color: var(--main-green);
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  cursor: pointer;
-  margin-top: 10px;
- }
+#ajouter-vehicule:hover {
+    background-color: var(--accent-orange);
+    transform: scale(1.05);
+}
 
-  
-  #chauffeur-section {
+/* ✅ Correction de l'affichage de la section chauffeur */
+#chauffeur-section {
     color: var(--text-dark);
     margin-top: 1.5rem;
-    padding: 1rem;
-    background: var (--light-green); 
+    padding: 1.5rem;
+    background: var(--light-green);
     border-radius: 10px;
-  }
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* ✅ Ajustement des champs dans la section chauffeur */
+#chauffeur-section label {
+    font-weight: bold;
+    margin-top: 0.7rem;
+    text-align: left;
+}
+
+#chauffeur-section input {
+    width: 100%;
+    padding: 0.6rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-top: 0.3rem;
+}
+
   
 
 
