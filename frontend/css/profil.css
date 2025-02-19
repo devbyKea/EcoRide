@@ -413,21 +413,22 @@
 }
 
 /* ✅ Correction des couleurs des boutons */
-.edit-btn {
+.btn-edit {
     background-color: var(--accent-orange); 
+    color: white;
 }
 
-.edit-btn:hover {
+.btn-edit:hover {
     background-color: var(--main-green);
     transform: scale(1.05);
 }
 
-.save-btn {
+.btn-save {
     background-color: var(--main-green);
     color: white;
 }
 
-.save-btn :hover {
+.btn-save:hover {
     background-color: var(--accent-orange);
     transform: scale(1.05);
 }
