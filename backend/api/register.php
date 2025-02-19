@@ -71,21 +71,18 @@ if ($stmt->fetch()) {
 $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
 // Insérer l'utilisateur
-$stmt = $pdo->prepare("
-    INSERT INTO utilisateur (prenom, nom, email, mot_de_passe, pseudo) 
-    VALUES (?, ?, ?, ?, ?)
-");
-if ($stmt->execute([$prenom, $nom, $email, $hashed_password, $pseudo])) {
-    // Récupérer l'ID de l'utilisateur créé
+$stmt = $pdo->prepare("INSERT INTO utilisateur (prenom, nom, pseudo, email, mot_de_passe) VALUES (?, ?, ?, ?, ?)");
+if ($stmt->execute([$prenom, $nom, $pseudo, $email, $hashed_password])) {
+    // Récupérer l'ID du nouvel utilisateur
     $user_id = $pdo->lastInsertId();
 
-    // 🔹 Insérer l'association avec le rôle utilisateur (id 10)
-    $stmt = $pdo->prepare("
-        INSERT INTO possede (utilisateur_id, role_id) VALUES (?, 10)
-    ");
-    $stmt->execute([$user_id]);
-
-    echo json_encode(["status" => "success", "message" => "Compte créé avec succès"]);
+    // Associer l'utilisateur au rôle `id 10`
+    $stmt = $pdo->prepare("INSERT INTO possede (utilisateur_id, role_id) VALUES (?, 10)");
+    if ($stmt->execute([$user_id])) {
+        echo json_encode(["status" => "success", "message" => "Inscription réussie"]);
+    } else {
+        echo json_encode(["status" => "error", "message" => "Erreur lors de l'attribution du rôle"]);
+    }
 } else {
     echo json_encode(["status" => "error", "message" => "Erreur lors de l'inscription"]);
 }
