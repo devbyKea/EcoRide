@@ -408,12 +408,12 @@
     cursor: pointer;
   }
   
-  .btn-edit {
+  .edit-btn {
     background-color: var(--accent-orange);
     color: white;
   }
   
-  .btn-save {
+  .save-btn {
     background-color: var(--dark-green);
     color: white;
   }
