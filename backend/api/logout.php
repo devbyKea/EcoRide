@@ -1,4 +1,10 @@
 <?php
+header("Access-Control-Allow-Origin: https://eco-ride-one.vercel.app");
+header("Access-Control-Allow-Methods: POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type");
+header("Access-Control-Allow-Credentials: true");
+header("Content-Type: application/json");
+
 // ✅ Vérifier si la session est déjà active
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -6,12 +12,6 @@ if (session_status() === PHP_SESSION_NONE) {
 
 // ✅ Nettoyer le buffer de sortie pour éviter les warnings parasites
 ob_end_clean();
-
-header("Access-Control-Allow-Origin: https://eco-ride-one.vercel.app");
-header("Access-Control-Allow-Methods: POST, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type");
-header("Access-Control-Allow-Credentials: true");
-header("Content-Type: application/json");
 
 // ✅ Vérifier la requête OPTIONS (CORS)
 if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
