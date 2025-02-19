@@ -125,55 +125,48 @@
       <!-- Sélecteur de rôle -->
       <label for="role">Rôle :</label>
       <select id="role">
-        <option value="passager">Passager</option>
-        <option value="chauffeur">Chauffeur</option>
-        <option value="chauffeur_passager">Chauffeur & Passager</option>
+          <option value="passager">Passager</option>
+          <option value="chauffeur">Chauffeur</option>
+          <option value="chauffeur_passager">Chauffeur & Passager</option>
       </select>
+      
   
-      <!-- Section supplémentaire pour Chauffeur -->
-      <div id="chauffeur-section" style="display: none;">
-        <h3>Informations Chauffeur</h3>
-  
-        <label for="plaque">Plaque d'immatriculation :</label>
-        <input type="text" id="plaque">
-  
-        <label for="date-immatriculation">Date de première immatriculation :</label>
-        <input type="date" id="date-immatriculation">
-  
-        <!-- Liste des véhicules -->
-        <h4>Véhicules</h4>
-        <div id="vehicules-container">
-          <div class="vehicule">
-            <label>Marque :</label>
-            <input type="text" class="vehicule-marque">
-            
-            <label>Modèle :</label>
-            <input type="text" class="vehicule-modele">
-            
-            <label>Couleur :</label>
-            <input type="text" class="vehicule-couleur">
-            
-            <label>Places disponibles :</label>
-            <input type="number" min="1" class="vehicule-places">
-          </div>
-        </div>
-        <button id="ajouter-vehicule">Ajouter un véhicule</button>
-  
-        <!-- Préférences -->
-        <h4>Préférences</h4>
-        <label><input type="checkbox" id="fumeur"> Fumeur accepté</label>
-        <label><input type="checkbox" id="animaux"> Animaux acceptés</label>
-  
-        <label for="custom-preferences">Autres préférences :</label>
-        <input type="text" id="custom-preferences" placeholder="Ajouter une préférence">
+<!-- Section supplémentaire pour Chauffeur -->
+<div id="chauffeur-section" style="display: none;">
+  <h3>Informations Chauffeur</h3>
+
+  <label for="plaque">Plaque d'immatriculation :</label>
+  <input type="text" class="plaque">
+
+  <label for="date-immatriculation">Date de première immatriculation :</label>
+  <input type="date" class="date-immatriculation">
+
+  <h4>Véhicules</h4>
+  <div id="vehicules-container">
+      <div class="vehicule" data-voiture-id="">
+          <label>Marque :</label>
+          <input type="text" class="vehicule-marque">
+
+          <label>Modèle :</label>
+          <input type="text" class="vehicule-modele">
+
+          <label>Couleur :</label>
+          <input type="text" class="vehicule-couleur">
+
+          <label>Places disponibles :</label>
+          <input type="number" min="1" class="vehicule-places">
       </div>
-  
-      <!-- Boutons -->
-      <div class="profil-buttons">
-          <button class="btn btn-edit" id="edit-btn">Modifier</button>
-          <button class="btn btn-save" id="save-btn">Sauvegarder</button>
-      </div>
-    </div>
+  </div>
+  <button id="ajouter-vehicule">Ajouter un véhicule</button>
+
+  <h4>Préférences</h4>
+  <label><input type="checkbox" id="fumeur"> Fumeur accepté</label>
+  <label><input type="checkbox" id="animaux"> Animaux acceptés</label>
+
+  <label for="custom-preferences">Autres préférences :</label>
+  <input type="text" id="custom-preferences" placeholder="Ajouter une préférence">
+</div>
+
   
   </section>
   

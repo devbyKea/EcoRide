@@ -1,34 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("Chargement du profil...");
-  
-    const user = JSON.parse(localStorage.getItem("user"));
-  
-    if (!user) {
-      alert("Vous devez être connecté pour accéder à cette page !");
-      window.location.href = "login.html";
-      return;
-    }
-  
-    // Mettre à jour les champs du profil avec les infos stockées
-    document.getElementById("email").value = user.email;
-    document.getElementById("nom").value = user.nom;
-    document.getElementById("telephone").value = user.telephone || "";
-    document.getElementById("role").value = user.role || "passager";
-  
-    console.log("Profil chargé :", user);
-  });
-  
-  document.getElementById("logout").addEventListener("click", () => {
-    localStorage.removeItem("user"); // Supprimer les infos stockées
-    fetch("https://ecoride-production-f991.up.railway.app/api/logout.php", {
-      method: "POST",
-      credentials: "include"
-    }).then(() => {
-      window.location.href = "login.html"; // Rediriger vers la page de connexion
-    });
-  });
-  
-document.addEventListener("DOMContentLoaded", () => {
     console.log("✅ Script profil.js chargé !");
 
 
@@ -54,131 +24,118 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 🔍 Vérification de l'utilisateur connecté
-    const user = JSON.parse(localStorage.getItem("user"));
-
-    if (!user) {
-        alert("Vous devez être connecté !");
-        window.location.href = "login.html"; // Redirection vers la page de connexion
-    } else {
-        document.getElementById("email").value = user.email;
-    }
-
-    // ✏️ Gestion de la modification du profil
-    const editBtn = document.getElementById("edit-btn");
-    const saveBtn = document.getElementById("save-btn");
-    const inputs = document.querySelectorAll(".profil-card input, .profil-card select");
-
-    if (editBtn && saveBtn) {
-        editBtn.addEventListener("click", () => {
-            inputs.forEach(input => input.disabled = false);
-            editBtn.style.display = "none";
-            saveBtn.style.display = "inline-block";
-        });
-
-        saveBtn.addEventListener("click", () => {
-            inputs.forEach(input => input.disabled = true);
-            editBtn.style.display = "inline-block";
-            saveBtn.style.display = "none";
-
-            updateUserProfile();
-        });
-    }
-
-    // 🚗 Gestion des options Chauffeur / Passager
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("📌 Script profil.js chargé");
+    
+    const editButton = document.getElementById("edit-btn");
+    const saveButton = document.getElementById("save-btn");
     const roleSelect = document.getElementById("role");
     const chauffeurSection = document.getElementById("chauffeur-section");
-    const addVehicleBtn = document.getElementById("ajouter-vehicule");
-    const vehiclesContainer = document.getElementById("vehicules-container");
-
-    if (roleSelect) {
-        roleSelect.addEventListener("change", () => {
-            chauffeurSection.style.display = roleSelect.value.includes("chauffeur") ? "block" : "none";
-        });
-    }
-
-    // ➕ Ajouter un véhicule
-    if (addVehicleBtn && vehiclesContainer) {
-        addVehicleBtn.addEventListener("click", () => {
-            const vehicleHTML = `
-                <div class="vehicule">
-                    <label>Marque :</label>
-                    <input type="text" class="vehicule-marque">
-                    
-                    <label>Modèle :</label>
-                    <input type="text" class="vehicule-modele">
-                    
-                    <label>Couleur :</label>
-                    <input type="text" class="vehicule-couleur">
-                    
-                    <label>Places disponibles :</label>
-                    <input type="number" min="1" class="vehicule-places">
-                </div>
-            `;
-            vehiclesContainer.insertAdjacentHTML("beforeend", vehicleHTML);
-        });
-    }
-
-    // 🔄 Charger les infos du profil depuis l'API
-    loadUserProfile();
-});
-
-// 🖥️ Fonction de chargement des données utilisateur
-function loadUserProfile() {
-    const apiUrl = "https://ecoride-production-f991.up.railway.app/api/profil.php";
-
-    fetch(apiUrl, { credentials: "include" })
-        .then(response => response.json())
-        .then(data => {
-            if (data.error) {
-                console.error("Erreur API :", data.error);
-                return;
-            }
-
-            document.getElementById("email").value = data.email;
-            document.getElementById("nom").value = data.nom;
-            document.getElementById("telephone").value = data.telephone;
-            document.getElementById("role").value = data.role;
-
-            if (data.role.includes("chauffeur")) {
-                document.getElementById("chauffeur-section").style.display = "block";
-                document.getElementById("plaque").value = data.plaque || "";
-                document.getElementById("date-immatriculation").value = data.immatriculation || "";
-                document.getElementById("marque").value = data.marque || "";
-                document.getElementById("modele").value = data.modele || "";
-                document.getElementById("couleur").value = data.couleur || "";
-                document.getElementById("places").value = data.places || 0;
-            }
-        })
-        .catch(error => console.error("Erreur API :", error));
-}
-
-// 📤 Fonction d'envoi des modifications au serveur
-function updateUserProfile() {
-    const apiUrl = "https://ecoride-production-f991.up.railway.app/api/profil.php";
-
-    const userData = {
-        nom: document.getElementById("nom").value,
-        email: document.getElementById("email").value,
-        telephone: document.getElementById("telephone").value,
-        role: document.getElementById("role").value,
-        plaque: document.getElementById("plaque").value,
-        immatriculation: document.getElementById("date-immatriculation").value,
-        marque: document.getElementById("marque").value,
-        modele: document.getElementById("modele").value,
-        couleur: document.getElementById("couleur").value,
-        places: document.getElementById("places").value
-    };
-
-    fetch(apiUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(userData),
+    
+    const inputs = document.querySelectorAll("input, select");
+    
+    // Vérifier si l'utilisateur est connecté et charger les données
+    fetch("https://ecoride-production-f991.up.railway.app/api/profil.php", {
+        method: "GET",
         credentials: "include"
     })
         .then(response => response.json())
         .then(data => {
-            alert(data.success || "Erreur lors de la sauvegarde");
+            console.log("✅ Données utilisateur reçues :", data);
+    
+            if (data.error) {
+                console.error("❌ Erreur :", data.error);
+                alert("Erreur lors du chargement des données.");
+                return;
+            }
+    
+            // Pré-remplir les champs avec les données récupérées
+            document.getElementById("email").value = data.email || "";
+            document.getElementById("nom").value = data.nom || "";
+            document.getElementById("telephone").value = data.telephone || "";
+            document.getElementById("pseudo").value = data.pseudo || "";
+    
+            if (data.role) {
+                roleSelect.value = data.role.toLowerCase().replace(" ", "_"); // Adapter selon l'option du select
+                afficherChampsSupplementaires(roleSelect.value);
+            }
         })
-        .catch(error => console.error("Erreur API :", error));
-}
+        .catch(error => console.error("❌ Erreur de récupération :", error));
+    
+        // 📝 Rendre les champs modifiables au clic sur "Modifier"
+        editButton.addEventListener("click", () => {
+            console.log("🛠 Mode édition activé");
+            inputs.forEach(input => input.disabled = false);
+            saveButton.style.display = "block";
+            editButton.style.display = "none";
+        });
+    
+        // 🚗 Afficher ou masquer les champs supplémentaires selon le rôle
+        roleSelect.addEventListener("change", (event) => {
+            console.log("📌 Rôle sélectionné :", event.target.value);
+            afficherChampsSupplementaires(event.target.value);
+        });
+    
+        function afficherChampsSupplementaires(role) {
+            if (role === "chauffeur" || role === "chauffeur_passager") {
+                console.log("🚗 Affichage des champs pour les chauffeurs");
+                chauffeurSection.style.display = "block";
+            } else {
+                console.log("🚫 Cacher les champs supplémentaires");
+                chauffeurSection.style.display = "none";
+            }
+        }
+    
+        // 📤 Envoyer les modifications à l'API
+        saveButton.addEventListener("click", async () => {
+            const data = {
+                nom: document.getElementById("nom").value,
+                prenom: document.getElementById("prenom") ? document.getElementById("prenom").value : "",
+                email: document.getElementById("email").value,
+                telephone: document.getElementById("telephone").value,
+                pseudo: document.getElementById("pseudo").value,
+                role: roleSelect.value,
+                vehicules: []
+            };
+    
+            // 🚗 Si l'utilisateur est un chauffeur, on récupère ses véhicules
+            if (chauffeurSection.style.display === "block") {
+                console.log("📋 Collecte des données véhicules...");
+                document.querySelectorAll(".vehicule").forEach((vehicule, index) => {
+                    data.vehicules.push({
+                        voiture_id: vehicule.dataset.voitureId || null,
+                        modele: vehicule.querySelector(".vehicule-marque").value,
+                        immatriculation: vehicule.querySelector(".plaque").value,
+                        energie: vehicule.querySelector(".vehicule-energie").value,
+                        couleur: vehicule.querySelector(".vehicule-couleur").value,
+                        date_premiere_immatriculation: vehicule.querySelector(".date-immatriculation").value
+                    });
+                });
+            }
+    
+            console.log("📤 Données envoyées :", data);
+    
+            try {
+                const response = await fetch("https://ecoride-production-f991.up.railway.app/api/profil.php", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    credentials: "include",
+                    body: JSON.stringify(data)
+                });
+    
+                const result = await response.json();
+                console.log("✅ Réponse du serveur :", result);
+    
+                if (result.success) {
+                    alert("Profil mis à jour !");
+                    location.reload();
+                } else {
+                    alert("❌ Erreur : " + result.error);
+                }
+            } catch (error) {
+                console.error("❌ Erreur de mise à jour :", error);
+                alert("Une erreur est survenue !");
+            }
+        });
+    });
+})
