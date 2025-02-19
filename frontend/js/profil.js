@@ -24,40 +24,53 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-document.addEventListener("DOMContentLoaded", () => {
-    console.log("📌 Script profil.js chargé");
+    document.addEventListener("DOMContentLoaded", () => {
+        console.log("✅ Script profil.js chargé !");
     
-    const editButton = document.getElementById("edit-btn");
-    const saveButton = document.getElementById("save-btn");
-    const roleSelect = document.getElementById("role");
-    const chauffeurSection = document.getElementById("chauffeur-section");
+        const roleSelect = document.getElementById("role");
     
-    const inputs = document.querySelectorAll("input, select");
-    
-    // Vérifier si l'utilisateur est connecté et charger les données
-    fetch("https://ecoride-production-f991.up.railway.app/api/profil.php", {
-        method: "GET",
-        credentials: "include"
-    })
+        fetch("https://ecoride-production-f991.up.railway.app/api/profil.php", {
+            method: "GET",
+            credentials: "include"
+        })
         .then(response => response.json())
         .then(data => {
             console.log("✅ Données utilisateur reçues :", data);
-    
+            
             if (data.error) {
                 console.error("❌ Erreur :", data.error);
                 alert("Erreur lors du chargement des données.");
                 return;
             }
     
-            // Pré-remplir les champs avec les données récupérées
+            console.log("📌 Mise à jour des champs avec :", {
+                email: data.email,
+                nom: data.nom,
+                telephone: data.telephone,
+                pseudo: data.pseudo
+            });
+    
+            // ✅ Assurer que les champs ne sont pas null avant insertion
             document.getElementById("email").value = data.email || "";
             document.getElementById("nom").value = data.nom || "";
             document.getElementById("telephone").value = data.telephone || "";
             document.getElementById("pseudo").value = data.pseudo || "";
     
+            // ✅ Supprimer l'attribut `disabled` pour s'assurer que les valeurs s'affichent
+            document.getElementById("email").removeAttribute("disabled");
+            document.getElementById("nom").removeAttribute("disabled");
+            document.getElementById("telephone").removeAttribute("disabled");
+            document.getElementById("pseudo").removeAttribute("disabled");
+
+            console.log("🔍 email trouvé ?", document.getElementById("email"));
+            console.log("🔍 nom trouvé ?", document.getElementById("nom"));
+            console.log("🔍 téléphone trouvé ?", document.getElementById("telephone"));
+            console.log("🔍 pseudo trouvé ?", document.getElementById("pseudo"));
+            console.log("🔍 rôle trouvé ?", roleSelect);
+
+    
             if (data.role) {
-                roleSelect.value = data.role.toLowerCase().replace(" ", "_"); // Adapter selon l'option du select
-                afficherChampsSupplementaires(roleSelect.value);
+                roleSelect.value = data.role.toLowerCase().replace(" ", "_"); // Adapter au <select>
             }
         })
         .catch(error => console.error("❌ Erreur de récupération :", error));
