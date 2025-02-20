@@ -78,7 +78,8 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    
+    // 🎯 Vérifier si le cookie de session est bien envoyé
+    console.log("📄 Cookies envoyés avant la requête :", document.cookie);
 
     // 🎯 Charger les données de l'utilisateur
     fetch("https://ecoride-production-f991.up.railway.app/api/profil.php", {
