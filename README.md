@@ -85,6 +85,26 @@ Le projet est actuellement déployé sur :
 - **Frontend (Vercel)** : [https://eco-ride-one.vercel.app/](https://eco-ride-one.vercel.app/)
 - **Backend (Railway)** : [Railway Dashboard](https://railway.com/project/99f132f8-f54e-4419-89e2-6b262aeca367?environmentId=a059f975-b80c-401e-8cce-5d1a062854da)
 
+## 💻 Mise en place de l'environnement de travail
+Pour le développement de l'application **EcoRide**, j'ai choisi un environnement permettant de concilier rapidité de mise en place et compatibilité avec les contraintes de déploiement.
+
+1. **Choix du backend : PHP avec MySQL**
+   - PHP est un langage accessible, bien documenté et parfaitement adapté aux applications web.
+   - MySQL est une base de données relationnelle robuste et bien supportée.
+   - Utilisation de **PDO** pour sécuriser les requêtes SQL et éviter les injections.
+
+2. **Choix du frontend : HTML/CSS/JS**
+   - Pas d'utilisation de frameworks JS pour simplifier le développement et éviter une complexité inutile.
+   - CSS est utilisé avec des principes de responsive design.
+
+3. **Déploiement distant avec Railway et Vercel**
+   - **Railway** pour héberger l'API et la base de données MySQL, permettant une mise en ligne rapide sans configurer un serveur dédié.
+   - **Vercel** pour héberger le frontend, offrant une rapidité de déploiement et une gestion simplifiée des versions.
+
+4. **Gestion du code avec GitHub**
+   - Respect de bonnes pratiques avec une branche principale (`main`) et une branche de développement (`dev`).
+   - Git permet une meilleure organisation et un suivi des modifications.
+
 ## ✨ Fonctionnalités
 - 🌱 Page vitrine du projet
 - 🛣️ Recherche fictive de trajets
@@ -102,3 +122,4 @@ Toute aide est la bienvenue ! Clonez le dépôt, créez une branche et proposez 
 
 ## 📜 Licence
 Ce projet est sous licence MIT. Libre à vous de le modifier et l'améliorer.
+
