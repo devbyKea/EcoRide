@@ -2,6 +2,8 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+ob_start(); // ✅ Capture toute sortie parasite avant qu'elle ne casse les headers
+
 // 🔧 Configuration des en-têtes CORS (⚠️ Doit être AVANT toute sortie)
 header("Access-Control-Allow-Origin: https://eco-ride-one.vercel.app");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
