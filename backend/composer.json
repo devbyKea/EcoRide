@@ -4,7 +4,6 @@
         "ext-iconv": "*",
         "ext-mbstring": "*",
         "mongodb/mongodb": "^1.20",
-        "ext-mongodb": "*",
-        "license": "Proprietary"
+        "ext-mongodb": "*"
     }
 }
