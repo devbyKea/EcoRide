@@ -23,6 +23,8 @@ if (session_status() === PHP_SESSION_NONE) {
     ]);
 
     session_start();
+    error_log("✅ [CONFIG] Liste des fichiers de session : " . json_encode(scandir(session_save_path())));
+
     
     // 🔥 Régénérer l'ID UNIQUEMENT si l'utilisateur n'est pas déjà connecté
     if (!isset($_SESSION['user_id'])) { 
