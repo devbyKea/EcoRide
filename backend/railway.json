@@ -9,13 +9,10 @@
           "php-cgi",
           "phpPackages.mbstring",
           "phpPackages.iconv",
-          "phpPackages.mongodb",
-          "phpPackages.fpm",
-          "phpPackages.curl",
-          "phpPackages.zip"
+          "phpPackages.mongodb"
         ],
         "commands": [
-          "echo 'Enabling PHP extensions...'",
+          "echo 'Installation manuelle des extensions PHP...'",
           "nix-env -iA nixpkgs.phpPackages.mbstring nixpkgs.phpPackages.iconv nixpkgs.phpPackages.mongodb"
         ]
       }
