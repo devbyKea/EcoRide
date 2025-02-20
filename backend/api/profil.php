@@ -4,6 +4,8 @@ ob_start(); // ✅ Capture toute sortie parasite avant qu'elle n'affecte le JSON
 error_reporting(0);
 ini_set('display_errors', 0);
 
+require_once __DIR__ . "/../config.php";
+
 // 🔧 Configuration des en-têtes CORS
 header("Access-Control-Allow-Origin: https://eco-ride-one.vercel.app");
 header("Access-Control-Allow-Credentials: true");
@@ -22,7 +24,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-require_once __DIR__ . "/../config.php";
+
 
 error_log("📌 DEBUG SESSION ID : " . session_id());
 error_log("📌 Contenu de SESSION : " . json_encode($_SESSION));
