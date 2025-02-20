@@ -8,13 +8,14 @@ if (session_status() === PHP_SESSION_NONE) {
     ini_set('session.gc_maxlifetime', 86400); // 🔥 Garde la session active pendant 1 jour
 
     session_set_cookie_params([
-        'lifetime' => 86400, // 🔥 Expire après 1 jour
+        'lifetime' => 86400, 
         'path' => '/',
-        'domain' => 'eco-ride-one.vercel.app', // 🔥 Tester avec et sans le "."
-        'secure' => true, // 🔥 Obligatoire en HTTPS
-        'httponly' => true, // 🔥 Empêche JavaScript d’accéder aux cookies
-        'samesite' => 'None' // 🔥 Obligatoire pour CORS avec cookies
+        'domain' => '.vercel.app', // 🔥 Tester avec ".vercel.app" au lieu de "eco-ride-one.vercel.app"
+        'secure' => true, 
+        'httponly' => true,
+        'samesite' => 'None'
     ]);
+    
 
     session_start();
     session_regenerate_id(true); // 🔥 Régénérer l'ID de session après chaque connexion
