@@ -1,18 +1,15 @@
 <?php
 ob_start(); // ✅ Capture toute sortie parasite avant qu'elle n'affecte le JSON
 
-// 🔥 Assure que PHP enregistre bien les sessions dans un dossier accessible sur Railway
-ini_set('session.save_path', '/tmp'); 
-error_log("✅ [DEBUG] Dossier de session accessible ? " . (is_writable(session_save_path()) ? 'OUI' : 'NON'));
-
+// 🔥 Vérifier si l'extension session est activée
 if (!extension_loaded('session')) {
+    error_log("❌ [CONFIG] L'extension PHP 'session' n'est pas activée !");
     die(json_encode(["error" => "L'extension PHP 'session' n'est pas activée sur ce serveur."]));
 }
 
-// ✅ Récupérer l'ID de session depuis le cookie PHPSESSID
-if (isset($_COOKIE['PHPSESSID'])) {
-    session_id($_COOKIE['PHPSESSID']); // 🔥 Forcer PHP à utiliser le même ID de session
-}
+// ✅ Définir le dossier des sessions uniquement si l'extension est activée
+ini_set('session.save_path', '/tmp'); 
+error_log("✅ [DEBUG] Dossier de session accessible ? " . (is_writable(session_save_path()) ? 'OUI' : 'NON'));
 
 // ✅ Vérifier si une session est déjà active avant de la démarrer
 if (session_status() === PHP_SESSION_NONE) {
@@ -25,34 +22,29 @@ if (session_status() === PHP_SESSION_NONE) {
         'samesite' => 'None'
     ]);
 
-    session_commit(); // 🔥 Sauvegarde la session avant de la rouvrir
-    session_start();  // 🔥 Recharge la session
+    session_start();  // 🔥 Démarrer la session
 
-    error_log("✅ [CONFIG] Liste des fichiers de session : " . json_encode(scandir(session_save_path())));
+    // ✅ Debugging avancé des sessions
+    error_log("✅ [CONFIG] Session Save Path: " . session_save_path());
+    error_log("✅ [CONFIG] Session ID: " . session_id());
+    error_log("✅ [CONFIG] Contenu de SESSION: " . json_encode($_SESSION));
 
+    // 🔥 Vérifier si le fichier de session existe et est lisible
     $session_file = session_save_path() . "/sess_" . session_id();
-if (file_exists($session_file)) {
-    error_log("✅ [CONFIG] Contenu du fichier de session : " . file_get_contents($session_file));
-} else {
-    error_log("❌ [CONFIG] Fichier de session non trouvé !");
-}
+    if (file_exists($session_file)) {
+        error_log("✅ [CONFIG] Contenu du fichier de session : " . file_get_contents($session_file));
+    } else {
+        error_log("❌ [CONFIG] Fichier de session non trouvé !");
+    }
 
     error_log("✅ [CONFIG] Fichier de session attendu : " . $session_file);
     error_log("✅ [CONFIG] Fichier de session lisible ? " . (is_readable($session_file) ? 'OUI' : 'NON'));
-    error_log("✅ [CONFIG] Propriétaire du fichier de session : " . fileowner($session_file));
-    error_log("✅ [CONFIG] Droits du fichier de session : " . substr(sprintf('%o', fileperms($session_file)), -4));
 
-    
     // 🔥 Régénérer l'ID UNIQUEMENT si l'utilisateur n'est pas déjà connecté
     if (!isset($_SESSION['user_id'])) { 
         session_regenerate_id(true);
     }
 }
-
-// ✅ Debugging avancé pour suivre les sessions
-error_log("✅ [CONFIG] Session Save Path: " . session_save_path());
-error_log("✅ [CONFIG] Session ID: " . session_id());
-error_log("✅ [CONFIG] Contenu de SESSION: " . json_encode($_SESSION));
 
 // 🚀 Connexion à la base de données
 $host = getenv("PMA_HOST") ?: "mysql.railway.internal";
