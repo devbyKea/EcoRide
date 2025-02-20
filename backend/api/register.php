@@ -10,18 +10,24 @@ header("Access-Control-Allow-Methods: POST, OPTIONS"); // Autoriser POST et OPTI
 header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Autoriser JSON et Auth
 header("Access-Control-Allow-Credentials: true");
 
-require_once __DIR__ . "/../config.php"; // Connexion BDD
-
 // Gérer la requête préflight `OPTIONS`
 if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
     http_response_code(204); // Réponse sans contenu mais valide
     exit;
 }
 
-// Vérifier si la requête est en POST
-if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    http_response_code(405);
-    echo json_encode(["status" => "error", "message" => "Méthode non autorisée"]);
+// 🚀 Connexion à la base de données directement dans register.php
+$host = getenv("PMA_HOST") ?: "mysql.railway.internal";
+$dbname = "railway";
+$user = getenv("PMA_USER") ?: "root";
+$password = getenv("PMA_PASSWORD");
+
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo json_encode(["status" => "error", "message" => "Erreur de connexion à la base de données"]);
     exit;
 }
 
@@ -35,14 +41,14 @@ if (!$data) {
 }
 
 // Vérifier les champs
-if (empty($data["name"]) || empty($data["prenom"]) || empty($data["pseudo"]) ||empty($data["email"]) || empty($data["password"]) || empty($data["confirm_password"])) {
+if (empty($data["name"]) || empty($data["prenom"]) || empty($data["pseudo"]) || empty($data["email"]) || empty($data["password"]) || empty($data["confirm_password"])) {
     echo json_encode(["status" => "error", "message" => "Tous les champs sont obligatoires"]);
     exit;
 }
 
 $name = htmlspecialchars(trim($data["name"]));
-$prenom = htmlspecialchars(trim($data["prenom"] ?? ""));
-$pseudo = htmlspecialchars(trim($data["pseudo"] ?? ""));
+$prenom = htmlspecialchars(trim($data["prenom"]));
+$pseudo = htmlspecialchars(trim($data["pseudo"]));
 $email = filter_var($data["email"], FILTER_VALIDATE_EMAIL);
 $password = trim($data["password"]);
 $confirm_password = trim($data["confirm_password"]);
