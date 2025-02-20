@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // 🎯 CHARGEMENT DU PROFIL UTILISATEUR
-    fetch("https://ecoride-production-f991.up.railway.app/getUserProfile.php", {
+    fetch("https://ecoride-production-f991.up.railway.app/api/getUserProfile.php", {
         method: "GET",
         credentials: "include",
         mode: "cors",
@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("📤 Données envoyées :", data);
 
         try {
-            const response = await fetch("https://ecoride-production-f991.up.railway.app/updateUserProfile.php", {
+            const response = await fetch("https://ecoride-production-f991.up.railway.app/api/updateUserProfile.php", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
