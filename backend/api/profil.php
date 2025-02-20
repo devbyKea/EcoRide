@@ -24,6 +24,10 @@ if (session_status() === PHP_SESSION_NONE) {
 
 require_once __DIR__ . "/../config.php";
 
+error_log("📌 DEBUG SESSION ID : " . session_id());
+error_log("📌 Contenu de SESSION : " . json_encode($_SESSION));
+
+
 // ✅ Vérification de l'utilisateur connecté
 $user_id = $_SESSION["utilisateur_id"] ?? null;
 
