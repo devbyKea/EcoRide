@@ -22,11 +22,22 @@ if (session_status() === PHP_SESSION_NONE) {
         'samesite' => 'None'
     ]);
 
-    session_start();
+    session_commit(); // 🔥 Sauvegarde la session avant de la rouvrir
+    session_start();  // 🔥 Recharge la session
+
     error_log("✅ [CONFIG] Liste des fichiers de session : " . json_encode(scandir(session_save_path())));
+
     $session_file = session_save_path() . "/sess_" . session_id();
+if (file_exists($session_file)) {
+    error_log("✅ [CONFIG] Contenu du fichier de session : " . file_get_contents($session_file));
+} else {
+    error_log("❌ [CONFIG] Fichier de session non trouvé !");
+}
+
     error_log("✅ [CONFIG] Fichier de session attendu : " . $session_file);
     error_log("✅ [CONFIG] Fichier de session lisible ? " . (is_readable($session_file) ? 'OUI' : 'NON'));
+    error_log("✅ [CONFIG] Propriétaire du fichier de session : " . fileowner($session_file));
+    error_log("✅ [CONFIG] Droits du fichier de session : " . substr(sprintf('%o', fileperms($session_file)), -4));
 
     
     // 🔥 Régénérer l'ID UNIQUEMENT si l'utilisateur n'est pas déjà connecté

@@ -14,6 +14,9 @@ if ($_SERVER['REQUEST_METHOD'] === "OPTIONS") {
     exit;
 }
 
+
+
+
 require_once __DIR__ . '/../config.php'; // ✅ La session est déjà gérée dans config.php
 
 // Debug temporaire : voir si la session est bien récupérée
