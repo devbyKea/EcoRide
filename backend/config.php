@@ -24,6 +24,9 @@ if (session_status() === PHP_SESSION_NONE) {
 
     session_start();
     error_log("✅ [CONFIG] Liste des fichiers de session : " . json_encode(scandir(session_save_path())));
+    $session_file = session_save_path() . "/sess_" . session_id();
+    error_log("✅ [CONFIG] Fichier de session attendu : " . $session_file);
+    error_log("✅ [CONFIG] Fichier de session lisible ? " . (is_readable($session_file) ? 'OUI' : 'NON'));
 
     
     // 🔥 Régénérer l'ID UNIQUEMENT si l'utilisateur n'est pas déjà connecté
