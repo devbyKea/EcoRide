@@ -25,7 +25,7 @@ if (session_status() === PHP_SESSION_NONE) {
 require_once __DIR__ . "/../config.php";
 
 // ✅ Vérification de l'utilisateur connecté
-$user_id = $_SESSION["user_id"] ?? null;
+$user_id = $_SESSION["utilsateur_id"] ?? null;
 
 if (!$user_id) {
     ob_end_clean(); // 🔥 Supprimer toute sortie avant d'envoyer la réponse JSON propre
