@@ -1,4 +1,7 @@
 <?php
+header("Access-Control-Allow-Origin: *"); // Autoriser les requêtes de toutes les origines (CORS)
+header("Access-Control-Allow-Methods: POST, OPTIONS"); // Autoriser POST et OPTIONS
+header("Access-Control-Allow-Headers: Content-Type"); // Autoriser l'envoi de JSON
 require '../mongo_config.php'; // Fichier qui gère la connexion à MongoDB
 
 // Vérifier si la requête est bien en POST
