@@ -5,15 +5,15 @@
     "nixpacks": {
       "plan": {
         "packages": [
-          "php",
-          "php-cgi",
-          "phpPackages.mbstring",
-          "phpPackages.iconv",
-          "phpPackages.mongodb"
+          "php83",
+          "php83Extensions.iconv",
+          "php83Extensions.mbstring",
+          "php83Extensions.mongodb",
+          "php83Packages.composer"
         ],
         "commands": [
-          "echo 'Installation manuelle des extensions PHP...'",
-          "nix-env -iA nixpkgs.phpPackages.mbstring nixpkgs.phpPackages.iconv nixpkgs.phpPackages.mongodb"
+          "echo 'Forçage de l'installation des extensions PHP'",
+          "php -m | grep -E 'iconv|mbstring|mongodb' || exit 1"
         ]
       }
     }
