@@ -116,6 +116,11 @@ Pour le développement de l'application **EcoRide**, j'ai choisi un environnemen
 - Gestion des utilisateurs (passager, chauffeur, employé, administrateur)
 - Tableau de bord administrateur
 - Sécurité et validation des entrées
+- Formulaire de contact à faire fonctionner
+- Login avec récupération des infos sur la redirection vers `profil.html`
+
+## 🤝 Note pour le jury
+Durant le développement de ce projet, j’ai rencontré de **grosses difficultés sur la partie backend**, notamment pour la gestion des requêtes et l’interaction entre PHP et la base de données. Ces obstacles ont ralenti l'avancement du projet, ce qui explique pourquoi certaines fonctionnalités ne sont pas encore finalisées à la date de rendu. Malgré ces défis, j’ai acquis de nouvelles compétences et une meilleure compréhension du développement backend, et je compte finaliser ces fonctionnalités après l’évaluation.
 
 ## 💡 Contribution
 Toute aide est la bienvenue ! Clonez le dépôt, créez une branche et proposez vos modifications via une pull request.
