@@ -1,19 +1,19 @@
 <?php return array(
     'root' => array(
-        'name' => '__root__',
+        'name' => 'ecoride/backend',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '0c60256121c6e46c22f10518bf3c7a8c6c87355f',
+        'reference' => '8e0c318b03cf147de221e14aa7fa676207022f39',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'dev' => true,
+        'dev' => false,
     ),
     'versions' => array(
-        '__root__' => array(
+        'ecoride/backend' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '0c60256121c6e46c22f10518bf3c7a8c6c87355f',
+            'reference' => '8e0c318b03cf147de221e14aa7fa676207022f39',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
