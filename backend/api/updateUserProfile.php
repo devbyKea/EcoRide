@@ -14,10 +14,9 @@ if ($_SERVER['REQUEST_METHOD'] === "OPTIONS") {
     exit;
 }
 
-session_start();
-require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/../config.php'; // ✅ La session est déjà gérée dans config.php
 
-
+// Vérifier si l'utilisateur est connecté
 if (!isset($_SESSION['user_id'])) {
     echo json_encode(["error" => "Utilisateur non connecté"]);
     exit;
@@ -26,10 +25,10 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 $data = json_decode(file_get_contents("php://input"), true);
 
-try {
-    $pdo = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+// Debugging avancé
+error_log("✅ Données reçues pour update: " . json_encode($data));
 
+try {
     $stmt = $pdo->prepare("UPDATE utilisateurs SET username = ?, phone = ?, role = ?, plaque = ?, date_immatriculation = ?, marque = ?, modele = ?, couleur = ?, places_disponibles = ?, fumeur = ?, animaux = ?, preferences = ? WHERE id = ?");
     
     $stmt->execute([
@@ -41,6 +40,7 @@ try {
 
     echo json_encode(["message" => "Profil mis à jour"]);
 } catch (PDOException $e) {
-    echo json_encode(["error" => $e->getMessage()]);
+    error_log("❌ Erreur SQL: " . $e->getMessage());
+    echo json_encode(["error" => "Erreur lors de la mise à jour du profil"]);
 }
 ?>
