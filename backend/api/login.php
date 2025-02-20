@@ -7,6 +7,19 @@ header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Access-Control-Allow-Credentials: true");
 
+session_set_cookie_params([
+    'lifetime' => 86400, // 🔥 Expire après 1 jour
+    'path' => '/',
+    'domain' => 'eco-ride-one.vercel.app', // 🔥 IMPORTANT : même domaine que ton frontend
+    'secure' => true, // 🔥 Obligatoire si HTTPS
+    'httponly' => true,
+    'samesite' => 'None' // 🔥 Obligatoire pour CORS
+]);
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 session_start(); // Démarrer la session pour stocker l'utilisateur connecté
 
 $_SESSION["utilisateur_id"] = $user["utilisateur_id"]; // Stocke l'ID utilisateur
