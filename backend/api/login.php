@@ -1,16 +1,7 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-
-// ✅ Configurer la persistance de la session AVANT tout `header()`
-session_set_cookie_params([
-    'lifetime' => 86400, // 🔥 Expire après 1 jour
-    'path' => '/',
-    'domain' => 'eco-ride-one.vercel.app', // 🔥 Tester sans "." devant si problème
-    'secure' => true, // 🔥 Obligatoire en HTTPS
-    'httponly' => true, // 🔥 Empêche JavaScript d'accéder aux cookies
-    'samesite' => 'None' // 🔥 Obligatoire pour CORS avec cookies
-]);
+require_once "../config.php"; // Connexion BDD
 
 // ✅ Démarrer la session uniquement si elle n'existe pas
 if (session_status() === PHP_SESSION_NONE) {
@@ -25,7 +16,7 @@ header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Access-Control-Allow-Credentials: true");
 
-require_once "../config.php"; // Connexion BDD
+
 
 // 🔥 Debugging
 error_log("✅ SESSION ID après connexion : " . session_id());
