@@ -1,10 +1,22 @@
 {
   "root": "backend",
   "build": {
-    "builder": "heroku/buildpacks",
-    "buildpacks": [
-      "heroku/php"
-    ]
+    "builder": "nixpacks",
+    "nixpacks": {
+      "plan": {
+        "packages": ["php", "php-cli", "php-mysql", "php-pdo"],
+        "commands": [
+          "echo '✅ Création du fichier custom.ini pour activer PDO MySQL'",
+          "echo 'extension=pdo.so' > /app/custom.ini",
+          "echo 'extension=pdo_mysql.so' >> /app/custom.ini",
+          "echo 'pdo_mysql.default_socket=/var/run/mysqld/mysqld.sock' >> /app/custom.ini",
+          "ls -la /app/backend" 
+        ]
+      }
+    }
   },
-  "start": "php -S 0.0.0.0:$PORT -t backend"
+  "env": {
+    "PHP_INI_SCAN_DIR": "/app"
+  },
+  "start": "php -c /app/custom.ini -S 0.0.0.0:$PORT -t backend"
 }
