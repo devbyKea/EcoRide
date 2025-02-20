@@ -5,6 +5,10 @@ error_reporting(0);
 ini_set('display_errors', 0);
 
 require_once "../config.php"; // Toujours en haut pour charger la session
+error_log("🚀 SESSION ID DANS PROFIL : " . session_id());
+error_log("🚀 CONTENU SESSION DANS PROFIL : " . json_encode($_SESSION));
+error_log("🚀 COOKIES REÇUS DANS PROFIL : " . print_r($_COOKIE, true));
+
 
 // 🔧 Configuration des en-têtes CORS
 header("Access-Control-Allow-Origin: https://eco-ride-one.vercel.app");
