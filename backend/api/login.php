@@ -20,7 +20,6 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-session_start(); // Démarrer la session pour stocker l'utilisateur connecté
 
 $_SESSION["utilisateur_id"] = $user["utilisateur_id"]; // Stocke l'ID utilisateur
 
