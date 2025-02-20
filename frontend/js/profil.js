@@ -84,28 +84,34 @@ document.addEventListener("DOMContentLoaded", () => {
         credentials: "include",
         mode: "cors",
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log("✅ Données utilisateur reçues :", data);
+    .then(response => response.text()) // 🔥 Lire la réponse brute au lieu de response.json()
+    .then(text => {
+        console.log("📄 Réponse brute reçue :", text); // 🔍 Debug pour voir le problème réel
+    
+        let data;
+        try {
+            data = JSON.parse(text); // 🔥 Vérifier si le JSON est valide
+        } catch (error) {
+            console.error("❌ Erreur de parsing JSON :", error);
+            alert("Le serveur a renvoyé une réponse invalide.");
+            return;
+        }
+    
+        console.log("✅ Réponse JSON :", data);
+    
         if (data.error) {
             console.error("❌ Erreur :", data.error);
             alert("Erreur lors du chargement des données.");
             return;
         }
-
-        // 🎯 Mise à jour des champs
+    
         document.getElementById("email").value = data.email || "";
         document.getElementById("nom").value = data.nom || "";
         document.getElementById("telephone").value = data.telephone || "";
         document.getElementById("pseudo").value = data.pseudo || "";
-
-        if (data.role) {
-            roleSelect.value = data.role.toLowerCase().replace(" ", "_");
-            console.log("📌 Rôle détecté :", roleSelect.value);
-            afficherChampsSupplementaires(roleSelect.value);
-        }
     })
     .catch(error => console.error("❌ Erreur de récupération :", error));
+    
 
     // 🎯 Détection du changement de rôle
     roleSelect.addEventListener("change", () => {
