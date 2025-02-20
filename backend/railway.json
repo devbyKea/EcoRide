@@ -1,12 +1,16 @@
 {
-"root": "backend",
-"build": {
-  "builder": "nixpacks",
-  "nixpacks": {
-    "plan": {
-      "packages": ["php", "php-cgi"]
+  "root": "backend",
+  "build": {
+    "builder": "nixpacks",
+    "nixpacks": {
+      "plan": {
+        "packages": ["php", "php-cgi"],
+        "commands": [
+          "echo '✅ Désactivation de composer install automatique'",
+          "touch /app/backend/.no-composer"
+        ]
+      }
     }
-  }
-},
-"start": "php -S 0.0.0.0:$PORT -t backend"
+  },
+  "start": "php -S 0.0.0.0:$PORT -t backend"
 }
