@@ -5,6 +5,9 @@ ob_start(); // ✅ Capture toute sortie parasite avant qu'elle n'affecte le JSON
 ini_set('session.save_path', '/tmp'); 
 error_log("✅ [DEBUG] Dossier de session accessible ? " . (is_writable(session_save_path()) ? 'OUI' : 'NON'));
 
+if (!extension_loaded('session')) {
+    die(json_encode(["error" => "L'extension PHP 'session' n'est pas activée sur ce serveur."]));
+}
 
 // ✅ Récupérer l'ID de session depuis le cookie PHPSESSID
 if (isset($_COOKIE['PHPSESSID'])) {
