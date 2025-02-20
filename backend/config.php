@@ -8,7 +8,9 @@ $password = getenv("PMA_PASSWORD");
 
 // 🚀 Configuration avancée des sessions et cookies
 ini_set('session.gc_maxlifetime', 86400); // 🔥 Garde la session active pendant 1 jour
-ini_set('session.save_path', '/tmp'); // 🔥 Assure que PHP enregistre bien la session
+session_save_path('/tmp'); // 🔥 Force PHP à bien stocker les sessions
+session_name("MYSESSID"); // 🔥 Donne un nom unique au cookie de session
+
 session_set_cookie_params([
     'lifetime' => 86400, // 🔥 Expire après 1 jour
     'path' => '/',
