@@ -7,14 +7,7 @@ header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Access-Control-Allow-Credentials: true");
 
-session_set_cookie_params([
-    'lifetime' => 86400, // 🔥 Expire après 1 jour
-    'path' => '/',
-    'domain' => 'eco-ride-one.vercel.app', // 🔥 IMPORTANT : même domaine que ton frontend
-    'secure' => true, // 🔥 Obligatoire si HTTPS
-    'httponly' => true,
-    'samesite' => 'None' // 🔥 Obligatoire pour CORS
-]);
+require_once "../config.php"; // Connexion BDD
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -24,8 +17,6 @@ if (session_status() === PHP_SESSION_NONE) {
 error_log("✅ SESSION ID après connexion : " . session_id());
 error_log("✅ Contenu SESSION après connexion : " . json_encode($_SESSION));
 
-
-require_once "../config.php"; // Connexion BDD
 
 // Gérer la requête OPTIONS pour CORS
 if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
