@@ -71,6 +71,7 @@ error_log("Utilisateur trouvé : " . json_encode($user));
 error_log("Mot de passe hashé en BDD : " . $user["mot_de_passe"]);
 error_log("Mot de passe fourni : " . $password);
 
+
 if (password_verify($password, $user["mot_de_passe"])) {
     error_log("Mot de passe vérifié avec succès !");
 } else {
@@ -89,6 +90,10 @@ if (!password_verify($password, $user["mot_de_passe"])) {
 $_SESSION["user_id"] = $user["utilisateur_id"];
 $_SESSION["email"] = $user["email"];
 $_SESSION["pseudo"] = $user["pseudo"];
+
+error_log("✅ SESSION ID après connexion : " . session_id());
+error_log("✅ Contenu SESSION après connexion : " . json_encode($_SESSION));
+
 
 // Retourner les informations utilisateur
 echo json_encode([
