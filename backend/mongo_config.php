@@ -5,7 +5,7 @@ $mongoUri = getenv('MONGODB_URI') ?: 'mongodb://mongo:NemIqICBzwDngGvpIBBmZHyrqg
 
 try {
     $client = new MongoDB\Client($mongoUri);
-    $database = $client->selectDatabase('railway');
+    $database = $client->selectDatabase('test');
     $collection = $database->selectCollection('avis');
 } catch (Exception $e) {
     die("Erreur de connexion à MongoDB : " . $e->getMessage());
