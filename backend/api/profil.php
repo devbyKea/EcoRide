@@ -1,6 +1,8 @@
 <?php
-// ✅ Capture toute sortie inattendue pour éviter les erreurs JSON
-ob_start();
+ob_start(); // ✅ Capture toute sortie parasite avant qu'elle n'affecte le JSON
+
+error_reporting(0);
+ini_set('display_errors', 0);
 
 // 🔧 Configuration des en-têtes CORS
 header("Access-Control-Allow-Origin: https://eco-ride-one.vercel.app");
@@ -9,13 +11,13 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
 
-// ✅ Gérer la requête OPTIONS pour éviter les erreurs CORS
+// ✅ Gestion de la requête OPTIONS pour éviter les erreurs CORS
 if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
     http_response_code(204);
     exit;
 }
 
-// ✅ Vérifier si la session est déjà active
+// ✅ Vérifier si la session est déjà active avant de l'initialiser
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -26,11 +28,12 @@ require_once __DIR__ . "/../config.php";
 $user_id = $_SESSION["user_id"] ?? null;
 
 if (!$user_id) {
-    ob_end_clean(); // 🔥 Supprime toute sortie parasite
-    echo json_encode(["error" => "Utilisateur non authentifié"]);
+    ob_end_clean(); // 🔥 Supprimer toute sortie avant d'envoyer la réponse JSON propre
     http_response_code(401);
+    echo json_encode(["error" => "Utilisateur non authentifié"]);
     exit;
 }
+
 
 try {
     if ($_SERVER["REQUEST_METHOD"] === "GET") {
