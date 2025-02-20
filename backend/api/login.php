@@ -1,6 +1,24 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+
+// ✅ Configurer la persistance de la session AVANT tout `header()`
+session_set_cookie_params([
+    'lifetime' => 86400, // 🔥 Expire après 1 jour
+    'path' => '/',
+    'domain' => 'eco-ride-one.vercel.app', // 🔥 Tester sans "." devant si problème
+    'secure' => true, // 🔥 Obligatoire en HTTPS
+    'httponly' => true, // 🔥 Empêche JavaScript d'accéder aux cookies
+    'samesite' => 'None' // 🔥 Obligatoire pour CORS avec cookies
+]);
+
+// ✅ Démarrer la session uniquement si elle n'existe pas
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+    session_regenerate_id(true); // 🔥 Régénère l'ID de session après connexion
+}
+
+// 🔧 Configuration des en-têtes CORS
 header("Content-Type: application/json");
 header("Access-Control-Allow-Origin: https://eco-ride-one.vercel.app");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
@@ -9,20 +27,16 @@ header("Access-Control-Allow-Credentials: true");
 
 require_once "../config.php"; // Connexion BDD
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-// 🔥 Debug
+// 🔥 Debugging
 error_log("✅ SESSION ID après connexion : " . session_id());
 error_log("✅ Contenu SESSION après connexion : " . json_encode($_SESSION));
 
-
-// Gérer la requête OPTIONS pour CORS
+// ✅ Gérer la requête OPTIONS pour CORS
 if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
     http_response_code(204);
     exit;
 }
+
 
 // Vérifier que la requête est en POST
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
