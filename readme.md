@@ -11,7 +11,6 @@ Avant d'installer et d'exécuter le projet, assurez-vous d'avoir installé :
 - [Git](https://git-scm.com/)
 - [PHP 8+](https://www.php.net/)
 - [Composer](https://getcomposer.org/)
-- [Node.js 16+](https://nodejs.org/)
 - [MySQL](https://www.mysql.com/) et [MongoDB](https://www.mongodb.com/)
 - Un serveur local comme **XAMPP**, **Laragon**, ou **WAMP** (pour exécuter l’application en local)
 - Un navigateur web moderne
@@ -39,15 +38,35 @@ cd EcoRide
 cd backend
 composer install
 ```
-Actuellement, aucune configuration `.env` n'est fournie. Si nécessaire, créez un fichier `config.php` avec vos paramètres de base de données.
+#### 📄 Configuration de la base de données
+Un fichier `config.php` est déjà fourni pour la connexion à la base de données. Il utilise les variables d'environnement ou les valeurs par défaut suivantes :
+```php
+<?php
+ob_start(); // ✅ Capture toute sortie parasite avant qu'elle n'affecte le JSON
 
+// 🚀 Connexion à la base de données
+$host = getenv("PMA_HOST") ?: "mysql.railway.internal";
+$dbname = "railway";
+$user = getenv("PMA_USER") ?: "root";
+$password = getenv("PMA_PASSWORD");
+
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $user, $password, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES => false, // 🔥 Sécurise contre les injections SQL
+    ]);
+    error_log("✅ [CONFIG] Connexion à la base de données réussie !");
+} catch (PDOException $e) {
+    error_log("❌ Erreur de connexion BDD: " . $e->getMessage());
+    die(json_encode(["error" => "Erreur de connexion à la base de données"]));
+}
+?>
+```
+Si vous souhaitez modifier ces valeurs en local, vous pouvez configurer vos propres variables d'environnement ou modifier directement ce fichier.
 
 ### 3️⃣ Installation Frontend
-```bash
-cd ../frontend
-npm install  # Si un framework JS est utilisé (React, Vue...)
-```
-Si le projet est en HTML/CSS/JS classique, il suffit d’ouvrir `index.html` dans un navigateur.
+Le frontend est en HTML, CSS et JavaScript pur, il n'y a donc pas besoin d'installation supplémentaire. 
 
 ## 🚀 Lancement du projet en local
 
@@ -58,13 +77,8 @@ php -S localhost:8000 -t public
 ```
 L'API sera accessible via `http://localhost:8000/`.
 
-### 2️⃣ Démarrer le frontend (si applicable)
-Si un framework JS est utilisé :
-```bash
-cd frontend
-npm run dev
-```
-Sinon, ouvrez simplement `frontend/index.html` dans un navigateur.
+### 2️⃣ Démarrer le frontend
+Il suffit d'ouvrir le fichier `frontend/index.html` dans un navigateur.
 
 ## 🌍 Déploiement
 Le projet est actuellement déployé sur :
