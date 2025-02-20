@@ -17,38 +17,18 @@ if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
     exit;
 }
 
-require_once "../config.php"; // ✅ Connexion BDD et gestion de session (session_start() déjà appelé ici)
+require_once "../config.php"; // 
 
-// ✅ Supprimer le session_start() qui causait un conflit ❌ (déjà dans config.php)
-// if (session_status() === PHP_SESSION_NONE) {
-//     session_start();
-// }
-
-session_regenerate_id(true); // 🔥 Régénérer l'ID de session après connexion pour éviter fixation de session
-
-error_log("✅ [login.php] Session ID après connexion: " . session_id());
-error_log("✅ [login.php] SESSION avant authentification: " . json_encode($_SESSION));
-
-// ✅ Vérifier que la requête est en POST
-if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    echo json_encode(["status" => "error", "message" => "Méthode non autorisée"]);
-    http_response_code(405);
-    exit;
-}
-
-// ✅ Lire les données envoyées
 $data = json_decode(file_get_contents("php://input"), true);
-$email = filter_var($data["email"], FILTER_VALIDATE_EMAIL);
-$password = trim($data["password"] ?? "");
+$email = $data["email"] ?? null;
+$password = $data["password"] ?? null;
 
-// ✅ Vérifier que l'email et le mot de passe sont remplis
-if (!$email || empty($password)) {
-    echo json_encode(["status" => "error", "message" => "Email et mot de passe requis"]);
-    http_response_code(400);
+if (!$email || !$password) {
+    echo json_encode(["error" => "Email et mot de passe requis."]);
     exit;
 }
 
-// ✅ Vérifier si l'utilisateur existe
+// 🔍 Vérifier l'utilisateur
 $stmt = $pdo->prepare("
     SELECT u.utilisateur_id, u.pseudo, u.nom, u.email, u.mot_de_passe, u.telephone, r.libelle AS role
     FROM utilisateur u
@@ -59,44 +39,29 @@ $stmt = $pdo->prepare("
 $stmt->execute([$email]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if (!$user) {
-    error_log("❌ Aucun utilisateur trouvé avec cet email : " . $email);
-    echo json_encode(["status" => "error", "message" => "Identifiants incorrects"]);
-    http_response_code(401);
+if (!$user || !password_verify($password, $user["mot_de_passe"])) {
+    echo json_encode(["error" => "Identifiants incorrects"]);
     exit;
 }
 
-error_log("✅ Utilisateur trouvé : " . json_encode($user));
+// ✅ Générer un token unique pour la session
+$session_id = bin2hex(random_bytes(32));
 
-// ✅ Vérification du mot de passe
-if (!password_verify($password, $user["mot_de_passe"])) {
-    error_log("❌ Mot de passe incorrect !");
-    echo json_encode(["status" => "error", "message" => "Identifiants incorrects"]);
-    http_response_code(401);
-    exit;
-}
+// ✅ Insérer la session en base
+$stmt = $pdo->prepare("
+    INSERT INTO sessions (session_id, utilisateur_id, ip_address, user_agent) 
+    VALUES (?, ?, ?, ?)
+");
+$stmt->execute([
+    $session_id,
+    $user["utilisateur_id"],
+    $_SERVER["REMOTE_ADDR"],
+    $_SERVER["HTTP_USER_AGENT"]
+]);
 
-error_log("✅ Mot de passe vérifié avec succès !");
-
-// ✅ Stocker l'utilisateur en session
-$_SESSION["user_id"] = $user["utilisateur_id"];
-$_SESSION["email"] = $user["email"];
-$_SESSION["pseudo"] = $user["pseudo"];
-
-error_log("✅ [LOGIN] SESSION après connexion : " . json_encode($_SESSION));
-error_log("✅ [LOGIN] PHPSESSID envoyé : " . $_COOKIE['PHPSESSID'] ?? 'Aucun cookie reçu');
-
-
-// ✅ Forcer PHP à écrire la session avant la réponse (évite les sessions perdues)
-session_write_close();
-
-// ✅ Nettoyer toute sortie parasite avant d'envoyer le JSON
-ob_end_clean();
-
-// ✅ Retourner les informations utilisateur
+// 📩 Retourner le token au client
 echo json_encode([
-    "status" => "success",
-    "message" => "Connexion réussie",
+    "session_id" => $session_id,
     "user" => [
         "pseudo" => $user["pseudo"],
         "nom" => $user["nom"],
@@ -105,5 +70,5 @@ echo json_encode([
         "role" => $user["role"]
     ]
 ]);
-http_response_code(200);
 exit;
+

@@ -40,61 +40,24 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  loginButton.addEventListener("click", async (event) => {
-    event.preventDefault(); // Empêche le rechargement (si le bouton est dans un <form>)
+  document.getElementById("login-btn").addEventListener("click", async () => {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
-    const emailInput = document.getElementById("email");
-    const passwordInput = document.getElementById("password");
-
-    if (!emailInput || !passwordInput) {
-      alert("Veuillez remplir tous les champs !");
-      return;
-    }
-
-    const email = emailInput.value.trim();
-    const password = passwordInput.value.trim();
-
-    console.log("Tentative de connexion avec :", { email, password });
-
-    try {
-      const response = await fetch("https://ecoride-production-f991.up.railway.app/api/login.php", {
+    const response = await fetch("https://ecoride-production-f991.up.railway.app/api/login.php", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        credentials: "include",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password })
-      });
-      
+    });
 
-      
-      console.log("Réponse reçue du serveur :", response);
+    const data = await response.json();
 
-      const textResponse = await response.text();
-      console.log("Texte brut reçu du serveur :", textResponse);
-
-      let data;
-      try {
-        data = JSON.parse(textResponse);
-      } catch (error) {
-        console.error("Erreur lors de la conversion JSON :", error);
-        alert("Le serveur a renvoyé une réponse invalide.");
-        return;
-      }
-
-      console.log("Réponse JSON :", data);
-
-      if (data.status === "success") {
-        alert("Connexion réussie !");
+    if (data.session_id) {
+        localStorage.setItem("session_id", data.session_id);
         localStorage.setItem("user", JSON.stringify(data.user));
-        window.location.href = "profil.html";
-      } else {
-        alert(data.message);
-      }
-    } catch (error) {
-      console.error("Erreur lors de la connexion :", error);
-      alert("Une erreur est survenue. Veuillez réessayer.");
+        window.location.href = "profil.html"; // Redirection après connexion
+    } else {
+        alert(data.error);
     }
-  });
 });
-
+})
