@@ -38,7 +38,7 @@ try {
         $stmt = $pdo->prepare("
             SELECT u.utilisateur_id, u.nom, u.prenom, u.email, u.telephone, u.pseudo,
                    r.libelle AS role
-            FROM Utilisateur u
+            FROM utilisateur u
             LEFT JOIN possede p ON u.utilisateur_id = p.utilisateur_id
             LEFT JOIN Role r ON p.role_id = r.role_id
             WHERE u.utilisateur_id = ?
@@ -59,14 +59,29 @@ try {
                    v.date_premiere_immatriculation, m.libelle AS marque
             FROM Voiture v
             LEFT JOIN detient d ON v.voiture_id = d.voiture_id
-            LEFT JOIN Marque m ON d.marque_id = m.marque_id
+            LEFT JOIN marque m ON d.marque_id = m.marque_id
             WHERE d.utilisateur_id = ?
         ");
         $stmtVehicules->execute([$user_id]);
         $user["vehicules"] = $stmtVehicules->fetchAll(PDO::FETCH_ASSOC);
 
-        ob_end_clean(); // 🔥 Supprime toute sortie avant d'envoyer du JSON
-        echo json_encode($user);
+        $debug_output = ob_get_contents();
+        ob_end_clean();
+        
+        if (!empty($debug_output)) {
+            error_log("⚠️ Sortie parasite détectée : " . $debug_output);
+        }
+        
+        // 🔥 Vérification du JSON avant envoi
+        $json_output = json_encode($user);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            error_log("❌ Erreur JSON : " . json_last_error_msg());
+            echo json_encode(["error" => "Erreur JSON: " . json_last_error_msg()]);
+            http_response_code(500);
+            exit;
+        }
+        
+        echo $json_output;
         http_response_code(200);
         exit;
     } 
@@ -77,7 +92,7 @@ try {
 
         // 🔄 Mise à jour des informations utilisateur
         $stmt = $pdo->prepare("
-            UPDATE Utilisateur 
+            UPDATE utilisateur 
             SET nom = ?, prenom = ?, email = ?, telephone = ?, pseudo = ?
             WHERE utilisateur_id = ?
         ");
@@ -96,7 +111,7 @@ try {
                 if (!empty($vehicule["voiture_id"])) {
                     // Mise à jour véhicule existant
                     $stmtVehicule = $pdo->prepare("
-                        UPDATE Voiture 
+                        UPDATE voiture 
                         SET modele = ?, immatriculation = ?, energie = ?, couleur = ?, 
                             date_premiere_immatriculation = ?
                         WHERE voiture_id = ? AND voiture_id IN 
@@ -114,7 +129,7 @@ try {
                 } else {
                     // 🚗 Ajouter un nouveau véhicule
                     $stmtVehicule = $pdo->prepare("
-                        INSERT INTO Voiture (modele, immatriculation, energie, couleur, date_premiere_immatriculation) 
+                        INSERT INTO voiture (modele, immatriculation, energie, couleur, date_premiere_immatriculation) 
                         VALUES (?, ?, ?, ?, ?)
                     ");
                     $stmtVehicule->execute([
