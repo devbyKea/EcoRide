@@ -14,8 +14,14 @@ if ($_SERVER['REQUEST_METHOD'] === "OPTIONS") {
     exit;
 }
 
-session_start();
 require_once __DIR__ . '/../config.php';
+// Debug temporaire : voir ce que contient la session
+echo json_encode([
+    "session_id" => session_id(),
+    "session_status" => session_status(),
+    "user_id" => $_SESSION['user_id'] ?? "Aucune session"
+]);
+exit;
 
 
 
