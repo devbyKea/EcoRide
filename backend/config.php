@@ -6,14 +6,6 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Access-Control-Allow-Credentials: true");
 header("Content-Type: application/json");
 
-// ✅ Charger manuellement l'extension PDO (Solution alternative)
-if (!extension_loaded('pdo')) {
-    dl('pdo.so'); // Charger l'extension PDO si elle n'est pas activée
-}
-if (!extension_loaded('pdo_mysql')) {
-    dl('pdo_mysql.so'); // Charger l'extension PDO MySQL
-}
-
 // 🚀 Connexion à la base de données
 $host = getenv("PMA_HOST") ?: "mysql.railway.internal";
 $dbname = "railway";
