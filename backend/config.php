@@ -1,31 +1,33 @@
 <?php
-ob_start(); // ✅ Capture toute sortie non désirée pour éviter les erreurs de headers
+ob_start(); // ✅ Capture toute sortie parasite avant qu'elle n'affecte le JSON
 
-$host = getenv("PMA_HOST") ?: "mysql.railway.internal"; // Utilise PMA_HOST pour MySQL
-$dbname = "railway"; // Railway utilise généralement "railway" comme nom de base
-$user = getenv("PMA_USER") ?: "root"; // Utilise PMA_USER
-$password = getenv("PMA_PASSWORD"); // Utilise PMA_PASSWORD
+$host = getenv("PMA_HOST") ?: "mysql.railway.internal";
+$dbname = "railway";
+$user = getenv("PMA_USER") ?: "root";
+$password = getenv("PMA_PASSWORD");
 
-// 🔥 Configuration des sessions pour persistance correcte
+// 🚀 Configuration avancée des sessions et cookies
+ini_set('session.gc_maxlifetime', 86400); // 🔥 Garde la session active pendant 1 jour
+ini_set('session.save_path', '/tmp'); // 🔥 Assure que PHP enregistre bien la session
 session_set_cookie_params([
-    'lifetime' => 86400, // 1 jour
+    'lifetime' => 86400, // 🔥 Expire après 1 jour
     'path' => '/',
-    'domain' => 'eco-ride-one.vercel.app', // 🔥 Tester avec et sans le "." selon le comportement
+    'domain' => 'eco-ride-one.vercel.app', // 🔥 Tester avec et sans le "."
     'secure' => true, // 🔥 Obligatoire en HTTPS
-    'httponly' => true, // 🔥 Empêche JavaScript d'accéder aux cookies
+    'httponly' => true, // 🔥 Empêche JavaScript d’accéder aux cookies
     'samesite' => 'None' // 🔥 Obligatoire pour CORS avec cookies
 ]);
 
-// ✅ Démarrer la session uniquement si elle n'est pas active
+// ✅ Démarrer la session UNIQUEMENT si elle n'existe pas déjà
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
-    session_regenerate_id(true); // 🔥 Régénérer l’ID de session pour éviter fixation de session
+    session_regenerate_id(true); // 🔥 Régénérer l'ID de session après chaque connexion
 }
 
-// ✅ Debugging avancé pour voir si la session persiste
-error_log("🚀 SESSION ID ACTUEL : " . session_id());
-error_log("🚀 CONTENU DE SESSION : " . json_encode($_SESSION));
-error_log("🚀 COOKIES ENVOYÉS PAR PHP : " . print_r($_COOKIE, true));
+// ✅ Debugging avancé (regarde les logs sur Railway pour voir si la session marche bien)
+error_log("🚀 CONFIG SESSION ID : " . session_id());
+error_log("🚀 CONFIG CONTENU DE SESSION : " . json_encode($_SESSION));
+error_log("🚀 CONFIG COOKIES ENVOYÉS : " . print_r($_COOKIE, true));
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $user, $password);
