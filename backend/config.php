@@ -1,6 +1,13 @@
 <?php
 ob_start(); // ✅ Capture toute sortie parasite avant qu'elle n'affecte le JSON
 
+if (file_exists('/app/custom.ini')) {
+    error_log("✅ [CONFIG] Chargement du fichier custom.ini");
+    ini_set('session.save_path', '/tmp');
+} else {
+    error_log("❌ [CONFIG] Le fichier custom.ini n'existe pas.");
+}
+
 // 🔥 Vérifier si l'extension session est activée
 if (!extension_loaded('session')) {
     error_log("❌ [CONFIG] L'extension PHP 'session' n'est pas activée !");
