@@ -89,6 +89,9 @@ session_write_close();
 
 error_log("✅ SESSION APRÈS CONNEXION : " . json_encode($_SESSION));
 
+// ✅ Nettoyer toute sortie parasite avant d'envoyer le JSON
+ob_end_clean();
+
 // ✅ Retourner les informations utilisateur
 echo json_encode([
     "status" => "success",

@@ -1,4 +1,6 @@
 <?php
+ob_start(); // ✅ Capture toute sortie non désirée pour éviter les erreurs de headers
+
 $host = getenv("PMA_HOST") ?: "mysql.railway.internal"; // Utilise PMA_HOST pour MySQL
 $dbname = "railway"; // Railway utilise généralement "railway" comme nom de base
 $user = getenv("PMA_USER") ?: "root"; // Utilise PMA_USER
