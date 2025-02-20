@@ -5,6 +5,6 @@
         "ext-mbstring": "*",
         "mongodb/mongodb": "^1.20",
         "ext-mongodb": "*",
-        "license": "proprietary"
+        "license": "Proprietary"
     }
 }
