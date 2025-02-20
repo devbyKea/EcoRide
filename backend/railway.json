@@ -4,7 +4,13 @@
     "builder": "nixpacks",
     "nixpacks": {
       "plan": {
-        "packages": ["php", "php-cgi", "phpPackages.mbstring", "phpPackages.iconv", "phpPackages.mongodb"]
+        "packages": [
+          "php",
+          "php-cgi",
+          "phpPackages.mbstring",
+          "phpPackages.iconv",
+          "phpPackages.mongodb"
+        ]
       }
     }
   },
