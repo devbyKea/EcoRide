@@ -14,17 +14,13 @@ if ($_SERVER['REQUEST_METHOD'] === "OPTIONS") {
     exit;
 }
 
-require_once __DIR__ . '/../config.php';
-// Debug temporaire : voir ce que contient la session
-echo json_encode([
-    "session_id" => session_id(),
-    "session_status" => session_status(),
-    "user_id" => $_SESSION['user_id'] ?? "Aucune session"
-]);
-exit;
+require_once __DIR__ . '/../config.php'; // ✅ La session est déjà gérée dans config.php
 
+// Debug temporaire : voir si la session est bien récupérée
+error_log("✅ Session ID: " . session_id());
+error_log("✅ Contenu de SESSION: " . json_encode($_SESSION));
 
-
+// Vérifier si l'utilisateur est connecté
 if (!isset($_SESSION['user_id'])) {
     echo json_encode(["error" => "Utilisateur non connecté"]);
     exit;
@@ -33,9 +29,6 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 
 try {
-    $pdo = new PDO("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PASS);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
     $stmt = $pdo->prepare("SELECT email, username, phone, role, plaque, date_immatriculation, marque, modele, couleur, places_disponibles, fumeur, animaux, preferences FROM utilisateurs WHERE id = ?");
     $stmt->execute([$user_id]);
     
@@ -47,6 +40,8 @@ try {
         echo json_encode(["error" => "Utilisateur introuvable"]);
     }
 } catch (PDOException $e) {
-    echo json_encode(["error" => $e->getMessage()]);
+    error_log("❌ Erreur SQL: " . $e->getMessage());
+    echo json_encode(["error" => "Erreur lors de la récupération des données"]);
 }
 ?>
+
