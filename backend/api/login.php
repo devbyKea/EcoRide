@@ -30,6 +30,8 @@ require_once "../config.php"; // Connexion BDD
 // 🔥 Debugging
 error_log("✅ SESSION ID après connexion : " . session_id());
 error_log("✅ Contenu SESSION après connexion : " . json_encode($_SESSION));
+error_log("✅ Cookies envoyés après connexion : " . print_r($_COOKIE, true));
+
 
 // ✅ Gérer la requête OPTIONS pour CORS
 if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
