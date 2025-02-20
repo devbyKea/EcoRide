@@ -2,7 +2,7 @@
     "name": "ecoride/backend",
     "description": "Backend de l'application EcoRide",
     "require": {
-        "php": "^8.3",
+        "php": "^8.2",
         "ext-iconv": "*",
         "ext-mbstring": "*",
         "ext-mongodb": "*",
