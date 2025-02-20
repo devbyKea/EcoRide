@@ -1,9 +1,22 @@
 <?php
-header("Access-Control-Allow-Origin: *");
+// Autoriser les requêtes provenant de ton frontend sur Vercel
+header("Access-Control-Allow-Origin: https://eco-ride-one.vercel.app");
+header("Access-Control-Allow-Credentials: true");
 header("Content-Type: application/json");
 
+// Permettre les méthodes HTTP spécifiques
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+
+// Gestion de la requête OPTIONS pour CORS
+if ($_SERVER['REQUEST_METHOD'] === "OPTIONS") {
+    http_response_code(200);
+    exit;
+}
+
 session_start();
-require_once 'config.php'; // Assure-toi que ce fichier contient la connexion à la base de données
+require_once 'config.php';
+
 
 if (!isset($_SESSION['user_id'])) {
     echo json_encode(["error" => "Utilisateur non connecté"]);
