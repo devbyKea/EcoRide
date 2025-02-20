@@ -1,5 +1,6 @@
 <?php
 ob_start(); // ✅ Capture toute sortie parasite avant qu'elle n'affecte le JSON
+ini_set('session.save_path', '/tmp'); // 🔥 Assure que PHP enregistre les sessions dans un dossier valide
 
 // ✅ Vérifier si une session est déjà active avant d'appliquer des paramètres
 if (session_status() === PHP_SESSION_NONE) {
@@ -24,9 +25,6 @@ error_log("✅ [DEBUG] Session Save Path: " . session_save_path());
 error_log("✅ [DEBUG] Session ID: " . session_id());
 error_log("✅ [DEBUG] Contenu de SESSION: " . json_encode($_SESSION));
 
-error_log("🚀 CONFIG SESSION ID : " . session_id());
-error_log("🚀 CONFIG CONTENU DE SESSION : " . json_encode($_SESSION));
-error_log("🚀 CONFIG COOKIES ENVOYÉS : " . print_r($_COOKIE, true));
 
 // 🚀 Connexion à la base de données
 $host = getenv("PMA_HOST") ?: "mysql.railway.internal";
