@@ -1,5 +1,6 @@
 {
     "require": {
+        "php": "^8.3",
         "ext-iconv": "*",
         "ext-mbstring": "*",
         "mongodb/mongodb": "^1.20",
