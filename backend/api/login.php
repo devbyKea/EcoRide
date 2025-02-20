@@ -20,9 +20,6 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-
-$_SESSION["utilisateur_id"] = $user["utilisateur_id"]; // Stocke l'ID utilisateur
-
 // 🔥 Debug
 error_log("✅ SESSION ID après connexion : " . session_id());
 error_log("✅ Contenu SESSION après connexion : " . json_encode($_SESSION));
