@@ -15,17 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 🎯 ANIMATION DU BOUTON HAMBURGER
-    const hamburger = document.querySelector(".hamburger");
-    if (hamburger) {
-        hamburger.addEventListener("click", () => {
-            hamburger.classList.toggle("active");
-        });
-    }
-
     // 🎯 GESTION DE LA DÉCONNEXION
     const logoutButton = document.getElementById("logout");
-
     if (logoutButton) {
         logoutButton.addEventListener("click", async (event) => {
             event.preventDefault();
@@ -37,18 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     credentials: "include"
                 });
 
-                const textResponse = await response.text(); // 🔍 Lire la réponse brute
-                console.log("📄 Réponse brute reçue :", textResponse);
-
-                let result;
-                try {
-                    result = JSON.parse(textResponse);
-                } catch (error) {
-                    console.error("❌ Erreur de parsing JSON :", error);
-                    alert("Le serveur a renvoyé une réponse invalide.");
-                    return;
-                }
-
+                const result = await response.json();
                 console.log("✅ Réponse du serveur :", result);
 
                 if (result.success) {
@@ -63,79 +43,66 @@ document.addEventListener("DOMContentLoaded", () => {
                 alert("Une erreur est survenue !");
             }
         });
-    } else {
-        console.error("❌ Bouton de déconnexion introuvable !");
     }
 
-    // 🎯 Vérification des éléments essentiels
-    const roleSelect = document.getElementById("role");
-    const chauffeurSection = document.getElementById("chauffeur-section");
-    const editButton = document.getElementById("edit-btn");
-    const saveButton = document.getElementById("save-btn");
-
-    if (!roleSelect || !chauffeurSection || !editButton || !saveButton) {
-        console.error("❌ Élément essentiel introuvable !");
-        return;
-    }
-
-    // 🎯 Vérifier si le cookie de session est bien envoyé
-    console.log("📄 Cookies envoyés avant la requête :", document.cookie);
-
-    // 🎯 Charger les données de l'utilisateur
-    fetch("https://ecoride-production-f991.up.railway.app/api/profil.php", {
+    // 🎯 CHARGEMENT DU PROFIL UTILISATEUR
+    fetch("https://ecoride-production-f991.up.railway.app/getUserProfile.php", {
         method: "GET",
         credentials: "include",
         mode: "cors",
     })
-    .then(response => response.text()) // 🔥 Lire la réponse brute au lieu de response.json()
-    .then(text => {
-        console.log("📄 Réponse brute reçue :", text); // 🔍 Debug pour voir le problème réel
-    
-        let data;
-        try {
-            data = JSON.parse(text); // 🔥 Vérifier si le JSON est valide
-        } catch (error) {
-            console.error("❌ Erreur de parsing JSON :", error);
-            alert("Le serveur a renvoyé une réponse invalide.");
-            return;
-        }
-    
-        console.log("✅ Réponse JSON :", data);
-    
+    .then(response => response.json())
+    .then(data => {
+        console.log("✅ Profil récupéré :", data);
+
         if (data.error) {
             console.error("❌ Erreur :", data.error);
             alert("Erreur lors du chargement des données.");
             return;
         }
-    
+
         document.getElementById("email").value = data.email || "";
-        document.getElementById("nom").value = data.nom || "";
-        document.getElementById("telephone").value = data.telephone || "";
-        document.getElementById("pseudo").value = data.pseudo || "";
+        document.getElementById("nom").value = data.username || "";
+        document.getElementById("telephone").value = data.phone || "";
+        document.getElementById("role").value = data.role || "passager";
+
+        afficherChampsSupplementaires(data.role);
+
+        if (data.role === "chauffeur" || data.role === "chauffeur_passager") {
+            document.getElementById("plaque").value = data.plaque || "";
+            document.getElementById("date_immatriculation").value = data.date_immatriculation || "";
+            document.getElementById("marque").value = data.marque || "";
+            document.getElementById("modele").value = data.modele || "";
+            document.getElementById("couleur").value = data.couleur || "";
+            document.getElementById("places_disponibles").value = data.places_disponibles || "";
+            document.getElementById("fumeur").checked = data.fumeur == 1;
+            document.getElementById("animaux").checked = data.animaux == 1;
+            document.getElementById("preferences").value = data.preferences || "";
+        }
     })
     .catch(error => console.error("❌ Erreur de récupération :", error));
-    
 
-    // 🎯 Détection du changement de rôle
+    // 🎯 Gestion du changement de rôle
+    const roleSelect = document.getElementById("role");
     roleSelect.addEventListener("change", () => {
-        console.log("📌 Rôle sélectionné :", roleSelect.value);
         afficherChampsSupplementaires(roleSelect.value);
     });
 
     function afficherChampsSupplementaires(role) {
+        const chauffeurSection = document.getElementById("chauffeur-section");
         if (role === "chauffeur" || role === "chauffeur_passager") {
-            console.log("🚗 Affichage des champs pour les chauffeurs");
+            console.log("🚗 Affichage des champs chauffeur");
             chauffeurSection.style.display = "block";
         } else {
-            console.log("🚫 Cacher les champs supplémentaires");
+            console.log("🚫 Cacher les champs chauffeur");
             chauffeurSection.style.display = "none";
         }
     }
 
-    // Vérifier si un rôle est déjà sélectionné au chargement de la page
-    afficherChampsSupplementaires(roleSelect.value);
-
     // 🎯 Mode édition
+    const editButton = document.getElementById("edit-btn");
+    const saveButton = document.getElementById("save-btn");
+
     editButton.addEventListener("click", () => {
         console.log("🛠 Mode édition activé");
         document.querySelectorAll("input, select").forEach(input => input.disabled = false);
@@ -148,18 +115,27 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("📤 Sauvegarde demandée !");
 
         const data = {
-            nom: document.getElementById("nom").value,
-            prenom: document.getElementById("prenom") ? document.getElementById("prenom").value : "",
-            email: document.getElementById("email").value,
-            telephone: document.getElementById("telephone").value,
-            pseudo: document.getElementById("pseudo").value,
+            username: document.getElementById("nom").value,
+            phone: document.getElementById("telephone").value,
             role: document.getElementById("role").value
         };
+
+        if (data.role === "chauffeur" || data.role === "chauffeur_passager") {
+            data.plaque = document.getElementById("plaque").value;
+            data.date_immatriculation = document.getElementById("date_immatriculation").value;
+            data.marque = document.getElementById("marque").value;
+            data.modele = document.getElementById("modele").value;
+            data.couleur = document.getElementById("couleur").value;
+            data.places_disponibles = document.getElementById("places_disponibles").value;
+            data.fumeur = document.getElementById("fumeur").checked ? 1 : 0;
+            data.animaux = document.getElementById("animaux").checked ? 1 : 0;
+            data.preferences = document.getElementById("preferences").value;
+        }
 
         console.log("📤 Données envoyées :", data);
 
         try {
-            const response = await fetch("https://ecoride-production-f991.up.railway.app/api/profil.php", {
+            const response = await fetch("https://ecoride-production-f991.up.railway.app/updateUserProfile.php", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 credentials: "include",
@@ -169,16 +145,11 @@ document.addEventListener("DOMContentLoaded", () => {
             const result = await response.json();
             console.log("✅ Réponse du serveur :", result);
 
-            if (result.success) {
+            if (result.message) {
                 alert("Profil mis à jour !");
-
-                // 🔄 Désactiver à nouveau les champs après la sauvegarde
                 document.querySelectorAll("input, select").forEach(input => input.disabled = true);
-
-                // ✅ Rendre le bouton "Modifier" visible et cacher "Sauvegarder"
                 saveButton.style.display = "none";
                 editButton.style.display = "block";
-
             } else {
                 alert("❌ Erreur : " + result.error);
             }
