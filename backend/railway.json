@@ -4,12 +4,12 @@
     "builder": "nixpacks",
     "nixpacks": {
       "plan": {
-        "packages": ["php", "php-cgi", "php-session"],
+        "packages": ["php", "php-cgi", "php-pdo", "php-mysql"],
         "commands": [
-          "echo '✅ Création du fichier custom.ini pour activer session'",
-          "echo 'extension=session.so' > /app/custom.ini",
-          "echo 'session.save_handler = files' >> /app/custom.ini",
-          "echo 'session.save_path = \"/tmp\"' >> /app/custom.ini"
+          "echo '✅ Création du fichier custom.ini pour activer PDO MySQL'",
+          "echo 'extension=pdo.so' > /app/custom.ini",
+          "echo 'extension=pdo_mysql.so' >> /app/custom.ini",
+          "echo 'pdo_mysql.default_socket=/var/run/mysqld/mysqld.sock' >> /app/custom.ini"
         ]
       }
     }
@@ -17,5 +17,5 @@
   "env": {
     "PHP_INI_SCAN_DIR": "/app"
   },
-  "start": "php -S 0.0.0.0:$PORT -t backend"
+  "start": "php -c /app/custom.ini -S 0.0.0.0:$PORT -t backend"
 }
