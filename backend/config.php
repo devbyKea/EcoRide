@@ -1,31 +1,35 @@
 <?php
 ob_start(); // ✅ Capture toute sortie parasite avant qu'elle n'affecte le JSON
-ini_set('session.save_path', '/tmp'); // 🔥 Assure que PHP enregistre les sessions dans un dossier valide
 
-// ✅ Vérifier si une session est déjà active avant d'appliquer des paramètres
+// 🔥 Assure que PHP enregistre bien les sessions dans un dossier accessible sur Railway
+ini_set('session.save_path', '/tmp'); 
+
+// ✅ Vérifier si une session est déjà active avant de la démarrer
 if (session_status() === PHP_SESSION_NONE) {
-    // 🚀 Paramètres de session (ils ne doivent être modifiés QUE si la session n'est pas active)
+    // 🚀 Définition des paramètres de session (DOIT être avant session_start())
     ini_set('session.gc_maxlifetime', 86400); // 🔥 Garde la session active pendant 1 jour
 
     session_set_cookie_params([
         'lifetime' => 86400, 
         'path' => '/',
-        'domain' => '.vercel.app', // 🔥 Tester avec ".vercel.app" au lieu de "eco-ride-one.vercel.app"
-        'secure' => true, 
-        'httponly' => true,
-        'samesite' => 'None'
+        'domain' => '.vercel.app', // 🔥 Permet à toutes les sous-domaines de partager la session
+        'secure' => true, // 🔥 Obligatoire en HTTPS
+        'httponly' => true, // 🔥 Empêche JavaScript d’accéder aux cookies
+        'samesite' => 'None' // 🔥 Indispensable pour gérer les sessions cross-origin entre Railway et Vercel
     ]);
-    
 
     session_start();
-    session_regenerate_id(true); // 🔥 Régénérer l'ID de session après chaque connexion
+    
+    // 🔥 Régénérer l'ID UNIQUEMENT si l'utilisateur n'est pas déjà connecté
+    if (!isset($_SESSION['user_id'])) { 
+        session_regenerate_id(true);
+    }
 }
 
-// ✅ Vérification et debugging avancé
-error_log("✅ [DEBUG] Session Save Path: " . session_save_path());
-error_log("✅ [DEBUG] Session ID: " . session_id());
-error_log("✅ [DEBUG] Contenu de SESSION: " . json_encode($_SESSION));
-
+// ✅ Debugging avancé pour suivre les sessions
+error_log("✅ [CONFIG] Session Save Path: " . session_save_path());
+error_log("✅ [CONFIG] Session ID: " . session_id());
+error_log("✅ [CONFIG] Contenu de SESSION: " . json_encode($_SESSION));
 
 // 🚀 Connexion à la base de données
 $host = getenv("PMA_HOST") ?: "mysql.railway.internal";
@@ -45,5 +49,4 @@ try {
     die(json_encode(["error" => "Erreur de connexion à la base de données"]));
 }
 ?>
-
 
