@@ -83,7 +83,9 @@ $_SESSION["user_id"] = $user["utilisateur_id"];
 $_SESSION["email"] = $user["email"];
 $_SESSION["pseudo"] = $user["pseudo"];
 
-error_log("✅ SESSION APRÈS CONNEXION : " . json_encode($_SESSION));
+error_log("✅ [LOGIN] SESSION après connexion : " . json_encode($_SESSION));
+error_log("✅ [LOGIN] PHPSESSID envoyé : " . $_COOKIE['PHPSESSID'] ?? 'Aucun cookie reçu');
+
 
 // ✅ Forcer PHP à écrire la session avant la réponse (évite les sessions perdues)
 session_write_close();
