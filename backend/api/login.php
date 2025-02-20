@@ -17,18 +17,17 @@ if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
     exit;
 }
 
-require_once "../config.php"; // Connexion BDD et gestion de session
+require_once "../config.php"; // ✅ Connexion BDD et gestion de session (session_start() déjà appelé ici)
 
-// ✅ Démarrer la session uniquement si elle n'existe pas
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-    session_regenerate_id(true); // 🔥 Régénérer l'ID de session après connexion pour éviter fixation de session
-}
+// ✅ Supprimer le session_start() qui causait un conflit ❌ (déjà dans config.php)
+// if (session_status() === PHP_SESSION_NONE) {
+//     session_start();
+// }
 
-// 🔥 Debugging avancé
-error_log("✅ SESSION ID après connexion : " . session_id());
-error_log("✅ Contenu SESSION avant authentification : " . json_encode($_SESSION));
-error_log("✅ Cookies envoyés après connexion : " . print_r($_COOKIE, true));
+session_regenerate_id(true); // 🔥 Régénérer l'ID de session après connexion pour éviter fixation de session
+
+error_log("✅ [login.php] Session ID après connexion: " . session_id());
+error_log("✅ [login.php] SESSION avant authentification: " . json_encode($_SESSION));
 
 // ✅ Vérifier que la requête est en POST
 if ($_SERVER["REQUEST_METHOD"] !== "POST") {
@@ -68,8 +67,6 @@ if (!$user) {
 }
 
 error_log("✅ Utilisateur trouvé : " . json_encode($user));
-error_log("✅ Mot de passe hashé en BDD : " . $user["mot_de_passe"]);
-error_log("✅ Mot de passe fourni : " . $password);
 
 // ✅ Vérification du mot de passe
 if (!password_verify($password, $user["mot_de_passe"])) {
@@ -86,10 +83,10 @@ $_SESSION["user_id"] = $user["utilisateur_id"];
 $_SESSION["email"] = $user["email"];
 $_SESSION["pseudo"] = $user["pseudo"];
 
+error_log("✅ SESSION APRÈS CONNEXION : " . json_encode($_SESSION));
+
 // ✅ Forcer PHP à écrire la session avant la réponse (évite les sessions perdues)
 session_write_close();
-
-error_log("✅ SESSION APRÈS CONNEXION : " . json_encode($_SESSION));
 
 // ✅ Nettoyer toute sortie parasite avant d'envoyer le JSON
 ob_end_clean();
