@@ -20,6 +20,10 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // ✅ Vérification et debugging avancé
+error_log("✅ [DEBUG] Session Save Path: " . session_save_path());
+error_log("✅ [DEBUG] Session ID: " . session_id());
+error_log("✅ [DEBUG] Contenu de SESSION: " . json_encode($_SESSION));
+
 error_log("🚀 CONFIG SESSION ID : " . session_id());
 error_log("🚀 CONFIG CONTENU DE SESSION : " . json_encode($_SESSION));
 error_log("🚀 CONFIG COOKIES ENVOYÉS : " . print_r($_COOKIE, true));
