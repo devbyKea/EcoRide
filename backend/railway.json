@@ -1,21 +1,12 @@
 {
-  "root": "backend",
-  "build": {
-    "builder": "nixpacks",
-    "nixpacks": {
-      "plan": {
-        "packages": [
-          "php",
-          "php-cgi",
-          "phpPackages.mbstring",
-          "phpPackages.iconv",
-          "phpPackages.mongodb"
-        ],
-        "commands": [
-          "sh /app/backend/install.sh"
-        ]
-      }
+"root": "backend",
+"build": {
+  "builder": "nixpacks",
+  "nixpacks": {
+    "plan": {
+      "packages": ["php", "php-cgi"]
     }
-  },
-  "start": "php -S 0.0.0.0:$PORT -t backend"
+  }
+},
+"start": "php -S 0.0.0.0:$PORT -t backend"
 }
