@@ -4,18 +4,20 @@ ob_start(); // ✅ Capture toute sortie parasite avant qu'elle n'affecte le JSON
 // 🔥 Assure que PHP enregistre bien les sessions dans un dossier accessible sur Railway
 ini_set('session.save_path', '/tmp'); 
 
+// ✅ Récupérer l'ID de session depuis le cookie PHPSESSID
+if (isset($_COOKIE['PHPSESSID'])) {
+    session_id($_COOKIE['PHPSESSID']); // 🔥 Forcer PHP à utiliser le même ID de session
+}
+
 // ✅ Vérifier si une session est déjà active avant de la démarrer
 if (session_status() === PHP_SESSION_NONE) {
-    // 🚀 Définition des paramètres de session (DOIT être avant session_start())
-    ini_set('session.gc_maxlifetime', 86400); // 🔥 Garde la session active pendant 1 jour
-
     session_set_cookie_params([
         'lifetime' => 86400, 
         'path' => '/',
         'domain' => '.vercel.app', // 🔥 Permet à toutes les sous-domaines de partager la session
-        'secure' => true, // 🔥 Obligatoire en HTTPS
-        'httponly' => true, // 🔥 Empêche JavaScript d’accéder aux cookies
-        'samesite' => 'None' // 🔥 Indispensable pour gérer les sessions cross-origin entre Railway et Vercel
+        'secure' => true, 
+        'httponly' => true,
+        'samesite' => 'None'
     ]);
 
     session_start();
@@ -49,4 +51,3 @@ try {
     die(json_encode(["error" => "Erreur de connexion à la base de données"]));
 }
 ?>
-
