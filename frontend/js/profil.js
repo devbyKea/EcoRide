@@ -77,6 +77,8 @@ document.addEventListener("DOMContentLoaded", () => {
         console.error("❌ Élément essentiel introuvable !");
         return;
     }
+    
+    console.log("📄 Cookies envoyés avant la requête :", document.cookie);
 
     // 🎯 Charger les données de l'utilisateur
     fetch("https://ecoride-production-f991.up.railway.app/api/profil.php", {
