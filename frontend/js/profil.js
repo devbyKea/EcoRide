@@ -38,11 +38,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         console.log("✅ Profil utilisateur :", data);
 
-        document.getElementById("pseudo").textContent = data.user.pseudo || "";
-        document.getElementById("email").textContent = data.user.email || "";
-        document.getElementById("role").value = data.user.role || "passager"; // Sélectionne le rôle stocké
+        // Vérification avant d'affecter des valeurs pour éviter l'erreur
+        const pseudoEl = document.getElementById("pseudo");
+        const emailEl = document.getElementById("email");
+        const roleEl = document.getElementById("role");
 
-        afficherChampsSupplementaires(data.user.role); // Vérifie si la section doit être affichée
+        if (pseudoEl) pseudoEl.textContent = data.user.pseudo || "";
+        if (emailEl) emailEl.textContent = data.user.email || "";
+        if (roleEl) roleEl.value = data.user.role || "passager";
+
+        afficherChampsSupplementaires(data.user.role);
 
     } catch (error) {
         console.error("❌ Erreur lors du chargement du profil :", error);
