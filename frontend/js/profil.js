@@ -42,9 +42,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     
             document.getElementById("pseudo").textContent = data.user.pseudo || "";
             document.getElementById("email").textContent = data.user.email || "";
-            document.getElementById("role").value = getRoleName(user.role);
+            document.getElementById("role").value = data.user.role || "passager"; // Sélectionne le rôle stocké
     
-            afficherChampsSupplementaires(user.role); // Met à jour l'affichage
+            afficherChampsSupplementaires(data.user.role); // Vérifie si la section doit être affichée
     
         } catch (error) {
             console.error("❌ Erreur lors du chargement du profil :", error);
@@ -52,9 +52,27 @@ document.addEventListener("DOMContentLoaded", async () => {
     
         // Gestion du changement de rôle
         const roleSelect = document.getElementById("role");
-        roleSelect.addEventListener("change", () => {
-            afficherChampsSupplementaires(roleSelect.value);
+        roleSelect.addEventListener("change", (event) => {
+            const selectedRole = event.target.value;
+            console.log("🔄 Changement de rôle sélectionné :", selectedRole);
+            afficherChampsSupplementaires(selectedRole);
         });
+    
+        // Fonction pour afficher/cacher la section chauffeur
+        function afficherChampsSupplementaires(role) {
+            const chauffeurSection = document.getElementById("chauffeur-section");
+            console.log("🚗 Rôle détecté :", role); // Vérifier si la valeur est bien récupérée
+    
+            if (role === "chauffeur" || role === "chauffeur_passager") {
+                console.log("✅ Affichage des champs chauffeur");
+                chauffeurSection.style.display = "block";
+            } else {
+                console.log("❌ Masquer les champs chauffeur");
+                chauffeurSection.style.display = "none";
+            }
+        }
+    });
+    
     
         // Gestion du mode édition
         const editButton = document.getElementById("edit-btn");
@@ -115,7 +133,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (logoutButton) {
             logoutButton.addEventListener("click", async () => {
                 try {
-                    const response = await fetch("https://ecoride-production-f991.up.railway.app/logout.php", {
+                    const response = await fetch("https://ecoride-production.up.railway.app/api/logout.php", {
                         method: "POST"
                     });
     
@@ -195,11 +213,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         function getRoleName(roleId) {
             switch (roleId) {
                 case "10": return "Utilisateur";
-                case "20": return "Employé";
-                case "30": return "Administrateur";
+                case "11": return "Employé";
+                case "12": return "Administrateur";
                 default: return "Inconnu";
             }
         }
     });
   })
-})
