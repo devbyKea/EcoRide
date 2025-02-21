@@ -3,8 +3,6 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 header('Content-Type: application/json');
-echo json_encode(["status" => "debug", "message" => "Le script PHP est bien exécuté"]);
-exit;
 
 // Gérer les en-têtes CORS
 header("Access-Control-Allow-Origin: https://eco-ride-one.vercel.app"); // Autoriser ton frontend
