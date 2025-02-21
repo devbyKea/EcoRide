@@ -7,7 +7,7 @@ async function checkSession() {
         return;
     }
 
-    const response = await fetch(`https://ecoride-production-f991.up.railway.app/api/verify_session.php?session_id=${sessionId}`);
+    const response = await fetch(`https://ecoride-production.up.railway.app/api/verify_session.php?session_id=${sessionId}`);
     const data = await response.json();
 
     if (data.error) {

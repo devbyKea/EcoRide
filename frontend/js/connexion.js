@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       const response = await fetch(
-        "https://ecoride-production-f991.up.railway.app/api/login.php",
+        "https://ecoride-production.up.railway.app/api/login.php",
         {
           method: "POST",
           headers: {
@@ -112,7 +112,7 @@ async function checkSession() {
 
   try {
     const response = await fetch(
-      `https://ecoride-production-f991.up.railway.app/api/verify_session.php?session_id=${sessionId}`
+      `https://ecoride-production.up.railway.app/api/verify_session.php?session_id=${sessionId}`
     );
     const data = await response.json();
 
