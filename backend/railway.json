@@ -4,16 +4,9 @@
     "builder": "nixpacks",
     "nixpacks": {
       "plan": {
-        "packages": ["php", "php-cli", "php-mysql", "php-pdo"],
-        "commands": [
-          "echo 'extension=pdo.so' > /app/custom.ini",
-          "echo 'extension=pdo_mysql.so' >> /app/custom.ini"
-        ]
+        "packages": ["php8.2", "php-cli", "php-mysql", "php-pdo"]
       }
     }
   },
-  "env": {
-    "PHP_INI_SCAN_DIR": "/app"
-  },
-  "start": "php -c /app/custom.ini -S 0.0.0.0:$PORT -t backend"
+  "start": "php -S 0.0.0.0:$PORT -t backend"
 }
