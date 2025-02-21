@@ -7,7 +7,7 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Access-Control-Allow-Credentials: true");
 header("Content-Type: application/json");
 
-// ✅ Gérer la requête OPTIONS pour CORS
+// Gérer la requête OPTIONS pour CORS
 if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
     http_response_code(204);
     exit;
@@ -33,7 +33,7 @@ if (!$session) {
     exit;
 }
 
-// ✅ Récupérer les infos utilisateur
+// Récupérer les infos utilisateur
 $stmt = $pdo->prepare("SELECT pseudo, email FROM utilisateur WHERE utilisateur_id = ?");
 $stmt->execute([$session["utilisateur_id"]]);
 $user = $stmt->fetch();

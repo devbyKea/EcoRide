@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
     exit;
 }
 
-// 🚀 Connexion à la base de données directement dans register.php
+// Connexion à la base de données directement dans register.php
 $host = getenv("PMA_HOST") ?: "mysql.railway.internal";
 $dbname = "railway";
 $user = getenv("PMA_USER") ?: "root";

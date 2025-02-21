@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === "OPTIONS") {
 
 
 
-require_once __DIR__ . '/../config.php'; // ✅ La session est déjà gérée dans config.php
+require_once __DIR__ . '/../config.php'; // La session est déjà gérée dans config.php
 
 // Debug temporaire : voir si la session est bien récupérée
 error_log("✅ Session ID: " . session_id());

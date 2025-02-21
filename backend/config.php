@@ -1,19 +1,19 @@
 <?php
-ob_start(); // ✅ Capture toute sortie parasite avant qu'elle n'affecte le JSON
+ob_start(); // Capture toute sortie parasite avant qu'elle n'affecte le JSON
 header("Access-Control-Allow-Origin: https://eco-ride-one.vercel.app");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Access-Control-Allow-Credentials: true");
 header("Content-Type: application/json");
 
-// 🚀 Connexion à la base de données
+// Connexion à la base de données
 $host = getenv("PMA_HOST") ?: "mysql.railway.internal";
 $dbname = "railway";
 $user = getenv("PMA_USER") ?: "root";
 $password = getenv("PMA_PASSWORD");
 
 try {
-    // ✅ Connexion avec PDO
+    // Connexion avec PDO
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
