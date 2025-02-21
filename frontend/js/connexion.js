@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   console.log("Script de connexion chargé");
 
-  // 🎯 GESTION DU MENU HAMBURGER
+  // GESTION DU MENU HAMBURGER
   const menuBtn = document.querySelector(".menu-btn");
   const dropdownNav = document.querySelector(".dropdown-menu");
 
@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 🎯 ANIMATION DU BOUTON HAMBURGER
+  // ANIMATION DU BOUTON HAMBURGER
   const hamburger = document.querySelector(".hamburger");
 
   if (hamburger) {
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 🔍 Vérifier si l'utilisateur est déjà connecté
+  // Vérifier si l'utilisateur est déjà connecté
   checkSession();
 
   const loginForm = document.querySelector("form"); // Si tu utilises une balise <form>
@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// ✅ Vérifier si l'utilisateur a une session active en base
+// Vérifier si l'utilisateur a une session active en base
 async function checkSession() {
   const sessionId = localStorage.getItem("session_id");
 

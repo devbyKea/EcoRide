@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
     console.log("✅ Script profil.js chargé !");
 
-    // 🎯 GESTION DU MENU HAMBURGER
+    // GESTION DU MENU HAMBURGER
     const menuBtn = document.querySelector(".menu-btn");
     const dropdownNav = document.querySelector(".dropdown-menu");
 
@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 🎯 GESTION DE LA DÉCONNEXION
+    // GESTION DE LA DÉCONNEXION
     const logoutButton = document.getElementById("logout");
     if (logoutButton) {
         logoutButton.addEventListener("click", async (event) => {
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 🎯 CHARGEMENT DU PROFIL UTILISATEUR
+    // CHARGEMENT DU PROFIL UTILISATEUR
     fetch("https://ecoride-production-f991.up.railway.app/api/getUserProfile.php", {
         method: "GET",
         credentials: "include",
@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .catch(error => console.error("❌ Erreur de récupération :", error));
 
-    // 🎯 Gestion du changement de rôle
+    // Gestion du changement de rôle
     const roleSelect = document.getElementById("role");
     roleSelect.addEventListener("change", () => {
         afficherChampsSupplementaires(roleSelect.value);
@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // 🎯 Mode édition
+    // Mode édition
     const editButton = document.getElementById("edit-btn");
     const saveButton = document.getElementById("save-btn");
 
@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
         editButton.style.display = "none";
     });
 
-    // 🎯 Sauvegarde des modifications
+    // Sauvegarde des modifications
     saveButton.addEventListener("click", async () => {
         console.log("📤 Sauvegarde demandée !");
 
