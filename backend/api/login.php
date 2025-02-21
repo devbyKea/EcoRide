@@ -1,74 +1,88 @@
 <?php
+// Activer les erreurs pour debug temporaire (désactiver en prod)
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+header('Content-Type: application/json');
 
-ob_start(); // Capture toute sortie parasite avant qu'elle ne casse les headers
-
-// Configuration des en-têtes CORS (Doit être AVANT toute sortie)
+// Gérer les en-têtes CORS
 header("Access-Control-Allow-Origin: https://eco-ride-one.vercel.app");
 header("Access-Control-Allow-Methods: POST, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Access-Control-Allow-Credentials: true");
-header("Content-Type: application/json");
 
-// Gérer la requête OPTIONS pour CORS
+// Gérer la requête préflight `OPTIONS`
 if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
     http_response_code(204);
     exit;
 }
 
-require_once "../config.php"; // 
+// Connexion à la base de données
+$host = getenv("PMA_HOST") ?: "mysql.railway.internal";
+$dbname = "railway";
+$user = getenv("PMA_USER") ?: "root";
+$password = getenv("PMA_PASSWORD");
 
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo json_encode(["status" => "error", "message" => "Erreur de connexion à la base de données"]);
+    exit;
+}
+
+// Lire les données JSON envoyées
 $data = json_decode(file_get_contents("php://input"), true);
-$email = $data["email"] ?? null;
-$password = $data["password"] ?? null;
 
-if (!$email || !$password) {
-    echo json_encode(["error" => "Email et mot de passe requis."]);
+if (!$data) {
+    http_response_code(400);
+    echo json_encode(["status" => "error", "message" => "Données invalides"]);
     exit;
 }
 
-// Vérifier l'utilisateur
-$stmt = $pdo->prepare("
-    SELECT u.utilisateur_id, u.pseudo, u.nom, u.email, u.mot_de_passe, u.telephone, r.libelle AS role
-    FROM utilisateur u
-    JOIN possede p ON u.utilisateur_id = p.utilisateur_id
-    JOIN role r ON p.role_id = r.role_id
-    WHERE u.email = ?
-");
+// Vérifier les champs requis
+if (empty($data["email"]) || empty($data["password"])) {
+    echo json_encode(["status" => "error", "message" => "Email et mot de passe obligatoires"]);
+    exit;
+}
+
+$email = filter_var($data["email"], FILTER_VALIDATE_EMAIL);
+$password = trim($data["password"]);
+
+// Vérifier email valide
+if (!$email) {
+    echo json_encode(["status" => "error", "message" => "Email invalide"]);
+    exit;
+}
+
+// Récupérer l'utilisateur depuis la base de données
+$stmt = $pdo->prepare("SELECT u.utilisateur_id, u.pseudo, u.email, u.mot_de_passe, p.role_id 
+                        FROM utilisateur u
+                        LEFT JOIN possede p ON u.utilisateur_id = p.utilisateur_id
+                        WHERE u.email = ?");
 $stmt->execute([$email]);
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
+$user = $stmt->fetch();
 
-if (!$user || !password_verify($password, $user["mot_de_passe"])) {
-    echo json_encode(["error" => "Identifiants incorrects"]);
+if (!$user) {
+    echo json_encode(["status" => "error", "message" => "Identifiants incorrects"]);
     exit;
 }
 
-// Générer un token unique pour la session
-$session_id = bin2hex(random_bytes(32));
+// Vérifier le mot de passe
+if (!password_verify($password, $user["mot_de_passe"])) {
+    echo json_encode(["status" => "error", "message" => "Identifiants incorrects"]);
+    exit;
+}
 
-// Insérer la session en base
-$stmt = $pdo->prepare("
-    INSERT INTO sessions (session_id, utilisateur_id, ip_address, user_agent) 
-    VALUES (?, ?, ?, ?)
-");
-$stmt->execute([
-    $session_id,
-    $user["utilisateur_id"],
-    $_SERVER["REMOTE_ADDR"],
-    $_SERVER["HTTP_USER_AGENT"]
-]);
-
-// Retourner le token au client
+// Réponse avec les infos utilisateur
 echo json_encode([
-    "session_id" => $session_id,
+    "status" => "success",
+    "message" => "Connexion réussie",
     "user" => [
+        "id" => $user["utilisateur_id"],
         "pseudo" => $user["pseudo"],
-        "nom" => $user["nom"],
         "email" => $user["email"],
-        "telephone" => $user["telephone"],
-        "role" => $user["role"]
+        "role" => $user["role_id"] 
     ]
 ]);
-exit;
-
+?>
