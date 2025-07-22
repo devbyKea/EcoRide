@@ -1,4 +1,4 @@
-// ✅ Simuler un utilisateur par défaut
+// Simuler un utilisateur par défaut
 let utilisateur = {
     estConnecte: false,  // false = visiteur, true = utilisateur connecté
     credit: 30, // Crédit en euros
@@ -6,7 +6,7 @@ let utilisateur = {
     nom: null // Nom de l'utilisateur
 };
 
-// ✅ Fonction pour récupérer l'utilisateur en session depuis PHP
+// Fonction pour récupérer l'utilisateur en session depuis PHP
 async function getUtilisateurSession() {
     try {
         const response = await fetch("session.php");
@@ -14,15 +14,15 @@ async function getUtilisateurSession() {
         return await response.json();
     } catch (error) {
         console.warn("⚠ Impossible de récupérer la session PHP, utilisation des données simulées.");
-        return utilisateur; // ✅ Si échec, utiliser la simulation
+        return utilisateur; // Si échec, utiliser la simulation
     }
 }
 
-// ✅ Charger les infos utilisateur et afficher le trajet
+// Charger les infos utilisateur et afficher le trajet
 document.addEventListener("DOMContentLoaded", async function () {
     utilisateur = await getUtilisateurSession(); // 🔹 Récupère soit PHP, soit simulation
 
-    // ✅ Récupérer l'ID du trajet depuis l'URL
+    // Récupérer l'ID du trajet depuis l'URL
     const params = new URLSearchParams(window.location.search);
     const trajetId = params.get("id");
 
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         return;
     }
 
-    // ✅ Simuler une base de données locale
+    // Simuler une base de données locale
     const trajets = [
         {
             id: 1,
@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         }
     ];
 
-    // ✅ Trouver le trajet correspondant
+    // Trouver le trajet correspondant
     const trajet = trajets.find(t => t.id == trajetId);
 
     if (!trajet) {
@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         return;
     }
 
-    // ✅ Vérifier si le bouton doit être actif
+    // Vérifier si le bouton doit être actif
     let boutonParticiper = `<button class="btn-participer" id="btn-participer">Participer</button>`;
 
     if (trajet.placesRestantes === 0) {
@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         boutonParticiper = `<button class="btn-participer disabled" disabled>Crédit insuffisant</button>`;
     }
 
-    // ✅ Afficher les détails du trajet
+    // Afficher les détails du trajet
     document.getElementById("trajet-details").innerHTML = `
         <div class="profile-container">
             <img src="${trajet.chauffeur.photo}" alt="Photo de ${trajet.chauffeur.pseudo}" class="photo-chauffeur">
@@ -110,29 +110,29 @@ document.addEventListener("DOMContentLoaded", async function () {
         ${boutonParticiper}
     `;
 
-    // ✅ Ajouter l'événement pour le bouton "Participer"
+    // Ajouter l'événement pour le bouton "Participer"
     if (trajet.placesRestantes > 0) {
         document.getElementById("btn-participer").addEventListener("click", function () {
             if (!utilisateur.estConnecte) {
-                // ✅ Si l'utilisateur n'est pas connecté, rediriger vers l'inscription
+                // Si l'utilisateur n'est pas connecté, rediriger vers l'inscription
                 window.location.href = "inscription.html";
             } else if (utilisateur.credit >= trajet.prix) {
-                // ✅ Demande de confirmation
+                // Demande de confirmation
                 const confirmation1 = confirm(`Voulez-vous participer à ce trajet pour ${trajet.prix}€ ?`);
                 if (confirmation1) {
                     const confirmation2 = confirm(`Votre crédit sera réduit de ${trajet.prix}€. Confirmez-vous ?`);
                     if (confirmation2) {
-                        // ✅ Mise à jour des données
+                        // Mise à jour des données
                         utilisateur.credit -= trajet.prix;
                         utilisateur.passagerTrajets.push(trajet);
                         trajet.placesRestantes--;
 
                         alert("✅ Participation confirmée ! Votre place est réservée.");
 
-                        // ✅ Mettre à jour l'affichage des places restantes
+                        // Mettre à jour l'affichage des places restantes
                         document.querySelector(".details-trajet p:nth-child(5)").textContent = `🪑 ${trajet.placesRestantes} places restantes`;
 
-                        // ✅ Désactiver le bouton après validation
+                        // Désactiver le bouton après validation
                         document.getElementById("btn-participer").disabled = true;
                         document.getElementById("btn-participer").textContent = "Participation validée";
                     }
@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 });
 
 
-        // ✅ Gérer le bouton retour
+        // Gérer le bouton retour
         document.getElementById("retour-trajets").addEventListener("click", function () {
             window.location.href = "trajets.html";
         });

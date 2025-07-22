@@ -290,7 +290,7 @@
     position: relative;
     padding-top: 9rem;
     min-height: 100vh;
-    background: url("../frontend/img/connexion.jpg") center/cover no-repeat;
+    background-color: var(--bg-light);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -355,82 +355,132 @@
     margin-bottom: 1.5rem;
   }
 
-/* Carte de connexion */
-.login-card {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  .profil-card {
+    z-index: 2;
+    background-color: white;
     padding: 2rem;
-    border-radius: 15px; /* Coins arrondis */
-    background-color: var(--bg-grey); /* Fond similaire */
-    width: 100%;
-    max-width: 400px; /* Largeur maximale pour une belle apparence */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Légère ombre pour l'effet de profondeur */
-    display: flex;
-    flex-direction: column; /* Organise les éléments verticalement */
-    align-items: center; /* Centre le contenu */
-    gap: 1.5rem; /* Espacement entre les éléments */
-    z-index: 999;
-  }
-  
-  /* Titre de la carte */
-  .login-card h2 {
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 400px;
+    margin: 2rem auto;
+}
+
+.profil-card h2 {
+    color: var(--main-green);
     font-size: 1.5rem;
-    color: var(--main-green); /* Couleur principale verte */
-    text-align: center;
-    margin-bottom: 1rem;
-  }
-  
-  /* Champs d'entrée */
-  .login-card input {
-    width: 100%;
-    padding: 0.8rem;
-    border: 1px solid #ccc; /* Bordure grise claire */
-    border-radius: 10px; /* Coins arrondis */
-    outline: none;
-    font-size: 1rem;
-    box-sizing: border-box; /* Inclut le padding dans la largeur totale */
-    margin-bottom: 1rem;
-  }
-  
-  .login-card input:focus {
-    border-color: var(--main-green); /* Bordure verte au focus */
-  }
-  
-  /* Bouton de connexion */
-  .login-card .btn-login {
-    width: 100%;
-    padding: 0.8rem;
-    background-color: #FFA500; /* Couleur orange */
-    border: none;
-    border-radius: 10px;
-    color: #fff;
-    font-size: 1rem;
+}
+
+.profil-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 1rem auto;
+    border: 3px solid var(--main-green);
+}
+
+.profil-card label {
+    display: block;
     font-weight: bold;
+    margin-top: 0.5rem;
+    text-align: left;
+}
+
+.profil-card input, .profil-card select {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-top: 0.3rem;
+}
+
+/* ✅ Harmonisation des boutons */
+.profil-buttons {
+    display: flex !important;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 12px 20px; /* Augmenté pour que les boutons soient plus visibles */
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
-    text-align: center;
-  }
+    transition: background-color 0.3s ease, transform 0.1s;
+}
+
+/* ✅ Correction des couleurs des boutons */
+.btn-edit {
+    background-color: var(--accent-orange); 
+    color: white;
+}
+
+.btn-edit:hover {
+    background-color: var(--main-green);
+    transform: scale(1.05);
+}
+
+.btn-save {
+    background-color: var(--main-green);
+    color: white;
+}
+
+.btn-save:hover {
+    background-color: var(--accent-orange);
+    transform: scale(1.05);
+}
+
+/* ✅ Style du bouton "Ajouter un véhicule" */
+#ajouter-vehicule {
+    display: block;
+    background-color: var(--main-green);
+    color: white;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 15px auto;
+    transition: background-color 0.3s ease, transform 0.1s;
+}
+
+#ajouter-vehicule:hover {
+    background-color: var(--accent-orange);
+    transform: scale(1.05);
+}
+
+/* ✅ Correction de l'affichage de la section chauffeur */
+#chauffeur-section {
+    color: var(--text-dark);
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background: var(--light-green);
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* ✅ Ajustement des champs dans la section chauffeur */
+#chauffeur-section label {
+    font-weight: bold;
+    margin-top: 0.7rem;
+    text-align: left;
+}
+
+#chauffeur-section input {
+    width: 100%;
+    padding: 0.6rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-top: 0.3rem;
+}
+
   
-  .login-card .btn-login:hover {
-    background-color: var(--dark-green); /* Couleur verte au survol */
-  }
-  
-  /* Texte supplémentaire */
-  .login-card .extra-text {
-    font-size: 0.9rem;
-    color: #333;
-    text-align: center;
-  }
-  
-  .login-card .extra-text a {
-    color: var(--main-green); /* Couleur verte pour les liens */
-    text-decoration: none;
-  }
-  
-  .login-card .extra-text a:hover {
-    text-decoration: underline; /* Souligné au survol */
-  }
+
+
   
   
 /* =======================

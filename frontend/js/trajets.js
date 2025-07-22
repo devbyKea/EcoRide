@@ -1,24 +1,4 @@
-import API_URL from "./config.js";
-
-document.addEventListener('DOMContentLoaded', () => {
-  const userLogo = document.getElementById('user-logo');
-  const dropdownMenu = document.getElementById('profile-dropdown-menu');
-
-  userLogo.addEventListener('click', (event) => {
-    event.preventDefault(); // Empêche le comportement par défaut du lien
-    dropdownMenu.style.display =
-      dropdownMenu.style.display === 'block' ? 'none' : 'block';
-  });
-
-  // Fermer le menu si on clique ailleurs
-  document.addEventListener('click', (event) => {
-    if (!userLogo.contains(event.target) && !dropdownMenu.contains(event.target)) {
-      dropdownMenu.style.display = 'none';
-    }
-  });
-});
-
-  // Fonction pour mettre en majuscule la première lettre de chaque mot
+// Fonction pour mettre en majuscule la première lettre de chaque mot
   function capitalize(input) {
     return input
       .toLowerCase()
@@ -187,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // ✅ Fonction pour récupérer les paramètres de l'URL
+  // Fonction pour récupérer les paramètres de l'URL
 function getQueryParams() {
   const params = new URLSearchParams(window.location.search);
   return {
@@ -197,7 +177,7 @@ function getQueryParams() {
   };
 }
 
-// ✅ Vérifier si on vient de la page d'accueil
+// Vérifier si on vient de la page d'accueil
 window.addEventListener("DOMContentLoaded", function () {
   const params = getQueryParams();
 
@@ -207,17 +187,17 @@ window.addEventListener("DOMContentLoaded", function () {
       document.querySelector('input[name="arrivee"]').value = params.arrivee;
       document.querySelector('input[name="date"]').value = params.date;
 
-      // ✅ Lancer automatiquement la recherche
+      // Lancer automatiquement la recherche
       rechercherTrajets(new Event("search"), false);
   }
 });
 
 
-// ✅ Récupérer les boutons et le formulaire des filtres
+// Récupérer les boutons et le formulaire des filtres
 const rechercherBtn = document.getElementById('rechercher-btn');
 const filtrerForm = document.getElementById('filter-form');
 
-// ✅ Données fictives des trajets disponibles
+// Données fictives des trajets disponibles
 const trajets = [
     {
         id: 1,
@@ -260,32 +240,32 @@ const trajets = [
     }
 ];
 
-// ✅ Fonction principale pour rechercher et filtrer les trajets
+// Fonction principale pour rechercher et filtrer les trajets
 function rechercherTrajets(event, appliquerFiltres = false) {
     event.preventDefault(); // Empêcher le rechargement de la page
 
-    // ✅ Afficher le loader
+    // Afficher le loader
     const loader = document.getElementById('loading-indicator');
     loader.style.display = 'block';
 
-    // ✅ Récupérer les valeurs saisies
+    // Récupérer les valeurs saisies
     const villeDepart = document.querySelector('input[name="depart"]').value.trim();
     const villeArrivee = document.querySelector('input[name="arrivee"]').value.trim();
     const dateSelectionnee = document.querySelector('input[name="date"]').value.trim();
 
-    // ✅ Vérifier que tous les champs sont remplis
+    // Vérifier que tous les champs sont remplis
     if (!villeDepart || !villeArrivee || !dateSelectionnee) {
         alert('Veuillez remplir tous les champs obligatoires.');
         loader.style.display = 'none';
         return;
     }
 
-    // ✅ Mise à jour du résumé de la recherche
+    // Mise à jour du résumé de la recherche
     const searchSummary = document.getElementById('search-summary').querySelector('h2');
     searchSummary.textContent = `Résultats pour : ${villeDepart} → ${villeArrivee}`;
 
     setTimeout(() => {
-        // ✅ Filtrer les trajets en fonction des critères de base
+        // Filtrer les trajets en fonction des critères de base
         let trajetsFiltres = trajets.filter(trajet =>
             trajet.depart.toLowerCase() === villeDepart.toLowerCase() &&
             trajet.arrivee.toLowerCase() === villeArrivee.toLowerCase() &&
@@ -295,7 +275,7 @@ function rechercherTrajets(event, appliquerFiltres = false) {
 
         let suggestionsFiltres = [...trajets]; // Suggestions basées sur les trajets fictifs
 
-        // ✅ Appliquer les filtres avancés si "Filtrer" est utilisé
+        // Appliquer les filtres avancés si "Filtrer" est utilisé
         if (appliquerFiltres) {
             const isEco = document.getElementById("filter-eco").checked;
             const maxPrice = parseFloat(document.getElementById("filter-price").value) || Infinity;
@@ -317,12 +297,12 @@ function rechercherTrajets(event, appliquerFiltres = false) {
             );
         }
 
-        // ✅ Sélection des sections HTML
+        // Sélection des sections HTML
         const sectionTrajets = document.getElementById('trajets-disponibles');
         const sectionAucunTrajet = document.getElementById('aucun-trajet');
         const listeTrajets = document.getElementById('liste-trajets');
 
-        // ✅ Réinitialiser l'affichage
+        // Réinitialiser l'affichage
         listeTrajets.innerHTML = '';
 
         if (trajetsFiltres.length > 0) {
@@ -336,7 +316,7 @@ function rechercherTrajets(event, appliquerFiltres = false) {
             });
 
         } else {
-            // ✅ Aucun trajet trouvé → Afficher les suggestions filtrées
+            // Aucun trajet trouvé → Afficher les suggestions filtrées
             sectionTrajets.style.display = 'block';
             sectionAucunTrajet.style.display = 'none';
 
@@ -368,7 +348,7 @@ function rechercherTrajets(event, appliquerFiltres = false) {
     }, 2000);
 }
 
-// ✅ Fonction pour formater l'affichage d'un trajet
+// Fonction pour formater l'affichage d'un trajet
 function formatTrajetHTML(trajet) {
     return `
         <div class="trajet">
@@ -390,17 +370,17 @@ function formatTrajetHTML(trajet) {
     `;
 }
 
-// ✅ Ajouter les événements aux boutons
+// Ajouter les événements aux boutons
 rechercherBtn.addEventListener('click', (event) => rechercherTrajets(event, false));
 filtrerForm.addEventListener('submit', (event) => rechercherTrajets(event, true));
 
 
-// ✅ Fonction pour afficher les détails du trajet
+// Fonction pour afficher les détails du trajet
 function voirDetails(id) {
     window.location.href = `details.html?id=${id}`;
 }
 
-// ✅ Fonction pour formater la date
+// Fonction pour formater la date
 function formatDate(dateString) {
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     const date = new Date(dateString);

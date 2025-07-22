@@ -1,0 +1,12 @@
+{
+  "root": "backend",
+  "build": {
+    "builder": "nixpacks",
+    "nixpacks": {
+      "plan": {
+        "packages": ["php8.2", "php-cli", "php-mysql", "php-pdo"]
+      }
+    }
+  },
+  "start": "php -S 0.0.0.0:$PORT -t"
+}

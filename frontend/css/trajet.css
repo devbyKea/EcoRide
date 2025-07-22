@@ -529,48 +529,94 @@ html, body {
   }
 }
 
-
-
-/* Responsive pour les petits écrans */
 @media (max-width: 768px) {
   .calendar-dropdown {
-    width: 90%; /* S'étend sur presque toute la largeur de l'écran */
-    left: 50%; /* Centré horizontalement */
-    transform: translateX(-50%); /* Ajuste le décalage pour centrer */
-    top: calc(100% + 10px); /* Décalage par rapport au champ */
-    padding: 0.8rem; /* Réduit le padding sur mobile */
+    position: absolute;
+    left: 50%; /* Place le bord gauche du calendrier au centre de l'écran */
+    transform: translateX(-50%); /* Décale de moitié pour être bien centré */
+    width: 95vw; /* Ajustement pour ne pas être trop large */
+    max-width: 300px; /* Taille max pour ne pas déborder */
+    padding: 0.2rem;
+  }
+
+  .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.1rem 0;
   }
 
   .calendar-header button {
-    padding: 0.4rem; /* Réduit la taille des boutons */
+    padding: 0.15rem;
+    font-size: 0.7rem;
+    width: 24px;
+    height: 24px;
   }
 
   .calendar-header span {
-    font-size: 1rem; /* Réduit la taille du texte */
+    font-size: 0.9rem;
+  }
+
+  .calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    font-size: 0.6rem;
+    text-align: center;
+    padding-bottom: 2px;
+  }
+
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
   }
 
   .calendar-day {
-    padding: 0.3rem; /* Réduit les tailles de cellules */
-    font-size: 0.9rem; /* Diminue la taille du texte */
+    font-size: 0.7rem;
+    padding: 0.2rem;
+    text-align: center;
+    width: auto;
+    height: auto;
   }
 }
 
-/* Responsive pour les écrans très petits */
+/* Ajustement pour les très petits écrans */
 @media (max-width: 480px) {
   .calendar-dropdown {
-    width: 95%; /* Presque pleine largeur */
-    top: calc(100% + 5px); /* Réduit l'espacement */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90vw;
+    max-width: 300px;
+    padding: 0.1rem;
   }
 
   .calendar-header span {
-    font-size: 0.9rem; /* Taille plus petite pour les très petits écrans */
+    font-size: 0.8rem;
+  }
+
+  .calendar-weekdays {
+    font-size: 0.5rem;
+  }
+
+  .calendar-grid {
+    grid-template-columns: repeat(7, 1fr);
   }
 
   .calendar-day {
-    font-size: 0.8rem; /* Texte encore plus petit */
-    padding: 0.2rem; /* Cellules encore plus compactes */
+    font-size: 0.6rem;
+    padding: 0.1rem;
   }
 }
+
+
+
+
+
+
+
+
+
+
 
 
 /* Supprime l'icône native du champ de type date */

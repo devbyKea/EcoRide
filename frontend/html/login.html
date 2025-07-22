@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   
   <!-- Feuille de style principale -->
-  <link rel="stylesheet" href="../frontend/css/connexion.css">
+  <link rel="stylesheet" href="/css/connexion.css">
 
 </head>
 <body>
@@ -71,14 +71,15 @@
 <div class="navbar-connexion">
   <a href="#" class="login-btn" id="user-logo">
     <img src="../frontend/img/icons/account_circle.png" alt="Utilisateur" class="user-logo">
-
     <i class="fas fa-caret-down"></i>
   </a>
   <div class="profile-dropdown-menu" id="profile-dropdown-menu">
     <a href="login.html">Connexion</a>
     <a href="inscription.html">Inscription</a>
-  </div>
 </div>
+
+</div>
+
       
 
 
@@ -109,15 +110,19 @@
     </div>
   </div>
 
-    <div class="login-card">
-      <h2>Connexion</h2>
-      <input type="text" placeholder="Identifiant" />
-      <input type="password" placeholder="Mot de passe" />
-      <button class="btn-login">Se connecter</button>
-      <div class="extra-text">
-        Pas encore membre ? <a href="inscription.html">Rejoignez-nous !</a>
-      </div>  
-    </div>
+  <div class="login-card">
+    <h2>Connexion</h2>
+    <form id="login-form">
+      <input type="email" id="email" name="email" placeholder="Identifiant" required />
+      <input type="password" id="password" name="password" placeholder="Mot de passe" required />
+      <button type="submit" class="btn-login">Se connecter</button>
+    </form>
+    <div class="extra-text">
+      Pas encore membre ? <a href="inscription.html">Rejoignez-nous !</a>
+    </div>  
+  </div>
+  <p id="error-message" style="color: red; display: none;">Identifiants incorrects.</p>
+  
     
   </section>
 
@@ -133,8 +138,9 @@
       <p>📧 Contact : <a href="mailto:contact@ecoride.com">contact@ecoride.com</a></p>
     </div>
   </footer>
-
-  <script type="module" src="../frontend/js/connexion.js"></script>
+  <script src="/js/navbar.js"></script>
+  <script type="module" src="/js/connexion.js"></script>
+  
 
 </body>
 

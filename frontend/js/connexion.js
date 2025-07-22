@@ -1,39 +1,23 @@
-import API_URL from "./config.js";
-
-// === ✅ Ton script initial (NON MODIFIÉ) ===
 document.addEventListener("DOMContentLoaded", () => {
-  const userLogo = document.getElementById("user-logo");
-  const dropdownMenu = document.getElementById("profile-dropdown-menu");
+  console.log("Script de connexion chargé");
 
-  if (userLogo && dropdownMenu) {
-    userLogo.addEventListener("click", (event) => {
-      event.preventDefault();
-      dropdownMenu.style.display =
-        dropdownMenu.style.display === "block" ? "none" : "block";
-    });
-
-    document.addEventListener("click", (event) => {
-      if (!userLogo.contains(event.target) && !dropdownMenu.contains(event.target)) {
-        dropdownMenu.style.display = "none";
-      }
-    });
-  }
-
-  console.log("Le script est chargé !");
-
+  // GESTION DU MENU HAMBURGER
   const menuBtn = document.querySelector(".menu-btn");
-  const hamburger = document.querySelector(".hamburger");
+  const dropdownNav = document.querySelector(".dropdown-menu");
 
-  if (menuBtn && dropdownMenu) {
+  if (menuBtn && dropdownNav) {
     menuBtn.addEventListener("click", () => {
-      dropdownMenu.style.display =
-        dropdownMenu.style.display === "block" ? "none" : "block";
+      dropdownNav.style.display =
+        dropdownNav.style.display === "block" ? "none" : "block";
     });
 
-    dropdownMenu.addEventListener("mouseleave", () => {
-      dropdownMenu.style.display = "none";
+    dropdownNav.addEventListener("mouseleave", () => {
+      dropdownNav.style.display = "none";
     });
   }
+
+  // ANIMATION DU BOUTON HAMBURGER
+  const hamburger = document.querySelector(".hamburger");
 
   if (hamburger) {
     hamburger.addEventListener("click", () => {
@@ -42,59 +26,109 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// === 🚀 Mes nouvelles fonctionnalités sont dans un autre `DOMContentLoaded` ===
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("Ajout des fonctionnalités API !");
+  // Vérifier si l'utilisateur est déjà connecté
+  checkSession();
 
-  // Vérifier si l'utilisateur est connecté et mettre à jour l'affichage
-  function checkUserStatus() {
-    const userId = localStorage.getItem("user_id");
-    const loginLink = document.getElementById("login-link");
-
-    if (userId) {
-      if (loginLink) loginLink.style.display = "none";
-    } else {
-      if (loginLink) loginLink.style.display = "block";
-    }
+  const loginForm = document.querySelector("form");
+  if (loginForm) {
+      loginForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+      });
   }
 
-  // Gestion du formulaire de connexion
-  const loginForm = document.getElementById("loginForm");
+  const loginButton = document.querySelector(".btn-login");
+  if (!loginButton) {
+      console.error("❌ Bouton de connexion introuvable !");
+      return;
+  }
 
-  if (loginForm) {
-    loginForm.addEventListener("submit", async (event) => {
+  loginButton.addEventListener("click", async (event) => {
       event.preventDefault();
 
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+      const emailInput = document.getElementById("email");
+      const passwordInput = document.getElementById("password");
+
+      if (!emailInput || !passwordInput) {
+          alert("❌ Veuillez remplir tous les champs !");
+          return;
+      }
+
+      const email = emailInput.value.trim();
+      const password = passwordInput.value.trim();
+
+      console.log("🔍 Tentative de connexion avec :", { email, password });
 
       try {
-        const response = await fetch(`${API_URL}/login.php`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
-        });
+          const response = await fetch("https://ecoride-production.up.railway.app/api/login.php", {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json",
+              },
+              credentials: "include",
+              body: JSON.stringify({ email, password }),
+          });
 
-        const data = await response.json();
+          console.log("📥 Réponse reçue du serveur :", response);
 
-        if (data.token) {
-          localStorage.setItem("token", data.token);
-          localStorage.setItem("user_id", data.user.id);
+          const textResponse = await response.text();
+          console.log("📜 Texte brut reçu du serveur :", textResponse);
 
-          checkUserStatus();
+          let data;
+          try {
+              data = JSON.parse(textResponse);
+          } catch (error) {
+              console.error("❌ Erreur lors de la conversion JSON :", error);
+              alert("Le serveur a renvoyé une réponse invalide.");
+              return;
+          }
 
-          alert("Connexion réussie !");
-          window.location.href = "profil.html";
-        } else {
-          alert("Erreur : " + data.error);
-        }
+          console.log("📊 Réponse JSON :", data);
+
+          if (data.status === "success") {
+              alert("✅ Connexion réussie !");
+              localStorage.setItem("session_id", data.user.id);
+              localStorage.setItem("user", JSON.stringify(data.user));
+
+              console.log("🔄 Redirection vers profil.html...");
+              setTimeout(() => {
+                  window.location.href = "profil.html";
+              }, 1000);
+          } else {
+              alert("❌ Erreur : " + data.message);
+          }
       } catch (error) {
-        console.error("Erreur lors de la connexion :", error);
-        alert("Erreur de connexion. Veuillez réessayer.");
+          console.error("❌ Erreur lors de la connexion :", error);
+          alert("Une erreur est survenue. Veuillez réessayer.");
       }
-    });
+  });
+});
+
+// Vérifier si l'utilisateur a une session active
+async function checkSession() {
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  if (!user) {
+      console.log("⚠️ Aucune session trouvée, redirection non nécessaire.");
+      return;
   }
 
-  // Vérifier le statut de connexion au chargement de la page
-  checkUserStatus();
-});
+  try {
+      const response = await fetch(`https://ecoride-production.up.railway.app/api/verify_session.php?user_id=${user.id}`);
+      const data = await response.json();
+
+      if (data.status === "error") {
+          console.warn("❌ Session invalide ou expirée :", data.message);
+          localStorage.removeItem("session_id");
+          localStorage.removeItem("user");
+          window.location.href = "login.html"; // Redirige vers login si session invalide
+      } else {
+          console.log("✅ Session valide :", data);
+          if (window.location.pathname !== "/profil.html") {
+              window.location.href = "profil.html";
+          }
+      }
+  } catch (error) {
+      console.error("❌ Erreur lors de la vérification de la session :", error);
+  }
+}
